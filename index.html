@@ -1,213 +1,311 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Prathamesh Sanjay Kadam - Astrophysics Research</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #0b1a2e;
-            color: #e0e0e0;
-            margin: 0; padding: 0;
-            line-height: 1.6;
-        }
-        header {
-            background-color: #151f3a;
-            padding: 25px 10px;
-            text-align: center;
-            border-bottom: 2px solid #ff6f61;
-        }
-        header h1 {
-            margin-bottom: 5px;
-            font-size: 2.5em;
-        }
-        header p {
-            margin-top: 0;
-            font-style: italic;
-            font-size: 1.1em;
-            color: #ff6f61;
-        }
-        nav {
-            background-color: #24365a;
-            text-align: center;
-            padding: 12px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        nav a {
-            color: #e0e0e0;
-            margin: 0 18px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: color 0.3s ease;
-        }
-        nav a:hover {
-            color: #ff6f61;
-        }
-        main {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 20px 60px;
-        }
-        section {
-            margin-bottom: 50px;
-        }
-        section h2 {
-            border-bottom: 3px solid #ff6f61;
-            padding-bottom: 6px;
-            margin-bottom: 18px;
-            font-size: 2em;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        a.external-link {
-            color: #ff6f61;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        a.external-link:hover {
-            text-decoration: underline;
-        }
-        footer {
-            background-color: #151f3a;
-            text-align: center;
-            padding: 18px;
-            color: #bbb;
-            font-size: 0.9em;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-            left: 0;
-        }
-        /* Responsive */
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-            nav a {
-                margin: 0 12px;
-                font-size: 1em;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prathamesh Sanjay Kadam - Computational Astrophysics</title>
+<style>
+  /* Basic Reset */
+  * {margin:0; padding:0; box-sizing: border-box;}
+  body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #eee;
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  /* Star background image */
+  body::before {
+    content: "";
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background: url('https://cdn.pixabay.com/photo/2016/11/29/14/07/night-sky-1867270_960_720.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: brightness(0.3);
+    z-index: -2;
+  }
+
+  /* Overlay with subtle twinkle animation */
+  body::after {
+    content: "";
+    position: fixed;
+    top:0; left:0; width:100%; height:100%;
+    background: transparent;
+    animation: twinkle 20s linear infinite;
+    z-index: -1;
+  }
+  @keyframes twinkle {
+    0%, 100% {opacity: 0.3;}
+    50% {opacity: 0.7;}
+  }
+
+  header {
+    padding: 60px 20px;
+    text-align: center;
+    background: rgba(0, 0, 50, 0.6);
+    border-bottom: 2px solid #ff6f61;
+  }
+  header h1 {
+    font-size: 3em;
+    font-weight: 900;
+    text-shadow: 0 0 15px #ff6f61;
+    margin-bottom: 10px;
+  }
+  header p {
+    font-size: 1.2em;
+    color: #ff8f73;
+    margin-bottom: 15px;
+  }
+  .hero-buttons a {
+    text-decoration: none;
+    color: #fff;
+    border: 2px solid #ff6f61;
+    padding: 12px 30px;
+    margin: 0 15px;
+    border-radius: 30px;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+  }
+  .hero-buttons a:hover {
+    background-color: #ff6f61;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,0.7);
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(255,111,97,0.5);
+    z-index: 10;
+  }
+  nav a {
+    color: #ff6f61;
+    font-weight: 600;
+    margin: 0 20px;
+    text-decoration: none;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  nav a:hover {
+    text-shadow: 0 0 5px #ff6f61;
+  }
+
+  main {
+    max-width: 960px;
+    margin: 40px auto 100px;
+    padding: 0 15px;
+  }
+
+  /* Section Cards */
+  #intro-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 50px;
+  }
+  .card {
+    background: rgba(20, 30, 50, 0.85);
+    border-radius: 20px;
+    box-shadow: 0 10px 15px rgba(255,111,97,0.5);
+    width: 280px;
+    padding: 25px 20px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    color: #eee;
+    text-align: center;
+  }
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(255,111,97,0.85);
+  }
+  .card h3 {
+    margin-bottom: 15px;
+    color: #ff6f61;
+    font-size: 1.6rem;
+  }
+  .card p {
+    font-size: 1em;
+    color: #ddd;
+  }
+
+  section {
+    margin-bottom: 50px;
+  }
+  section h2 {
+    border-bottom: 3px solid #ff6f61;
+    padding-bottom: 6px;
+    margin-bottom: 18px;
+    font-size: 2em;
+  }
+  ul {
+    padding-left: 20px;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+
+  a.external-link {
+    color: #ff6f61;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  a.external-link:hover {
+    text-decoration: underline;
+  }
+
+  footer {
+    text-align: center;
+    padding: 20px 10px;
+    background: rgba(0,0,0,0.75);
+    color: #ccc;
+    font-size: 0.9em;
+    position: fixed;
+    bottom: 0; left: 0; width: 100%;
+    z-index: 10;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    #intro-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+</style>
 </head>
 <body>
 
 <header>
-    <h1>Prathamesh Sanjay Kadam</h1>
-    <p>Astrophysics Research Student | Sardar Vallabhbhai National Institute of Technology, Surat</p>
-    <p>Email: <a href="mailto:I21PH002@phy.svnit.ac.in" class="external-link">I21PH002@phy.svnit.ac.in</a></p>
+  <h1>Prathamesh Sanjay Kadam</h1>
+  <p>Computational Astrophysics Researcher | Astrophysics & Machine Learning Enthusiast</p>
+  <div class="hero-buttons">
+    <a href="#research-projects">See Research</a>
+    <a href="#contact">Contact Me</a>
+  </div>
 </header>
 
 <nav>
-    <a href="#about">About Me</a>
-    <a href="#education">Education</a>
-    <a href="#research-projects">Research Projects</a>
-    <a href="#publications">Publications</a>
-    <a href="#conferences">Conferences</a>
-    <a href="#skills">Skills</a>
-    <a href="#achievements">Achievements</a>
-    <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+  <a href="#education">Education</a>
+  <a href="#research-projects">Research</a>
+  <a href="#publications">Publications</a>
+  <a href="#conferences">Conferences</a>
+  <a href="#skills">Skills</a>
+  <a href="#achievements">Achievements</a>
+  <a href="#contact">Contact</a>
 </nav>
 
 <main>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>
-            I am a research student specializing in astrophysics. My interests span astrophysics, machine learning applications in astrophysics, and cosmology.
-            Currently, I am pursuing Integrated MSc. Physics at SVNIT Surat and a Bachelor of Science in Programming and Data Science from IIT Madras.
-        </p>
-    </section>
+  <section id="intro-cards" aria-label="Quick access to main sections">
+    <div class="card" onclick="location.href='#education'">
+      <h3>Education</h3>
+      <p>Academic qualifications and coursework</p>
+    </div>
+    <div class="card" onclick="location.href='#research-projects'">
+      <h3>Research Projects</h3>
+      <p>Details of computational astrophysics research</p>
+    </div>
+    <div class="card" onclick="location.href='#publications'">
+      <h3>Publications</h3>
+      <p>Latest journal and conference papers</p>
+    </div>
+    <div class="card" onclick="location.href='#contact'">
+      <h3>Contact</h3>
+      <p>Reach out for collaborations & PhD opportunities</p>
+    </div>
+  </section>
 
-    <section id="education">
-        <h2>Education</h2>
-        <ul>
-            <li><strong>Integrated MSc. Physics</strong>, Sardar Vallabhbhai National Institute of Technology, Surat (Aug 2021 – Present)
-                <br>CGPA: 8.98</li>
-            <li><strong>Bachelor of Science in Programming and Data Science</strong>, Indian Institute of Technology, Madras (Sept 2022 – Present)
-                <br>CGPA: 8.5</li>
-            <li><strong>High School</strong>, Kendriya Vidyalaya CRPF, Gandhinagar (Apr 2015 – Apr 2020)
-                <br>CBSE Class 12: 90.2%, Class 10: 92.4%</li>
-        </ul>
-    </section>
+  <section id="about">
+    <h2>About Me</h2>
+    <p>
+      I am a research student specializing in astrophysics. My interests span astrophysics, machine learning applications in astrophysics, and cosmology.
+      Currently, I am pursuing Integrated MSc. Physics at SVNIT Surat and a Bachelor of Science in Programming and Data Science from IIT Madras.
+    </p>
+  </section>
 
-    <section id="research-projects">
-        <h2>Research Projects</h2>
-        <ul>
-            <li><strong>Classification of Supernovae Explosions using AI/ML</strong>, Indian Institute of Astrophysics, Supernovae Explosion Group, Bangalore (Jul 2025 – Present)</li>
-            <li><strong>Analyzing Cosmological Phase Transitions: Detecting Gravitational Waves using 15-year NANOGrav Dataset</strong>, NIT Surat, Department of Physics (Jan 2025 – May 2025)</li>
-            <li><strong>Classification of Aerosols using Mahalanobis Distance & ML/DL</strong>, Indian Institute of Astrophysics, Sun and Solar System Research Group, Bangalore (Nov 2023 – Jan 2025)</li>
-            <li><strong>Validation of Transiting Exoplanets using Statistical Tools (VaTEST)</strong>, NIT Surat, Department of Physics (Jan 2024 – May 2024)</li>
-            <li><strong>Estimation Of Cosmological Parameters Using CMB Angular Power Spectrum</strong>, IIT Guwahati, Department of Physics (Dec 2023 – Jan 2024)</li>
-            <li><strong>Multi-Parameter Characterization of Accretion Flows Around Black Holes using ML</strong>, NIT Surat (Jul 2023 – Dec 2023)</li>
-            <li><strong>Study of Sea-Ice Characteristics of Polar Regions using SAR Data and ML/DL models</strong>, ISRO (May 2023 – Aug 2023)</li>
-            <li><strong>Study and Analysis of Stellar Evolution using MESA Software</strong>, TIFR (Feb – Apr 2023)</li>
-            <li><strong>Study of Transmission Spectra of Exoplanets using JWST</strong>, SNBNCBS, Kolkata (Nov 2022 – Jan 2023)</li>
-        </ul>
-    </section>
+  <section id="education">
+    <h2>Education</h2>
+    <ul>
+      <li><strong>Integrated MSc. Physics</strong>, Sardar Vallabhbhai National Institute of Technology, Surat (Aug 2021 – Present)<br>CGPA: 8.98</li>
+      <li><strong>Bachelor of Science in Programming and Data Science</strong>, Indian Institute of Technology, Madras (Sept 2022 – Present)<br>CGPA: 8.5</li>
+      <li><strong>High School</strong>, Kendriya Vidyalaya CRPF, Gandhinagar (Apr 2015 – Apr 2020)<br>CBSE Class 12: 90.2%, Class 10: 92.4%</li>
+    </ul>
+  </section>
 
-    <section id="publications">
-        <h2>Publications</h2>
-        <ul>
-            <li><strong>Study and analysis of sea-ice characteristics of North Pole region using polarimetric EOS-4 SAR data: A machine learning and deep learning approach</strong>, Journal of the Indian Society of Remote Sensing (under review), 2023</li>
-            <li><strong>Comparison between sea-ice characteristics of EOS-4 and NovaSAR SAR data in North Pole using ML and DL models</strong>, IEEE Journal (under review), 2023</li>
-            <li><strong>Study and analysis of sea-ice characteristics of North and South Pole using Sentinel-1 SAR data with ML and DL</strong> (under review), 2023</li>
-            <li><strong>Review on Biomimicry and Space Humanoid Robots</strong>, NIT Surat, RIAC PRP (Forthcoming), 2021</li>
-        </ul>
-    </section>
+  <section id="research-projects">
+    <h2>Research Projects</h2>
+    <ul>
+      <li><strong>Classification of Supernovae Explosions using AI/ML</strong>, Indian Institute of Astrophysics, Supernovae Explosion Group, Bangalore (Jul 2025 – Present)</li>
+      <li><strong>Analyzing Cosmological Phase Transitions: Detecting Gravitational Waves using 15-year NANOGrav Dataset</strong>, NIT Surat, Department of Physics (Jan 2025 – May 2025)</li>
+      <li><strong>Classification of Aerosols using Mahalanobis Distance & ML/DL</strong>, Indian Institute of Astrophysics, Sun and Solar System Research Group, Bangalore (Nov 2023 – Jan 2025)</li>
+      <li><strong>Validation of Transiting Exoplanets using Statistical Tools (VaTEST)</strong>, NIT Surat, Department of Physics (Jan 2024 – May 2024)</li>
+      <li><strong>Estimation Of Cosmological Parameters Using CMB Angular Power Spectrum</strong>, IIT Guwahati, Department of Physics (Dec 2023 – Jan 2024)</li>
+      <li><strong>Multi-Parameter Characterization of Accretion Flows Around Black Holes using ML</strong>, NIT Surat (Jul 2023 – Dec 2023)</li>
+      <li><strong>Study of Sea-Ice Characteristics of Polar Regions using SAR Data and ML/DL models</strong>, ISRO (May 2023 – Aug 2023)</li>
+      <li><strong>Study and Analysis of Stellar Evolution using MESA Software</strong>, TIFR (Feb – Apr 2023)</li>
+      <li><strong>Study of Transmission Spectra of Exoplanets using JWST</strong>, SNBNCBS, Kolkata (Nov 2022 – Jan 2023)</li>
+    </ul>
+  </section>
 
-    <section id="conferences">
-        <h2>Conferences and Workshops</h2>
-        <ul>
-            <li>Oral Presentation: “Classification of aerosols building machine learning model”, Indian Meteorological Society (IMS), Dec 10-12, 2024</li>
-            <li>TROPMET 2024, National Symposium on High-impact Weather and Climate Extremes, Indian Meteorological Society (IMS), Dec 10-12, 2024</li>
-            <li>Overview of Space Science, Indian Space Research Organisation (ISRO), July 2023</li>
-            <li>Kavli Asian Winter School on Strings, Particles and Cosmology, Institute for Basic Science, Daejeon, Korea, Jan 2023</li>
-            <li>Conference on Gravitational Physics and Cosmology, CERN, Africa/Cairo, Dec 2022</li>
-            <li>Workshop on Exoplanet Science, NASA Exoplanet Science Institute, Caltech, US, July 2022</li>
-            <li>Summer School on Optics and Photonics, IIT Delhi, India, June 2022</li>
-        </ul>
-    </section>
+  <section id="publications">
+    <h2>Publications</h2>
+    <ul>
+      <li><strong>Study and analysis of sea-ice characteristics of North Pole region using polarimetric EOS-4 SAR data: A machine learning and deep learning approach</strong>, Journal of the Indian Society of Remote Sensing (under review), 2023</li>
+      <li><strong>Comparison between sea-ice characteristics of EOS-4 and NovaSAR SAR data in North Pole using ML and DL models</strong>, IEEE Journal (under review), 2023</li>
+      <li><strong>Study and analysis of sea-ice characteristics of North and South Pole using Sentinel-1 SAR data with ML and DL</strong> (under review), 2023</li>
+      <li><strong>Review on Biomimicry and Space Humanoid Robots</strong>, NIT Surat, RIAC PRP (Forthcoming), 2021</li>
+    </ul>
+  </section>
 
-    <section id="skills">
-        <h2>Skills</h2>
-        <ul>
-            <li><strong>Programming:</strong> Python, C/C++, SQLite, Machine Learning, Deep Learning</li>
-            <li><strong>Tools:</strong> SNAP, Google Colab, AstroPy, Jupyter, Spyder, GitHub, Kaggle, MATLAB, MESA, Gaia DR3 Tools, LaTeX</li>
-            <li><strong>Soft Skills:</strong> Time Management, Teamwork, Problem-Solving, Presentation, Documentation</li>
-        </ul>
-    </section>
+  <section id="conferences">
+    <h2>Conferences and Workshops</h2>
+    <ul>
+      <li>Oral Presentation: “Classification of aerosols building machine learning model”, Indian Meteorological Society (IMS), Dec 10-12, 2024</li>
+      <li>TROPMET 2024, National Symposium on High-impact Weather and Climate Extremes, Indian Meteorological Society (IMS), Dec 10-12, 2024</li>
+      <li>Overview of Space Science, Indian Space Research Organisation (ISRO), July 2023</li>
+      <li>Kavli Asian Winter School on Strings, Particles and Cosmology, Institute for Basic Science, Daejeon, Korea, Jan 2023</li>
+      <li>Conference on Gravitational Physics and Cosmology, CERN, Africa/Cairo, Dec 2022</li>
+      <li>Workshop on Exoplanet Science, NASA Exoplanet Science Institute, Caltech, US, July 2022</li>
+      <li>Summer School on Optics and Photonics, IIT Delhi, India, June 2022</li>
+    </ul>
+  </section>
 
-    <section id="achievements">
-        <h2>Achievements</h2>
-        <ul>
-            <li>Qualified the qualifier level of the International Astronomy and Astrophysics Competition (IAAC)</li>
-            <li>Participated as a National Level Debater at New Delhi in presence of Indian Cabinet Ministers</li>
-            <li>Represented Gujarat as a National Level Chess Player at the 48th National KVS Sports meet</li>
-            <li>Ranked 4th in school-level International Mathematical Olympiad</li>
-        </ul>
-    </section>
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul>
+      <li><strong>Programming:</strong> Python, C/C++, SQLite, Machine Learning, Deep Learning</li>
+      <li><strong>Tools:</strong> SNAP, Google Colab, AstroPy, Jupyter, Spyder, GitHub, Kaggle, MATLAB, MESA, Gaia DR3 Tools, LaTeX</li>
+      <li><strong>Soft Skills:</strong> Time Management, Teamwork, Problem-Solving, Presentation, Documentation</li>
+    </ul>
+  </section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:I21PH002@phy.svnit.ac.in" class="external-link">I21PH002@phy.svnit.ac.in</a></p>
-        <!--<p>Phone: +91 9714948441</p>-->
-        <p>LinkedIn: <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" class="external-link">linkedin.com/in/prathamesh-kadam-33882722b</a></p>
-        <p>ResearchGate: <a href="https://www.researchgate.net/profile/Prathamesh_Sanjay_Kadam" target="_blank" class="external-link">researchgate.net/profile/Prathamesh_Sanjay_Kadam</a></p>
-    </section>
+  <section id="achievements">
+    <h2>Achievements</h2>
+    <ul>
+      <li>Qualified the qualifier level of the International Astronomy and Astrophysics Competition (IAAC)</li>
+      <li>Participated as a National Level Debater at New Delhi in presence of Indian Cabinet Ministers</li>
+      <li>Represented Gujarat as a National Level Chess Player at the 48th National KVS Sports meet</li>
+      <li>Ranked 4th in school-level International Mathematical Olympiad</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:I21PH002@phy.svnit.ac.in" class="external-link">I21PH002@phy.svnit.ac.in</a></p>
+    <p>LinkedIn: <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" class="external-link">linkedin.com/in/prathamesh-kadam-33882722b</a></p>
+    <p>ResearchGate: <a href="https://www.researchgate.net/profile/Prathamesh_Sanjay_Kadam" target="_blank" class="external-link">researchgate.net/profile/Prathamesh_Sanjay_Kadam</a></p>
+  </section>
 
 </main>
 
 <footer>
-    &copy; 2025 Prathamesh Sanjay Kadam. All rights reserved.
+  &copy; 2025 Prathamesh Sanjay Kadam – All rights reserved.
 </footer>
 
 </body>
