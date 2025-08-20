@@ -3,356 +3,188 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Prathamesh Sanjay Kadam - Computational Astrophysics</title>
+<title>Prathamesh Sanjay Kadam - Astrophysicist</title>
 <style>
-  /* Reset and base */
-  * {
-    margin: 0; padding: 0; box-sizing: border-box;
+  body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background-color: #fff;
+    color: #222;
   }
-/* Body and background */
-body, html {
-  height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #003366;  /* Dark blue text */
-  background: #ffffff;  /* White background */
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
-
-/* Remove starry background overlay */
-body::before {
-  content: none;  /* Disable dark overlay and background image */
-}
-
-/* Header */
-header {
-  padding: 90px 20px 30px;
-  text-align: center;
-  background-color: #003366;  /* Deep blue */
-  color: white;  /* White text */
-  border-bottom: 3px solid #0055aa;  /* Slightly lighter blue border */
-  box-shadow: 0 0 10px #0055aa;
-}
-
-header h1 {
-  font-size: 3.2em;
-  font-weight: 900;
-  text-shadow: none;  /* Remove glowing effect for clarity */
-  margin-bottom: 10px;
-}
-
-header p {
-  font-size: 1.15em;
-  font-style: italic;
-  color: #cce5ff;  /* Light blue */
-  margin-bottom: 18px;
-  text-shadow: none;
-}
-
-/* Hero buttons */
-.hero-buttons a {
-  display: inline-block;
-  text-decoration: none;
-  color: #003366;
-  border: 2px solid #003366;
-  padding: 12px 32px;
-  margin: 0 18px;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 1.1em;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  box-shadow: none;
-  background-color: white;
-}
-
-.hero-buttons a:hover {
-  background-color: #0055aa;
-  color: white;
-  box-shadow: none;
-}
-
-/* Navigation bar */
-nav {
-  position: sticky;
-  top: 0;
-  background: #cce5ff;  /* Light blue background */
-  padding: 18px 0;
-  text-align: center;
-  box-shadow: none;
-  z-index: 20;
-}
-
-nav a {
-  color: #003366;  /* Deep blue links */
-  font-weight: 600;
-  margin: 0 24px;
-  text-decoration: none;
-  font-size: 1.15em;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  transition: text-shadow 0.25s ease;
-}
-
-nav a:hover,
-nav a:focus {
-  text-shadow: 0 0 5px #0055aa;
-  outline: none;
-}
-
-/* Main content */
-main {
-  max-width: 960px;
-  margin: 45px auto 120px;
-  padding: 0 18px;
-  background-color: white;
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(0,85,170,0.2);
-  color: #003366;  /* Deep blue text */
-}
-
-/* Section cards */
-#intro-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin-bottom: 65px;
-}
-
-.card {
-  background: #e6f0fa;  /* Very light blue */
-  border-radius: 20px;
-  box-shadow: 0 12px 18px rgba(0,85,170,0.2);
-  width: 300px;
-  padding: 30px 25px;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  cursor: pointer;
-  color: #003366;
-  text-align: center;
-}
-
-.card:hover, .card:focus {
-  transform: translateY(-12px);
-  box-shadow: 0 20px 28px rgba(0,85,170,0.5);
-  outline: none;
-}
-
-.card h3 {
-  margin-bottom: 20px;
-  color: #0055aa;  /* Medium blue */
-  font-size: 1.75rem;
-}
-
-.card p {
-  font-size: 1.1rem;
-  color: #004080;  /* Darker blue */
-}
-
-section {
-  margin-bottom: 60px;
-}
-
-section h2 {
-  border-bottom: 3px solid #0055aa;
-  padding-bottom: 8px;
-  margin-bottom: 24px;
-  font-size: 2.3em;
-  color: #003366;
-  text-shadow: none;
-}
-
-ul {
-  padding-left: 22px;
-}
-
-li {
-  margin-bottom: 12px;
-  line-height: 1.45;
-}
-
-a.external-link {
-  color: #0055aa;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-a.external-link:hover,
-a.external-link:focus {
-  text-decoration: underline;
-  outline: none;
-}
-
-footer {
-  text-align: center;
-  padding: 22px 12px;
-  background: #003366;
-  color: white;
-  font-size: 0.9em;
-  position: fixed;
-  bottom: 0; left: 0; width: 100%;
-  z-index: 20;
-}
-
-/* Responsive */
-@media (max-width: 700px) {
-  nav a {
-    margin: 0 12px;
+  /* Banner with galaxy background */
+  header.banner {
+    position: relative;
+    background: url('https://cdn.spacetelescope.org/archives/images/screen/heic1902a.jpg') no-repeat center center;
+    background-size: cover;
+    height: 450px;
+    color: white;
+    text-align: center;
+  }
+  header.banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 50, 0.6);
+  }
+  header.banner-content {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  header.banner h1 {
+    font-size: 3.5rem;
+    margin-bottom: 0.1em;
+    font-weight: normal;
+  }
+  header.banner h2 {
+    font-weight: normal;
+    font-style: italic;
+    font-size: 1.5rem;
+    opacity: 0.9;
+  }
+  main {
+    max-width: 900px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+  }
+  section {
+    margin-bottom: 30px;
+  }
+  section h3 {
+    border-bottom: 2px solid #444;
+    padding-bottom: 6px;
+    font-weight: normal;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+  }
+  p, ul {
     font-size: 1rem;
+    line-height: 1.5;
   }
-  #intro-cards {
-    flex-direction: column;
-    align-items: center;
+  ul {
+    padding-left: 20px;
   }
-  .card {
-    width: 90%;
-    max-width: 350px;
+  a {
+    color: #003366;
+    text-decoration: none;
   }
-}
-
+  a:hover, a:focus {
+    text-decoration: underline;
+  }
+  footer {
+    border-top: 2px solid #ccc;
+    text-align: center;
+    padding: 25px 15px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  /* Profile photo styling */
+  .profile-photo {
+    float: left;
+    margin-right: 20px;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 70px;
+    border: 2px solid #003366;
+  }
+  /* Responsive adjustments */
+  @media (max-width: 720px) {
+    header.banner h1 {
+      font-size: 2.5rem;
+    }
+    header.banner h2 {
+      font-size: 1.2rem;
+    }
+    .profile-photo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 15px;
+      float: none;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 50px;
+    }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Prathamesh Sanjay Kadam</h1>
-  <p>Computational Astrophysics Researcher | Astrophysics & Machine Learning Enthusiast</p>
-  <div class="hero-buttons">
-    <a href="#research-projects">See Research</a>
-    <a href="#contact">Contact Me</a>
+<header class="banner" role="banner" aria-label="Website banner with name and title">
+  <div class="banner-content">
+    <h1>Prathamesh Sanjay Kadam</h1>
+    <h2>Astrophysicist and Computational Researcher</h2>
   </div>
 </header>
 
-<nav>
-  <a href="#about">About</a>
-  <a href="#education">Education</a>
-  <a href="#research-projects">Research</a>
-  <a href="#publications">Publications</a>
-  <a href="#conferences">Conferences</a>
-  <a href="#skills">Skills</a>
-  <a href="#achievements">Achievements</a>
-  <a href="#contact">Contact</a>
-</nav>
-
-<main>
-
-  <section id="intro-cards" aria-label="Quick access to main sections">
-    <div class="card" tabindex="0" onclick="location.href='#education'">
-      <h3>Education</h3>
-      <p>Academic qualifications and coursework</p>
-    </div>
-    <div class="card" tabindex="0" onclick="location.href='#research-projects'">
-      <h3>Research Projects</h3>
-      <p>Details of computational astrophysics research</p>
-    </div>
-    <div class="card" tabindex="0" onclick="location.href='#publications'">
-      <h3>Publications</h3>
-      <p>Latest journal and conference papers</p>
-    </div>
-    <div class="card" tabindex="0" onclick="location.href='#contact'">
-      <h3>Contact</h3>
-      <p>Reach out for collaborations & PhD opportunities</p>
-    </div>
-  </section>
-
-  <section id="about">
-    <h2>About Me</h2>
+<main role="main" aria-label="Main content">
+  
+  <section id="bio">
+    <h3>Biography</h3>
+    <img src="your-photo.jpg" alt="Prathamesh Sanjay Kadam" class="profile-photo" />
     <p>
-      I am a research student specializing in astrophysics. My interests span astrophysics, machine learning applications in astrophysics, and cosmology.
-      Currently, I am pursuing Integrated MSc. Physics at SVNIT Surat and a Bachelor of Science in Programming and Data Science from IIT Madras.
+      I am a research student specializing in astrophysics, combining machine learning and cosmology. 
+      Currently pursuing Integrated MSc. Physics at SVNIT Surat and BSc in Programming and Data Science from IIT Madras. 
+      My research focuses on supernovae classification, cosmological phase transitions, and astrophysical data analysis.
     </p>
   </section>
-
+  
   <section id="education">
-    <h2>Education</h2>
+    <h3>Education</h3>
     <ul>
-      <li><strong>Integrated MSc. Physics</strong>, Sardar Vallabhbhai National Institute of Technology, Surat (Aug 2021 – Present)<br>CGPA: 8.98</li>
-      <li><strong>Bachelor of Science in Programming and Data Science</strong>, Indian Institute of Technology, Madras (Sept 2022 – Present)<br>CGPA: 8.5</li>
-      <li><strong>High School</strong>, Kendriya Vidyalaya CRPF, Gandhinagar (Apr 2015 – Apr 2020)<br>CBSE Class 12: 90.2%, Class 10: 92.4%</li>
+      <li><strong>Integrated MSc. Physics</strong>, Sardar Vallabhbhai National Institute of Technology, Surat (Aug 2021 – Present); CGPA: 8.98</li>
+      <li><strong>Bachelor of Science in Programming and Data Science</strong>, Indian Institute of Technology, Madras (Sept 2022 – Present); CGPA: 8.5</li>
+      <li><strong>High School</strong>, Kendriya Vidyalaya CRPF, Gandhinagar (Apr 2015 – Apr 2020); CBSE 12th: 90.2%, 10th: 92.4%</li>
     </ul>
   </section>
 
-  <section id="research-projects">
-    <h2>Research Projects</h2>
+  <section id="research">
+    <h3>Research Projects</h3>
     <ul>
-      <li><strong>Classification of Supernovae Explosions using AI/ML</strong>, Indian Institute of Astrophysics, Supernovae Explosion Group, Bangalore (Jul 2025 – Present)</li>
-      <li><strong>Analyzing Cosmological Phase Transitions: Detecting Gravitational Waves using 15-year NANOGrav Dataset</strong>, NIT Surat, Department of Physics (Jan 2025 – May 2025)</li>
-      <li><strong>Classification of Aerosols using Mahalanobis Distance & ML/DL</strong>, Indian Institute of Astrophysics, Sun and Solar System Research Group, Bangalore (Nov 2023 – Jan 2025)</li>
-      <li><strong>Validation of Transiting Exoplanets using Statistical Tools (VaTEST)</strong>, NIT Surat, Department of Physics (Jan 2024 – May 2024)</li>
-      <li><strong>Estimation Of Cosmological Parameters Using CMB Angular Power Spectrum</strong>, IIT Guwahati, Department of Physics (Dec 2023 – Jan 2024)</li>
-      <li><strong>Multi-Parameter Characterization of Accretion Flows Around Black Holes using ML</strong>, NIT Surat (Jul 2023 – Dec 2023)</li>
-      <li><strong>Study of Sea-Ice Characteristics of Polar Regions using SAR Data and ML/DL models</strong>, ISRO (May 2023 – Aug 2023)</li>
-      <li><strong>Study and Analysis of Stellar Evolution using MESA Software</strong>, TIFR (Feb – Apr 2023)</li>
-      <li><strong>Study of Transmission Spectra of Exoplanets using JWST</strong>, SNBNCBS, Kolkata (Nov 2022 – Jan 2023)</li>
+      <li><strong>Classification of Supernovae Explosions using AI/ML</strong>, Indian Institute of Astrophysics, Bangalore (Jul 2025 – Present)</li>
+      <li><strong>Detecting Gravitational Waves using 15-year NANOGrav Dataset</strong>, NIT Surat (Jan 2025 – May 2025)</li>
+      <li><strong>Classification of Aerosols with Machine Learning</strong>, Indian Institute of Astrophysics, Bangalore (Nov 2023 – Jan 2025)</li>
+      <li><strong>Validation of Transiting Exoplanets using Statistical Tools</strong>, NIT Surat (Jan 2024 – May 2024)</li>
+      <!-- Add additional projects -->
     </ul>
   </section>
 
   <section id="publications">
-    <h2>Publications</h2>
+    <h3>Publications</h3>
     <ul>
       <li>
-        <strong>Classification of aerosols using machine learning algorithm</strong>,
-        Procedings of TROPMET 2024 NATIONAL SYMPOSIUMAt: NIT Rourkela<br>
-        <a href="https://www.researchgate.net/publication/394735933_Classification_of_aerosols_using_machine_learning_algorithm" target="_blank" class="external-link" rel="noopener noreferrer">View Paper</a>
+        <strong>Classification of aerosols using machine learning algorithm</strong>, Proceedings of TROPMET 2024 National Symposium at NIT Rourkela<br />
+        <a href="https://www.researchgate.net/publication/394735933_Classification_of_aerosols_using_machine_learning_algorithm" target="_blank" rel="noopener noreferrer">View paper</a>
       </li>
       <li>
-        <strong>CLASSIFICATION OF AEROSOLS WITH A MACHINE LEARNING ALGORITHM</strong>,
-        Procedings of IASTA National Aerosol Conference 2024<br>
-        <a href="https://www.researchgate.net/publication/394734704_CLASSIFICATION_OF_AEROSOLS_WITH_A_MACHINE_LEARNING_ALGORITHM" target="_blank" class="external-link" rel="noopener noreferrer">View Paper</a>
+        <strong>Classification of Aerosols with a Machine Learning Algorithm</strong>, Proceedings of IASTA National Aerosol Conference 2024<br />
+        <a href="https://www.researchgate.net/publication/394734704_CLASSIFICATION_OF_AEROSOLS_WITH_A_MACHINE_LEARNING_ALGORITHM" target="_blank" rel="noopener noreferrer">View paper</a>
       </li>
-      
+      <!-- Add more publications -->
     </ul>
     <p>
-      <strong>Profiles:</strong>
-      <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" class="external-link" rel="noopener noreferrer">Google Scholar</a> |
-      <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5?ev=hdr_xprf" target="_blank" class="external-link" rel="noopener noreferrer">ResearchGate</a> |
-      <a href="https://github.com/Prathamesh-kadam" target="_blank" class="external-link" rel="noopener noreferrer">GitHub</a>
+      Profiles: <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a> |
+      <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer">ResearchGate</a> |
+      <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer">GitHub</a>
     </p>
   </section>
 
-  <section id="conferences">
-    <h2>Conferences and Workshops</h2>
-    <ul>
-      <li>Oral Presentation: “Classification of aerosols building machine learning model”, Indian Meteorological Society (IMS), Dec 10-12, 2024</li>
-      <li>TROPMET 2024, National Symposium on High-impact Weather and Climate Extremes, Indian Meteorological Society (IMS), Dec 10-12, 2024</li>
-      <li>Overview of Space Science, Indian Space Research Organisation (ISRO), July 2023</li>
-      <li>Kavli Asian Winter School on Strings, Particles and Cosmology, Institute for Basic Science, Daejeon, Korea, Jan 2023</li>
-      <li>Conference on Gravitational Physics and Cosmology, CERN, Africa/Cairo, Dec 2022</li>
-      <li>Workshop on Exoplanet Science, NASA Exoplanet Science Institute, Caltech, US, July 2022</li>
-      <li>Summer School on Optics and Photonics, IIT Delhi, India, June 2022</li>
-    </ul>
-  </section>
-
-  <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li><strong>Programming:</strong> Python, C/C++, SQLite, Machine Learning, Deep Learning</li>
-      <li><strong>Tools:</strong> SNAP, Google Colab, AstroPy, Jupyter, Spyder, GitHub, Kaggle, MATLAB, MESA, Gaia DR3 Tools, LaTeX</li>
-      <li><strong>Soft Skills:</strong> Time Management, Teamwork, Problem-Solving, Presentation, Documentation</li>
-    </ul>
-  </section>
-
-  <section id="achievements">
-    <h2>Achievements</h2>
-    <ul>
-      <li>Qualified the qualifier level of the International Astronomy and Astrophysics Competition (IAAC)</li>
-      <li>Participated as a National Level Debater at New Delhi in presence of Indian Cabinet Ministers</li>
-      <li>Represented Gujarat as a National Level Chess Player at the 48th National KVS Sports meet</li>
-      <li>Ranked 4th in school-level International Mathematical Olympiad</li>
-    </ul>
-  </section>
-
   <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:I21PH002@phy.svnit.ac.in" class="external-link">I21PH002@phy.svnit.ac.in</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" class="external-link">linkedin.com/in/prathamesh-kadam-33882722b</a></p>
-    <p>ResearchGate: <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5?ev=hdr_xprf" target="_blank" class="external-link">researchgate.net/profile/Prathamesh_Sanjay_Kadam</a></p>
-    <p>GitHub: <a href="https://github.com/Prathamesh-kadam" target="_blank" class="external-link">github.com/prathameshkadam</a></p>
+    <h3>Contact</h3>
+    <p>Email: <a href="mailto:I21PH002@phy.svnit.ac.in">I21PH002@phy.svnit.ac.in</a></p>
+    <p>LinkedIn: <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer">linkedin.com/in/prathamesh-kadam-33882722b</a></p>
+    <p>ResearchGate: <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer">researchgate.net/profile/Prathamesh-Kadam-5</a></p>
+    <p>GitHub: <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer">github.com/Prathamesh-kadam</a></p>
   </section>
 
 </main>
 
 <footer>
-  &copy; 2025 Prathamesh Sanjay Kadam – All rights reserved.
+  &copy; 2025 Prathamesh Sanjay Kadam
 </footer>
 
 </body>
