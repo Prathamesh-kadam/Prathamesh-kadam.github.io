@@ -38,23 +38,17 @@
       top: 0;
       left: 0;
       height: 100vh;
-      width: 60px;
+      width: 260px;
       background-color: #000000;
       color: white;
-      transition: width 0.35s ease;
-      z-index: 1000;
       box-shadow: 2px 0 12px rgba(0, 0, 0, 0.6);
       display: flex;
       flex-direction: column;
       align-items: center;
       padding-top: 20px;
-      overflow-x: hidden;
       overflow-y: auto;
-    }
-
-    #sidebar.expanded,
-    #sidebar:hover {
-      width: 260px;
+      overflow-x: hidden;
+      z-index: 1000;
     }
 
     /* Profile photo and name stack vertically */
@@ -77,12 +71,13 @@
     }
 
     .profile-name {
-      font-size: 1.6rem;
+      font-size: 1.2rem;
       font-weight: 700;
       color: #fff;
       letter-spacing: 1.2px;
       margin-bottom: 14px;
       user-select: none;
+      white-space: nowrap;
     }
 
     /* Social icons in one horizontal line under name */
@@ -144,31 +139,14 @@
       outline: none;
     }
 
-    /* Hide text in collapsed */
-    #sidebar a span {
-      display: none;
-      margin-left: 10px;
-    }
-
-    #sidebar:hover a span,
-    #sidebar.expanded a span {
-      display: inline;
-    }
-
     /* Content wrapper margin to left sidebar width */
     #content {
-      margin-left: 60px;
+      margin-left: 260px;
       flex-grow: 1;
       overflow-x: hidden;
-      transition: margin-left 0.35s ease;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
-    }
-
-    #sidebar:hover~#content,
-    #sidebar.expanded~#content {
-      margin-left: 260px;
+      min-height: 100vh;
     }
 
     /* Banner */
@@ -181,6 +159,10 @@
       text-align: center;
       user-select: none;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 30px;
     }
 
     header.banner::before {
@@ -193,23 +175,23 @@
 
     header.banner-content {
       position: relative;
-      top: 50%;
-      transform: translateY(-50%);
       max-width: 900px;
       margin: 0 auto;
       padding: 0 20px;
       z-index: 1;
+      user-select: none;
     }
 
-    /* Animated name: white letters appear one by one */
+    /* Animated name: smaller font at bottom */
     header.banner h1 {
-      font-size: 4rem;
-      margin-bottom: 13px;
+      font-size: 2.2rem;
       font-weight: 600;
       letter-spacing: 7px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #ffffff;
-      filter: drop-shadow(0 0 4px #FFF);
+      filter: drop-shadow(0 0 6px #fff);
+      margin-bottom: 3px;
+      white-space: nowrap;
     }
 
     header.banner h1 span {
@@ -294,11 +276,13 @@
     header.banner h2 {
       font-weight: normal;
       font-style: italic;
-      font-size: 1.8rem;
+      font-size: 1.2rem;
       opacity: 0.85;
-      margin-top: 8px;
-      font-family: 'Georgia', serif;
-      text-shadow: 0 0 5px #fff;
+      font-family: Georgia, serif;
+      color: #ddd;
+      text-shadow: 0 0 6px #fff;
+      user-select: none;
+      margin-top: 0;
     }
 
     main {
@@ -319,6 +303,7 @@
       margin-bottom: 15px;
       letter-spacing: 0.5px;
       color: #003366;
+      user-select: none;
     }
 
     p,
@@ -346,37 +331,17 @@
 
     /* Responsive */
     @media (max-width: 720px) {
-      #sidebar {
-        width: 55px !important;
-      }
-
-      #sidebar.expanded,
-      #sidebar:hover {
-        width: 220px !important;
-      }
-
-      #sidebar a span {
-        display: none !important;
-      }
-
-      #sidebar.expanded a span,
-      #sidebar:hover a span {
-        display: inline !important;
-      }
-
-      #content,
-      #sidebar:hover~#content,
-      #sidebar.expanded~#content {
-        margin-left: 220px !important;
-      }
-
       header.banner h1 {
-        font-size: 2.8rem;
+        font-size: 1.8rem;
         letter-spacing: 3px;
       }
 
       header.banner h2 {
-        font-size: 1.3rem;
+        font-size: 1rem;
+      }
+
+      #sidebar {
+        width: 260px;
       }
 
       .profile-photo-bio {
@@ -400,34 +365,37 @@
       margin: 0 auto 40px;
       user-select: none;
     }
-
   </style>
 </head>
 
 <body>
 
   <!-- Sidebar -->
-  <nav id="sidebar" aria-label="Sidebar with profile photo, name, social links, and navigation">
+  <nav id="sidebar" aria-label="Sidebar with profile photo, name, social links and navigation">
     <div class="profile-section" tabindex="0">
       <img src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Sanjay Kadam" class="profile-photo" />
       <div class="profile-name">Prathamesh Sanjay Kadam</div>
-      <div class="social-icons">
-        <a href="https://www.instagram.com/prathameshk369/?igsh=NmVibG5rNWdnMTVw#" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      <div class="social-icons" aria-label="Social media links">
+        <a href="https://www.instagram.com/prathameshk369/?igsh=NmVibG5rNWdnMTVw#" target="_blank" rel="noopener noreferrer"
+          aria-label="Instagram">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M7.75 2h8.5C19.75 2 22 4.25 22 7.75v8.5c0 3.5-2.25 5.75-5.75 5.75h-8.5C4.25 22 2 19.75 2 16.25v-8.5C2 4.25 4.25 2 7.75 2zM12 7a5 5 0 100 10 5 5 0 000-10zm5.5-2a1.5 1.5 0 11-3 .001 1.5 1.5 0 013-.001z" />
           </svg>
         </a>
-        <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer"
+          aria-label="LinkedIn">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M4.98 3c0 1.1-.9 2-2 2s-2-.9-2-2c0-1.1.9-2 2-2s2 .9 2 2zm-.02 4H2v14h3.02V7zm12.54 0c-1.52 0-2.5 .98-2.9 1.7V7h-3.02v14H14v-8c0-1.74 .86-2.75 2.1-2.75 1.17 0 1.82 .99 1.82 2.72V21H20v-8c0-2.63-1.41-3.75-3.48-3.75z" />
           </svg>
         </a>
-        <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">
+        <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"
+          aria-label="Google Scholar">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1zm5.42 17.45-1.52-1.07A4.04 4.04 0 0112 17.7a3.95 3.95 0 01-3.88-2.42l-1.84 1.3C7.56 18.94 9.7 20 12 20a7.32 7.32 0 005.42-1.55zM12 6a6 6 0 014.46 9.85l-1.41-1c.15-.55.24-1.15.24-1.85a4.58 4.58 0 00-7.6-3.1l1.37 1a3.41 3.41 0 016 2.29c0 .4-.07.79-.19 1.17l-2.61-1.84A4 4 0 0112 8z" />
           </svg>
         </a>
-        <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate">
+        <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer"
+          aria-label="ResearchGate">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M19.65 8.46a4.91 4.91 0 01-2.9-1.13l-2.6 2.6a4.18 4.18 0 01-1.62-.5l-.59-.3a4.19 4.19 0 01-2.36 1.05 4.83 4.83 0 01-2.05-4.28 4.92 4.92 0 015-4.79 4.75 4.75 0 014.41 2.79l-1.57 1.58a2.81 2.81 0 001.89 1.1 2.84 2.84 0 002.86-2.86 2.81 2.81 0 00-2.86-2.86 2.82 2.82 0 00-2.77 2.08l1.56-1.55a4.77 4.77 0 00-4.34-2.62 4.92 4.92 0 00-4.91 4.9 4.87 4.87 0 004.87 4.62 4.11 4.11 0 012.3-.84 4.06 4.06 0 011.62.33z" />
           </svg>
@@ -437,19 +405,22 @@
     <nav aria-label="Main sections">
       <a href="#publications">Publications</a>
       <a href="#research">Research Projects</a>
-      <a href="#contact">Contact Details</a>
       <a href="#education">Education</a>
       <a href="#achievements">Achievements</a>
       <a href="#skills">Skills</a>
+      <a href="#contact">Contact Details</a>
     </nav>
   </nav>
 
   <div id="content">
+
     <header class="banner" role="banner" aria-label="Website banner with name and title">
       <div class="banner-content">
         <h1 aria-label="Animated name">
           <span>P</span><span>r</span><span>a</span><span>t</span><span>h</span><span>a</span><span>m</span><span>e</span><span>s</span><span>h</span>
+          <span>&nbsp;</span>
           <span>S</span><span>a</span><span>n</span><span>j</span><span>a</span><span>y</span>
+          <span>&nbsp;</span>
           <span>K</span><span>a</span><span>d</span><span>a</span><span>m</span>
         </h1>
         <h2>Computational Astrophysics Researcher</h2>
@@ -457,20 +428,20 @@
     </header>
 
     <main role="main" aria-label="Main content">
+
       <section id="publications">
         <h3>Publications</h3>
         <ul>
           <li>
-            <strong>Study and analysis of sea-ice characteristics of North Pole region using polarimetric EOS-4 SAR data: A machine learning and deep learning approach</strong>, Journal of the Indian Society of Remote Sensing (under review), 2023
+            <strong>Classification of aerosols using machine learning algorithm</strong>,
+            Proceedings of TROPMET 2024 National Symposium at NIT Rourkela<br />
+            <a href="https://www.researchgate.net/publication/394735933_Classification_of_aerosols_using_machine_learning_algorithm"
+              target="_blank" rel="noopener noreferrer">View paper</a>
           </li>
           <li>
-            <strong>Comparison between sea-ice characteristics of EOS-4 and NovaSAR SAR data in North Pole using ML and DL models</strong>, IEEE Journal (under review), 2023
-          </li>
-          <li>
-            <strong>Study and analysis of sea-ice characteristics of North and South Pole using Sentinel-1 SAR data with ML and DL</strong> (under review), 2023
-          </li>
-          <li>
-            <strong>Review on Biomimicry and Space Humanoid Robots</strong>, NIT Surat, RIAC PRP (Forthcoming), 2021
+            <strong>Classification of Aerosols with a Machine Learning Algorithm</strong>, Proceedings of IASTA National Aerosol Conference 2024<br />
+            <a href="https://www.researchgate.net/publication/394734704_CLASSIFICATION_OF_AEROSOLS_WITH_A_MACHINE_LEARNING_ALGORITHM"
+              target="_blank" rel="noopener noreferrer">View paper</a>
           </li>
         </ul>
       </section>
@@ -488,14 +459,6 @@
           <li>Study and analysis of stellar evolution using MESA software and mathematical approaches, Tata Institute of Fundamental Research (TIFR) Department of Astrophysics, Mumbai (Feb 2023 – Apr 2023)</li>
           <li>Study of transmission spectra of the extra solar planet and harnessing JWST advancements for transmission spectra studies, S.N. Bose National Centre for Basic Sciences (SNBNCBS), Kolkata (Nov 2022 – Jan 2023)</li>
         </ul>
-      </section>
-
-      <section id="contact">
-        <h3>Contact</h3>
-        <p>Email: <a href="mailto:I21PH002@phy.svnit.ac.in">I21PH002@phy.svnit.ac.in</a></p>
-        <p>LinkedIn: <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer">linkedin.com/in/prathamesh-kadam-33882722b</a></p>
-        <p>ResearchGate: <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer">researchgate.net/profile/Prathamesh-Kadam-5</a></p>
-        <p>GitHub: <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer">github.com/Prathamesh-kadam</a></p>
       </section>
 
       <section id="education">
@@ -525,8 +488,16 @@
           <li>Soft Skills: Time Management, Teamwork, Problem-Solving, Presentation, Documentation</li>
         </ul>
       </section>
-    </main>
 
+      <section id="contact">
+        <h3>Contact</h3>
+        <p>Email: <a href="mailto:I21PH002@phy.svnit.ac.in">I21PH002@phy.svnit.ac.in</a></p>
+        <p>LinkedIn: <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer">linkedin.com/in/prathamesh-kadam-33882722b</a></p>
+        <p>ResearchGate: <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer">researchgate.net/profile/Prathamesh-Kadam-5</a></p>
+        <p>GitHub: <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer">github.com/Prathamesh-kadam</a></p>
+      </section>
+
+    </main>
     <footer>
       &copy; 2025 Prathamesh Sanjay Kadam
     </footer>
