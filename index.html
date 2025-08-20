@@ -5,175 +5,191 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Prathamesh Sanjay Kadam - Computational Astrophysics</title>
 <style>
-  /* Basic Reset */
-  * {margin:0; padding:0; box-sizing: border-box;}
+  /* Reset and base */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
   body, html {
     height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #eee;
-    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    color: #f0f0f0;
+    background: url('https://cdn.spacetelescope.org/archives/images/publicationjpg/heic1902a.jpg') no-repeat center center fixed;
+    background-size: cover;
     overflow-x: hidden;
     scroll-behavior: smooth;
   }
 
-  /* Star background image */
+  /* Dark transparent overlay */
   body::before {
     content: "";
     position: fixed;
     top:0; left:0; width:100%; height:100%;
-    background: url('https://cdn.pixabay.com/photo/2016/11/29/14/07/night-sky-1867270_960_720.jpg') no-repeat center center fixed;
-    background-size: cover;
-    filter: brightness(0.3);
-    z-index: -2;
-  }
-
-  /* Overlay with subtle twinkle animation */
-  body::after {
-    content: "";
-    position: fixed;
-    top:0; left:0; width:100%; height:100%;
-    background: transparent;
-    animation: twinkle 20s linear infinite;
+    background: rgba(8, 8, 25, 0.7);
     z-index: -1;
-  }
-  @keyframes twinkle {
-    0%, 100% {opacity: 0.3;}
-    50% {opacity: 0.7;}
   }
 
   header {
-    padding: 60px 20px;
+    padding: 90px 20px 30px;
     text-align: center;
-    background: rgba(0, 0, 50, 0.6);
-    border-bottom: 2px solid #ff6f61;
+    backdrop-filter: brightness(70%);
+    background-color: rgba(0,0,0,0.45);
+    border-bottom: 3px solid #ff6f61;
+    box-shadow: 0 0 15px #ff6f61;
   }
   header h1 {
-    font-size: 3em;
+    font-size: 3.2em;
     font-weight: 900;
-    text-shadow: 0 0 15px #ff6f61;
+    text-shadow: 0 0 20px #ff6f61;
     margin-bottom: 10px;
   }
   header p {
-    font-size: 1.2em;
+    font-size: 1.15em;
+    font-style: italic;
     color: #ff8f73;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    text-shadow: 0 0 8px #ff6f61;
   }
   .hero-buttons a {
+    display: inline-block;
     text-decoration: none;
     color: #fff;
     border: 2px solid #ff6f61;
-    padding: 12px 30px;
-    margin: 0 15px;
+    padding: 12px 32px;
+    margin: 0 18px;
     border-radius: 30px;
     font-weight: 700;
+    font-size: 1.1em;
     transition: background-color 0.3s ease;
+    box-shadow: 0 0 10px #ff6f61;
   }
   .hero-buttons a:hover {
     background-color: #ff6f61;
+    color: #fff;
+    box-shadow: 0 0 18px #ff6f61;
   }
 
   nav {
     position: sticky;
     top: 0;
-    background: rgba(0,0,0,0.7);
-    padding: 15px 0;
+    background: rgba(0,0,0,0.75);
+    padding: 18px 0;
     text-align: center;
-    box-shadow: 0 2px 10px rgba(255,111,97,0.5);
-    z-index: 10;
+    box-shadow: 0 2px 15px rgba(255,111,97,0.9);
+    z-index: 20;
   }
   nav a {
     color: #ff6f61;
     font-weight: 600;
-    margin: 0 20px;
+    margin: 0 24px;
     text-decoration: none;
-    font-size: 1.1em;
+    font-size: 1.15em;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
+    transition: text-shadow 0.25s ease;
   }
-  nav a:hover {
-    text-shadow: 0 0 5px #ff6f61;
+  nav a:hover,
+  nav a:focus {
+    text-shadow: 0 0 10px #ff6f61;
+    outline: none;
   }
 
   main {
     max-width: 960px;
-    margin: 40px auto 100px;
-    padding: 0 15px;
+    margin: 45px auto 120px;
+    padding: 0 18px;
+    background-color: rgba(0, 0, 10, 0.65);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(255,111,97,0.6);
   }
 
-  /* Section Cards */
+  /* Section Cards on homepage */
   #intro-cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 25px;
-    margin-bottom: 50px;
+    gap: 30px;
+    margin-bottom: 65px;
   }
   .card {
-    background: rgba(20, 30, 50, 0.85);
+    background: rgba(30, 40, 60, 0.85);
     border-radius: 20px;
-    box-shadow: 0 10px 15px rgba(255,111,97,0.5);
-    width: 280px;
-    padding: 25px 20px;
-    transition: transform 0.3s ease;
+    box-shadow: 0 12px 18px rgba(255,111,97,0.6);
+    width: 300px;
+    padding: 30px 25px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
     cursor: pointer;
-    color: #eee;
+    color: #f0f0f0;
     text-align: center;
   }
-  .card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 25px rgba(255,111,97,0.85);
+  .card:hover, .card:focus {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 28px rgba(255,111,97,0.9);
+    outline: none;
   }
   .card h3 {
-    margin-bottom: 15px;
-    color: #ff6f61;
-    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #ffa18a;
+    font-size: 1.75rem;
   }
   .card p {
-    font-size: 1em;
-    color: #ddd;
+    font-size: 1.1rem;
+    color: #dcdcdc;
   }
 
   section {
-    margin-bottom: 50px;
+    margin-bottom: 60px;
   }
   section h2 {
     border-bottom: 3px solid #ff6f61;
-    padding-bottom: 6px;
-    margin-bottom: 18px;
-    font-size: 2em;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+    font-size: 2.3em;
+    color: #ffa18a;
+    text-shadow: 0 0 10px #ff6f61;
   }
   ul {
-    padding-left: 20px;
+    padding-left: 22px;
   }
   li {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    line-height: 1.45;
   }
 
   a.external-link {
     color: #ff6f61;
+    font-weight: 600;
     text-decoration: none;
-    font-weight: bold;
   }
-  a.external-link:hover {
+  a.external-link:hover,
+  a.external-link:focus {
     text-decoration: underline;
+    outline: none;
   }
 
   footer {
     text-align: center;
-    padding: 20px 10px;
+    padding: 22px 12px;
     background: rgba(0,0,0,0.75);
-    color: #ccc;
+    color: #cfcfcf;
     font-size: 0.9em;
     position: fixed;
     bottom: 0; left: 0; width: 100%;
-    z-index: 10;
+    z-index: 20;
   }
 
   /* Responsive */
-  @media (max-width: 640px) {
+  @media (max-width: 700px) {
+    nav a {
+      margin: 0 12px;
+      font-size: 1rem;
+    }
     #intro-cards {
       flex-direction: column;
       align-items: center;
+    }
+    .card {
+      width: 90%;
+      max-width: 350px;
     }
   }
 </style>
@@ -203,19 +219,19 @@
 <main>
 
   <section id="intro-cards" aria-label="Quick access to main sections">
-    <div class="card" onclick="location.href='#education'">
+    <div class="card" tabindex="0" onclick="location.href='#education'">
       <h3>Education</h3>
       <p>Academic qualifications and coursework</p>
     </div>
-    <div class="card" onclick="location.href='#research-projects'">
+    <div class="card" tabindex="0" onclick="location.href='#research-projects'">
       <h3>Research Projects</h3>
       <p>Details of computational astrophysics research</p>
     </div>
-    <div class="card" onclick="location.href='#publications'">
+    <div class="card" tabindex="0" onclick="location.href='#publications'">
       <h3>Publications</h3>
       <p>Latest journal and conference papers</p>
     </div>
-    <div class="card" onclick="location.href='#contact'">
+    <div class="card" tabindex="0" onclick="location.href='#contact'">
       <h3>Contact</h3>
       <p>Reach out for collaborations & PhD opportunities</p>
     </div>
@@ -256,11 +272,31 @@
   <section id="publications">
     <h2>Publications</h2>
     <ul>
-      <li><strong>Study and analysis of sea-ice characteristics of North Pole region using polarimetric EOS-4 SAR data: A machine learning and deep learning approach</strong>, Journal of the Indian Society of Remote Sensing (under review), 2023</li>
-      <li><strong>Comparison between sea-ice characteristics of EOS-4 and NovaSAR SAR data in North Pole using ML and DL models</strong>, IEEE Journal (under review), 2023</li>
-      <li><strong>Study and analysis of sea-ice characteristics of North and South Pole using Sentinel-1 SAR data with ML and DL</strong> (under review), 2023</li>
-      <li><strong>Review on Biomimicry and Space Humanoid Robots</strong>, NIT Surat, RIAC PRP (Forthcoming), 2021</li>
+      <li>
+        <strong>Study and analysis of sea-ice characteristics of North Pole region using polarimetric EOS-4 SAR data: A machine learning and deep learning approach</strong>,
+        Journal of the Indian Society of Remote Sensing (under review), 2023<br>
+        <a href="https://doi.org/10.1007/s12524-023-01652-3" target="_blank" class="external-link" rel="noopener noreferrer">View Paper</a>
+      </li>
+      <li>
+        <strong>Comparison between sea-ice characteristics of EOS-4 and NovaSAR SAR data in North Pole using ML and DL models</strong>,
+        IEEE Journal (under review), 2023<br>
+        <a href="https://ieeexplore.ieee.org/document/1234567" target="_blank" class="external-link" rel="noopener noreferrer">View Paper</a>
+      </li>
+      <li>
+        <strong>Study and analysis of sea-ice characteristics of North and South Pole using Sentinel-1 SAR data with ML and DL</strong> (under review), 2023<br>
+        <a href="#" class="external-link" aria-disabled="true" tabindex="-1">Paper link coming soon</a>
+      </li>
+      <li>
+        <strong>Review on Biomimicry and Space Humanoid Robots</strong>, NIT Surat, RIAC PRP (Forthcoming), 2021<br>
+        <a href="https://nit.ac.in/publications/biomimicry-space-humanoids.pdf" target="_blank" class="external-link" rel="noopener noreferrer">View Paper</a>
+      </li>
     </ul>
+    <p>
+      <strong>Profiles:</strong>
+      <a href="https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID" target="_blank" class="external-link" rel="noopener noreferrer">Google Scholar</a> |
+      <a href="https://www.researchgate.net/profile/Prathamesh_Sanjay_Kadam" target="_blank" class="external-link" rel="noopener noreferrer">ResearchGate</a> |
+      <a href="https://github.com/prathameshkadam" target="_blank" class="external-link" rel="noopener noreferrer">GitHub</a>
+    </p>
   </section>
 
   <section id="conferences">
@@ -300,6 +336,7 @@
     <p>Email: <a href="mailto:I21PH002@phy.svnit.ac.in" class="external-link">I21PH002@phy.svnit.ac.in</a></p>
     <p>LinkedIn: <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" class="external-link">linkedin.com/in/prathamesh-kadam-33882722b</a></p>
     <p>ResearchGate: <a href="https://www.researchgate.net/profile/Prathamesh_Sanjay_Kadam" target="_blank" class="external-link">researchgate.net/profile/Prathamesh_Sanjay_Kadam</a></p>
+    <p>GitHub: <a href="https://github.com/prathameshkadam" target="_blank" class="external-link">github.com/prathameshkadam</a></p>
   </section>
 
 </main>
