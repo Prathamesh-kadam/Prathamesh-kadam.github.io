@@ -1,461 +1,501 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prathamesh Kadam - Astrophysicist</title>
-
-  <!-- Font Awesome CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous"
-    referrerpolicy="no-referrer" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prathamesh Kadam - Computational Astrophysicist</title>
+  <meta name="description" content="Prathamesh Kadam | MSc Physics | Computational Astrophysics | GNNs | Supernovae | Exoplanets | GitHub Pages">
+  
+  <!-- Open Graph for social sharing -->
+  <meta property="og:title" content="Prathamesh Kadam - Computational Astrophysicist">
+  <meta property="og:description" content="Empirical modeling of Type Iax Supernovae | GNNs | Radiative Transfer | IIA Bangalore">
+  <meta property="og:image" content="photo_2025-08-20 14.16.09.jpeg">
+  <meta property="og:url" content="https://prathamesh-kadam.github.io/">
+  
+  <link rel="preload" href="Screenshot%202025-08-20%20at%2010.02.43%20PM.png" as="image">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
   <style>
-    /* Reset and Base */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
-      font-family: Georgia, serif;
-      background-color: #fff;
-      color: #222;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Georgia, serif;
+      background: linear-gradient(135deg, #0c0c1a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #e0e0e0;
+      line-height: 1.6;
       overflow-x: hidden;
-      display: flex;
-      min-height: 100vh;
     }
-
-    a {
-      text-decoration: none;
-      color: #003366;
+    
+    a { 
+      color: #4dabf7; 
+      text-decoration: none; 
+      transition: all 0.2s ease;
     }
-
-    a:hover,
-    a:focus {
-      text-decoration: underline;
+    
+    a:hover { color: #fff; text-decoration: underline; }
+    
+    /* Mobile-first hamburger menu */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 2000;
+      background: rgba(0,51,102,0.9);
+      border: none;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
     }
-
-    /* Sidebar */
+    
     #sidebar {
       position: fixed;
       top: 0;
-      left: 0;
+      left: -300px;
+      width: 280px;
       height: 100vh;
-      width: 260px;
-      background-color: #000000;
-      color: white;
-      box-shadow: 2px 0 12px rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 20px;
-      overflow-y: auto;
-      overflow-x: hidden;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(10px);
+      transition: left 0.3s ease;
       z-index: 1000;
-    }
-
-    /* Profile photo and name stack vertically */
-    .profile-section {
-      width: 100%;
-      text-align: center;
       padding: 20px 0;
-      border-bottom: 1px solid #222;
-      flex-shrink: 0;
+      box-shadow: 2px 0 20px rgba(0,0,0,0.8);
     }
-
+    
+    #sidebar.active { left: 0; }
+    
+    .profile-section {
+      text-align: center;
+      padding: 30px 20px;
+      border-bottom: 1px solid #333;
+    }
+    
     .profile-photo {
-      width: 120px;
-      height: 120px;
-      border-radius: 60px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid #4dabf7;
+      margin-bottom: 15px;
       object-fit: cover;
-      border: 3px solid #003366;
-      margin: 0 auto 15px auto;
-      display: block;
     }
-
+    
     .profile-name {
       font-size: 1.4rem;
       font-weight: 700;
       color: #fff;
-      letter-spacing: 1.2px;
-      margin-bottom: 14px;
-      user-select: none;
-      white-space: nowrap;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #4dabf7, #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
-    /* Social icons horizontal under name */
+    
     .social-icons {
       display: flex;
       justify-content: center;
       gap: 15px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
-
+    
     .social-icons a {
-      color: white;
-      font-size: 20px;
-      transition: color 0.3s ease;
-    }
-
-    .social-icons a:hover,
-    .social-icons a:focus {
-      color: #0077b5;
-      outline: none;
-    }
-
-    /* Sidebar nav links */
-    #sidebar nav {
-      width: 100%;
-      flex-grow: 1;
+      width: 40px;
+      height: 40px;
       display: flex;
-      flex-direction: column;
-      padding: 0;
-      overflow-y: auto;
+      align-items: center;
+      justify-content: center;
+      background: rgba(77,171,247,0.2);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
     }
-
+    
+    .social-icons a:hover {
+      background: #4dabf7;
+      transform: translateY(-2px);
+    }
+    
     #sidebar nav a {
       display: block;
+      padding: 18px 30px;
       color: #ccc;
       font-weight: 600;
-      font-size: 1.15rem;
-      padding: 15px 35px;
+      font-size: 1.1rem;
       border-bottom: 1px solid #222;
-      white-space: nowrap;
-      transition: background-color 0.25s, color 0.25s;
-      cursor: pointer;
+      transition: all 0.3s ease;
     }
-
-    #sidebar nav a:hover,
-    #sidebar nav a:focus {
-      background-color: #003366;
+    
+    #sidebar nav a:hover {
+      background: linear-gradient(90deg, #003366, #4dabf7);
       color: #fff;
-      outline: none;
+      padding-left: 40px;
     }
-
-    /* Content margin to sidebar width */
+    
+    /* Main content */
     #content {
-      margin-left: 260px;
-      flex-grow: 1;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
+      margin-left: 0;
       min-height: 100vh;
+      transition: margin-left 0.3s ease;
     }
-
-    /* Banner section */
+    
     header.banner {
-      position: relative;
-      background: url('Screenshot%202025-08-20%20at%2010.02.43%20PM.png') no-repeat center center;
-      background-size: cover;
-      height: 430px;
-      color: white;
-      text-align: center;
-      user-select: none;
-      overflow: hidden;
+      background: linear-gradient(rgba(0,0,50,0.8), rgba(0,0,50,0.8)), 
+                  url('Screenshot%202025-08-20%20at%2010.02.43%20PM.png') center/cover;
+      height: 70vh;
+      max-height: 500px;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding-bottom: 30px;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
     }
-
-    header.banner::before {
+    
+    .banner-content h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      background: linear-gradient(45deg, #fff, #4dabf7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1.2s ease-out;
+    }
+    
+    .banner-content h2 {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: #ddd;
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto;
+      animation: fadeInUp 1.2s ease-out 0.3s both;
+    }
+    
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 25px;
+    }
+    
+    section {
+      margin-bottom: 80px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+    section:nth-child(1) { animation-delay: 0.1s; }
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.3s; }
+    
+    section h3 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 25px;
+      padding-bottom: 12px;
+      position: relative;
+      font-weight: 600;
+    }
+    
+    section h3::after {
       content: '';
       position: absolute;
-      inset: 0;
-      background-color: rgba(0, 0, 50, 0.7);
-      z-index: 0;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #4dabf7, transparent);
     }
-
-    header.banner-content {
-      position: relative;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 20px;
-      z-index: 1;
-      user-select: none;
+    
+    .project-grid {
+      display: grid;
+      gap: 25px;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     }
-
-    header.banner h1 {
-      font-size: 2.2rem;
-      font-weight: 600;
-      letter-spacing: 7px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #ffffff;
-      filter: drop-shadow(0 0 6px #fff);
-      margin-bottom: 3px;
-      white-space: nowrap;
+    
+    .project-card {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 25px;
+      transition: all 0.3s ease;
     }
-
-    header.banner h1 span {
-      opacity: 0;
-      display: inline-block;
-      animation: fadeInUp 1.5s forwards;
+    
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(77,171,247,0.2);
+      border-color: #4dabf7;
     }
-
-    /* Letter animation delay */
-    header.banner h1 span:nth-child(1) { animation-delay: 0s;}
-    header.banner h1 span:nth-child(2) { animation-delay: 0.1s;}
-    header.banner h1 span:nth-child(3) { animation-delay: 0.2s;}
-    header.banner h1 span:nth-child(4) { animation-delay: 0.3s;}
-    header.banner h1 span:nth-child(5) { animation-delay: 0.4s;}
-    header.banner h1 span:nth-child(6) { animation-delay: 0.5s;}
-    header.banner h1 span:nth-child(7) { animation-delay: 0.6s;}
-    header.banner h1 span:nth-child(8) { animation-delay: 0.7s;}
-    header.banner h1 span:nth-child(9) { animation-delay: 0.8s;}
-    header.banner h1 span:nth-child(10) { animation-delay: 0.9s;}
-    header.banner h1 span:nth-child(11) { animation-delay: 1s;}
-    header.banner h1 span:nth-child(12) { animation-delay: 1.1s;}
-    header.banner h1 span:nth-child(13) { animation-delay: 1.2s;}
-    header.banner h1 span:nth-child(14) { animation-delay: 1.3s;}
-    header.banner h1 span:nth-child(15) { animation-delay: 1.4s;}
-
-    @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    header.banner h2 {
-      font-weight: normal;
-      font-style: italic;
-      font-size: 1.2rem;
-      opacity: 0.85;
-      font-family: Georgia, serif;
-      color: #ddd;
-      text-shadow: 0 0 6px #fff;
-      user-select: none;
-      margin-top: 0;
-    }
-
-    main {
-      max-width: 860px;
-      margin: 40px auto 60px;
-      padding: 0 20px;
-    }
-
-    section {
-      margin-bottom: 45px;
-    }
-
-    section h3 {
-      border-bottom: 2px solid #444;
-      padding-bottom: 6px;
-      font-weight: 600;
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      letter-spacing: 0.5px;
-      color: #003366;
-      user-select: none;
-    }
-
-    p,
-    ul {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #333;
-    }
-
-    ul {
-      padding-left: 20px;
-    }
-
-    /* Bold project names */
-    #research ul li strong {
+    
+    .project-title {
+      font-size: 1.3rem;
       font-weight: 700;
+      color: #fff;
+      margin-bottom: 10px;
     }
-
-    /* Profile photo in bio if any - optional */
-    .profile-photo-bio {
-      float: left;
-      margin-right: 20px;
-      width: 140px;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 70px;
-      border: 2px solid #003366;
-      margin-bottom: 15px;
+    
+    .project-meta {
+      color: #aaa;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
     }
-
-    /* Responsive */
-    @media (max-width: 720px) {
-      header.banner h1 {
-        font-size: 1.8rem;
-        letter-spacing: 3px;
-      }
-
-      header.banner h2 {
-        font-size: 1rem;
-      }
-
-      #sidebar {
-        width: 260px;
-      }
-
-      .profile-photo-bio {
-        width: 100px;
-        height: 100px;
-        float: none;
-        margin: 15px auto;
-        display: block;
-        border-radius: 50px;
-      }
+    
+    .publication {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border-left: 4px solid #4dabf7;
     }
-
-    /* Footer */
+    
+    .cv-download {
+      display: inline-block;
+      background: linear-gradient(45deg, #4dabf7, #0077b5);
+      color: white;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-weight: 600;
+      margin: 20px 0;
+      transition: all 0.3s ease;
+    }
+    
+    .cv-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(77,171,247,0.4);
+      text-decoration: none;
+      color: white;
+    }
+    
+    ul { 
+      list-style: none; 
+      padding-left: 0;
+    }
+    
+    ul li {
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 25px;
+    }
+    
+    ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #4dabf7;
+      font-weight: bold;
+    }
+    
     footer {
-      border-top: 2px solid #ccc;
       text-align: center;
-      padding: 25px 15px;
-      font-size: 0.9rem;
-      color: #555;
-      max-width: 860px;
-      margin: 0 auto 40px;
-      user-select: none;
+      padding: 40px 20px;
+      color: #888;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 80px;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      main { padding: 40px 20px; }
+      .project-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
-
 <body>
-
-  <!-- Sidebar -->
-  <nav id="sidebar" aria-label="Sidebar with profile photo, name, social links and navigation">
-    <div class="profile-section" tabindex="0">
-      <img src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Kadam" class="profile-photo" />
+  <button class="menu-toggle" onclick="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+  
+  <nav id="sidebar">
+    <div class="profile-section">
+      <img src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Kadam" class="profile-photo">
       <div class="profile-name">Prathamesh Kadam</div>
-      <div class="social-icons" aria-label="Social media links">
-        <a href="https://www.instagram.com/prathameshk369/?igsh=NmVibG5rNWdnMTVw#" target="_blank" rel="noopener noreferrer"
-          aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer"
-          aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"
-          aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
-        <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" width="20" height="20">
-            <path d="M348.9 209.7c-12-23.1-23.6-25.3-33-25.3-12.9 0-19.7 7.9-19.7 19.5v132.7h-34.6v-195h27.3v19.9a39.28 39.28 0 0 1 35-19.6c18.8 0 35.6 13.2 45 38.7zM462.7 119.4l-47.4 82c6 1.4 13.8 4.5 13.8 16.1 0 17.7-20.3 21.2-29.9 21.2-38 0-62.3-42.9-62.3-96 0-41.7 19.5-84.2 83-84.2 66.9 0 82.8 54.9 82.3 75zM245.9 514.8c-69.1 0-127-57.3-127-128 0-59.7 43.4-110 101.9-124.8 7.9-1.8 3.2-4.4 3.2-4.4v-86.9h39.5v90.8c24-7.3 39.1-14 39.1-14v34.2c-21 8.1-36.1 21.8-36.1 21.8v43.4c0 21 4.9 45.9 18.6 61.2 5.4 7.1 13 14.3 26.3 21.1 42.2-40.3 65.1-89.9 65.1-144.9 0-113.5-88.2-206-196.8-206s-196.8 92.5-196.8 206 88.1 206 196.8 206c68.2.1 141-35.5 171.9-90.9l-32-15.3c-26.6 27-72.2 79.1-139.8 79.1z"/>
-          </svg>
-          <span>ResearchGate</span>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/prathameshk369" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
         </a>
-
-        <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer"
-          aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
+          <i class="fas fa-graduation-cap"></i>
+        </a>
+        <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" aria-label="ResearchGate">
+          <i class="fas fa-chart-line"></i>
+        </a>
+        <a href="https://github.com/Prathamesh-kadam" target="_blank" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
       </div>
+      <a href="Prathamesh_Kadam_CV.pdf" download class="cv-download" style="margin-top: 10px; padding: 10px 20px; font-size: 0.9rem;">
+        <i class="fas fa-download"></i> Download CV
+      </a>
     </div>
-    <nav aria-label="Main sections">
+    <nav>
       <a href="#publications">Publications</a>
-      <a href="#research">Research Projects</a>
+      <a href="#research-astro">Astrophysics</a>
+      <a href="#research-cosmo">Cosmology</a>
+      <a href="#research-env">Environment</a>
       <a href="#education">Education</a>
-      <a href="#achievements">Achievements</a>
-      <a href="#skills">Skills</a>
+      <a href="#awards">Awards</a>
       <a href="#contact">Contact</a>
     </nav>
   </nav>
 
   <div id="content">
-
-    <header class="banner" role="banner" aria-label="Website banner with name and title">
+    <header class="banner">
       <div class="banner-content">
-        <h1 aria-label="Animated name">
-          <span>P</span><span>r</span><span>a</span><span>t</span><span>h</span><span>a</span><span>m</span><span>e</span><span>s</span><span>h</span>
-          <span>&nbsp;</span>
-          <span>S</span><span>a</span><span>n</span><span>j</span><span>a</span><span>y</span>
-          <span>&nbsp;</span>
-          <span>K</span><span>a</span><span>d</span><span>a</span><span>m</span>
-        </h1>
-
-        <h2>Computational Astrophysics Researcher</h2>
+        <h1>Prathamesh Sanjay Kadam</h1>
+        <h2>Computational Astrophysics | GNNs | Supernovae | Radiative Transfer</h2>
       </div>
     </header>
 
-    <main role="main" aria-label="Main content">
-
+    <main>
       <section id="publications">
         <h3>Publications</h3>
-        <ul>
-          <li>
-            P. Kadam, S. Ningombam, S. Mukhopadhyay, and A. A. V. Amoghavarsha, “Classification of aerosols using machine learning algorithm,” in Proceedings of TROPMET 2024 National Symposium, NIT Rourkela, India, 2024.  
-            <br /> url: <a href="https://www.researchgate.net/publication/394735933_Classification_of_aerosols_using_machine_learning_algorithm" target="_blank" rel="noopener noreferrer">https://www.researchgate.net/publication/394735933_Classification_of_aerosols_using_machine_learning_algorithm</a>
-          </li>
-          <li>
-            P. Kadam, S. Ningombam, S. Mukhopadhyay, and A. A. V. Amoghavarsha, “Classification of aerosols with a machine learning algorithm,” in Proceedings of IASTA National Aerosol Conference 2024, India, 2024.  
-            <br /> url: <a href="https://www.researchgate.net/publication/394734704_CLASSIFICATION_OF_AEROSOLS_WITH_A_MACHINE_LEARNING_ALGORITHM" target="_blank" rel="noopener noreferrer">https://www.researchgate.net/publication/394734704_CLASSIFICATION_OF_AEROSOLS_WITH_A_MACHINE_LEARNING_ALGORITHM</a>
-          </li>
-          <li>
-            P. Kadam, S. S. Ningombam, S. Mukhopadhyay, and A. A. V. Amoghavarsha, “Classification of aerosols using machine learning for African continent,” in Preprint on ResearchGate, Accessed on 2025-08-21, 2024.  
-            <br /> doi: <a href="https://doi.org/10.21203/rs.3.rs-668194/v1" target="_blank" rel="noopener noreferrer">10.21203/rs.3.rs-668194/v1</a>
-          </li>
-        </ul>
-
+        <div class="publication">
+          <div>
+            <strong>Radiative-Transfer Modelling of Metal-Poor Massive Stars</strong><br>
+            <small>Submitted to Journal of Astrophysics and Astronomy<br>
+            Prathamesh Sanjay Kadam, Bruno Arsioli</small>
+          </div>
+        </div>
+        <div class="publication">
+          <div>
+            <strong>AI-based Sea-Ice Characterisation using SAR Data</strong><br>
+            <small>Submitted, In Press • IJRS Taylor & Francis<br>
+            Hari Priya S, Prathamesh Sanjay Kadam et al.</small>
+          </div>
+        </div>
+        <div class="publication">
+          <div>
+            <strong>Classification of Aerosols - TROPMET 2024</strong><br>
+            <small>Proceedings • NIT Rourkela<br>
+            <a href="https://www.researchgate.net/publication/394735933">ResearchGate</a></small>
+          </div>
+        </div>
       </section>
 
-      <section id="research">
-        <h3>Research Projects</h3>
-        <ul>
-          <li><strong>Classification of Supernovae explosions using AI/ML</strong>, Indian Institute of Astrophysics, Supernovae Explosion Group, Bangalore (Jul 2025 – Present)</li>
-          <li><strong>Analyzing Cosmological Phase Transitions: Detecting Gravitational Waves using 15-year NANOGrav Dataset</strong>, NIT Surat, Department of Physics (Jan 2025 – May 2025)</li>
-          <li><strong>Classification of aerosols using Mahalanobis distance building Machine learning and Deep learning network</strong>, Indian Institute of Astrophysics, Sun and Solar System Research group, Bangalore (Nov 2023 – Jan 2025)</li>
-          <li><strong>Validation of Transiting Exoplanets using Statistical Tools (VaTEST)</strong>, NIT Surat, Department of Physics (Jan 2024 – May 2024)</li>
-          <li><strong>Estimation Of Cosmological Parameters Using CMB Angular Power Spectrum</strong>, IIT Guwahati, Department of Physics (Dec 2023 – Jan 2024)</li>
-          <li><strong>Multi-Parameter characterization of accretion flows around black holes using machine learning networks</strong>, NIT Surat, Department of Physics (Jul 2023 – Dec 2023)</li>
-          <li><strong>Study and analysis of sea-ice characteristics of polar regions using polarimetric Sentinel, EOS-4 and NovaSAR SAR dataset using machine learning and deep learning model</strong>, ISRO National Remote Sensing Centre, Hyderabad (May 2023 – Aug 2023)</li>
-          <li><strong>Study and analysis of stellar evolution using MESA software and mathematical approaches</strong>, Tata Institute of Fundamental Research (TIFR) Department of Astrophysics, Mumbai (Feb 2023 – Apr 2023)</li>
-          <li><strong>Study of transmission spectra of the extra solar planet and harnessing JWST advancements for transmission spectra studies</strong>, S.N. Bose National Centre for Basic Sciences (SNBNCBS), Kolkata (Nov 2022 – Jan 2023)</li>
-        </ul>
+      <section id="research-astro">
+        <h3>Astrophysics Research</h3>
+        <div class="project-grid">
+          <div class="project-card">
+            <div class="project-title">Type Iax Supernovae - GNN Classification</div>
+            <div class="project-meta">Indian Institute of Astrophysics • Jul 2025 – Present</div>
+            <div>Developed Graph Neural Networks for empirical relations and sub-classification using 2m HCT + GROWTH India telescope data.</div>
+          </div>
+          <div class="project-card">
+            <div class="project-title">Radiative Transfer - Metal-Poor Stars</div>
+            <div class="project-meta">University of Padova, Italy • May-Jul 2025</div>
+            <div>UV spectral energy distributions of high-redshift galaxies using GADGET-2 simulations.</div>
+          </div>
+          <div class="project-card">
+            <div class="project-title">Supernova Spectroscopy - CMFGEN</div>
+            <div class="project-meta">DESY Hamburg, Germany • Feb-Mar 2025</div>
+            <div>Photospheric-phase UV-optical line formation and velocity diagnostics.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="research-cosmo">
+        <h3>Cosmology & Gravitational Waves</h3>
+        <div class="project-grid">
+          <div class="project-card">
+            <div class="project-title">NANOGrav 15-year Dataset Analysis</div>
+            <div class="project-meta">NIT Surat • Jan-May 2025</div>
+            <div>Detecting gravitational waves from cosmological phase transitions.</div>
+          </div>
+          <div class="project-card">
+            <div class="project-title">CMB Angular Power Spectrum</div>
+            <div class="project-meta">IIT Guwahati • Dec 2023-Jan 2024</div>
+            <div>Estimation of cosmological parameters using Planck data.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="research-env">
+        <h3>Environmental Science</h3>
+        <div class="project-grid">
+          <div class="project-card">
+            <div class="project-title">Aerosol Classification - Africa</div>
+            <div class="project-meta">IIA Bangalore • Nov 2023-Jan 2025</div>
+            <div>Mahalanobis distance + ML/DL networks. 1st Prize IASTA 2024 Oral Presentation.</div>
+          </div>
+          <div class="project-card">
+            <div class="project-title">Polar Sea-Ice SAR Analysis</div>
+            <div class="project-meta">ISRO NRSC Hyderabad • May-Aug 2023</div>
+            <div>NISAR mission: Sentinel-1, EOS-4, NovaSAR datasets with ML/DL models.</div>
+          </div>
+        </div>
       </section>
 
       <section id="education">
         <h3>Education</h3>
         <ul>
-          <li>Integrated MSc. Physics, Sardar Vallabhbhai National Institute of Technology, Surat (Aug 2021 – Present); CGPA: 9.03</li>
-          <li>Bachelor of Science in Programming and Data Science, Indian Institute of Technology, Madras (Sept 2022 – Present); CGPA: 8.5</li>
-          <li>High School, Kendriya Vidyalaya CRPF, Gandhinagar (Apr 2015 – Apr 2020); CBSE 12th: 90.2%, 10th: 92.4%</li>
+          <li>Integrated MSc Physics, SVNIT Surat (2021–Present) • CGPA: 9.03/10</li>
+          <li>BS Programming & Data Science, IIT Madras (2022–2024) • CGPA: 8.05/10</li>
+          <li>High School, Kendriya Vidyalaya CRPF (2015–2020) • 90.2% (XII), 92.4% (X)</li>
         </ul>
       </section>
 
-      <section id="achievements">
-        <h3>Achievements</h3>
+      <section id="awards">
+        <h3>Awards & Experience</h3>
         <ul>
-          <li>Qualified the qualifier level of the International Astronomy and Astrophysics Competition (IAAC)</li>
-          <li>Participated as a National Level Debater at New Delhi in presence of Indian Cabinet Ministers</li>
-          <li>Represented Gujarat as a National Level Chess Player at the 48th National KVS Sports meet</li>
-          <li>Ranked 4th in school-level International Mathematical Olympiad</li>
-        </ul>
-      </section>
-
-      <section id="skills">
-        <h3>Skills</h3>
-        <ul>
-          <li>Programming: Python, C/C++, SQLite, Machine Learning, Deep Learning</li>
-          <li>Tools: SNAP, Google Colab, AstroPy, Jupyter, Spyder, GitHub, Kaggle, MATLAB, MESA, Gaia DR3 Tools, LaTeX</li>
-          <li>Soft Skills: Time Management, Teamwork, Problem-Solving, Presentation, Documentation</li>
+          <li>1st Prize Oral Presentation, IASTA National Conference 2024</li>
+          <li>Telescope Experience: 2m HCT, GROWTH India, TMT, JWST</li>
+          <li>Satellites: NISAR (NASA-ISRO), Sentinel-1, EOS-4</li>
+          <li>Qualified International Astronomy Olympiad (IAAC)</li>
         </ul>
       </section>
 
       <section id="contact">
         <h3>Contact</h3>
-        <p>Email: <a href="mailto:I21PH002@phy.svnit.ac.in">I21PH002@phy.svnit.ac.in</a></p>
-        <p>LinkedIn: <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank"
-            rel="noopener noreferrer">linkedin.com/in/prathamesh-kadam-33882722b</a></p>
-        <p>ResearchGate: <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank"
-            rel="noopener noreferrer">researchgate.net/profile/Prathamesh-Kadam-5</a></p>
-        <p>GitHub: <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer">github.com/Prathamesh-kadam</a></p>
-        <p>Instagram: <a href="https://www.instagram.com/prathameshk369/?igsh=NmVibG5rNWdnMTVw#" target="_blank"
-            rel="noopener noreferrer">instagram.com/prathameshk369</a></p>
+        <ul style="max-width: 400px;">
+          <li><i class="fas fa-envelope"></i> I21PH002@phy.svnit.ac.in</li>
+          <li><i class="fas fa-globe"></i> kprathamesh02d@gmail.com</li>
+          <li><i class="fas fa-phone"></i> (+91) 9714948441</li>
+        </ul>
       </section>
-
     </main>
+
     <footer>
-      &copy; 2025 Prathamesh Kadam
+      © 2026 Prathamesh Kadam | Built with GitHub Pages<br>
+      <small>Indian Institute of Astrophysics, Bangalore</small>
     </footer>
   </div>
 
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
+    
+    // Smooth scrolling
+    document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+        if (window.innerWidth <= 768) toggleSidebar();
+      });
+    });
+    
+    // Close sidebar on outside click
+    document.addEventListener('click', function(e) {
+      const sidebar = document.getElementById('sidebar');
+      const toggle = document.querySelector('.menu-toggle');
+      if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {
+        sidebar.classList.remove('active');
+      }
+    });
+  </script>
 </body>
-
 </html>
