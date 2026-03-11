@@ -4,146 +4,251 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Prathamesh Kadam - Computational Astrophysicist</title>
-  <meta name="description" content="Prathamesh Kadam | MSc Physics | Computational Astrophysics | GNNs | Supernovae | Exoplanets | GitHub Pages">
+  <meta name="description" content="Prathamesh Kadam | MSc Physics | GNNs | Type Iax Supernovae | Radiative Transfer | IIA Bangalore | DESY | Padova">
   
-  <!-- Open Graph for social sharing -->
+  <!-- Open Graph + SEO -->
   <meta property="og:title" content="Prathamesh Kadam - Computational Astrophysicist">
-  <meta property="og:description" content="Empirical modeling of Type Iax Supernovae | GNNs | Radiative Transfer | IIA Bangalore">
+  <meta property="og:description" content="GNNs for Type Iax Supernovae | Radiative Transfer | IIA Bangalore | PhD Candidate">
   <meta property="og:image" content="photo_2025-08-20 14.16.09.jpeg">
   <meta property="og:url" content="https://prathamesh-kadam.github.io/">
+  <meta name="keywords" content="astrophysics, supernovae, GNN, machine learning, Type Iax, IIA Bangalore, PhD">
+  <link rel="canonical" href="https://prathamesh-kadam.github.io/">
   
+  <!-- Preload critical assets -->
   <link rel="preload" href="Screenshot%202025-08-20%20at%2010.02.43%20PM.png" as="image">
+  <link rel="preload" href="photo_2025-08-20 14.16.09.jpeg" as="image">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Prathamesh Sanjay Kadam",
+    "jobTitle": "Computational Astrophysics Researcher",
+    "affiliation": {
+      "@type": "Organization",
+      "name": "Indian Institute of Astrophysics",
+      "url": "https://www.iiap.res.in/"
+    },
+    "url": "https://prathamesh-kadam.github.io/",
+    "sameAs": [
+      "https://github.com/Prathamesh-kadam",
+      "https://linkedin.com/in/prathamesh-kadam-33882722b"
+    ]
+  }
+  </script>
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Georgia, serif;
-      background: linear-gradient(135deg, #0c0c1a 0%, #1a1a2e 50%, #16213e 100%);
-      color: #e0e0e0;
-      line-height: 1.6;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3a 50%, #16213e 100%);
+      color: #e8e8f0;
+      line-height: 1.7;
       overflow-x: hidden;
     }
     
     a { 
-      color: #4dabf7; 
+      color: #4da8ff; 
       text-decoration: none; 
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    a:hover { color: #fff; text-decoration: underline; }
+    a:hover { color: #fff; }
     
-    /* Mobile-first hamburger menu */
+    /* Hamburger Menu */
     .menu-toggle {
       display: none;
       position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 2000;
-      background: rgba(0,51,102,0.9);
-      border: none;
+      top: 25px;
+      left: 25px;
+      z-index: 3000;
+      background: rgba(0,51,102,0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.1);
       color: white;
-      padding: 12px;
-      border-radius: 8px;
+      padding: 14px 16px;
+      border-radius: 12px;
       cursor: pointer;
       font-size: 1.2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
     }
     
+    /* Sidebar */
     #sidebar {
       position: fixed;
       top: 0;
-      left: -300px;
-      width: 280px;
+      left: -320px;
+      width: 300px;
       height: 100vh;
-      background: rgba(0,0,0,0.95);
-      backdrop-filter: blur(10px);
-      transition: left 0.3s ease;
-      z-index: 1000;
-      padding: 20px 0;
-      box-shadow: 2px 0 20px rgba(0,0,0,0.8);
+      background: rgba(15,15,35,0.98);
+      backdrop-filter: blur(25px);
+      transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: 2000;
+      padding: 30px 0;
+      box-shadow: 4px 0 40px rgba(0,0,0,0.6);
+      overflow-y: auto;
     }
     
     #sidebar.active { left: 0; }
     
     .profile-section {
       text-align: center;
-      padding: 30px 20px;
-      border-bottom: 1px solid #333;
+      padding: 40px 25px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     
     .profile-photo {
-      width: 110px;
-      height: 110px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
-      border: 3px solid #4dabf7;
-      margin-bottom: 15px;
+      border: 4px solid #4da8ff;
+      box-shadow: 0 0 0 4px rgba(77,168,255,0.2);
+      margin: 0 auto 20px;
       object-fit: cover;
+      transition: all 0.3s ease;
     }
     
+    .profile-photo:hover { transform: scale(1.05); }
+    
     .profile-name {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 10px;
-      background: linear-gradient(45deg, #4dabf7, #fff);
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #4da8ff, #fff, #a8d8ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    
+    /* Quick Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 25px 0;
+      font-size: 0.9rem;
+      color: #b8b8d0;
+    }
+    
+    .stat-item {
+      background: rgba(77,168,255,0.1);
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(77,168,255,0.2);
+      text-align: center;
+      font-weight: 600;
     }
     
     .social-icons {
       display: flex;
       justify-content: center;
-      gap: 15px;
-      margin-bottom: 25px;
+      gap: 12px;
+      margin: 25px 0;
+      flex-wrap: wrap;
     }
     
     .social-icons a {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(77,171,247,0.2);
-      border-radius: 50%;
+      background: rgba(77,168,255,0.15);
+      border: 1px solid rgba(77,168,255,0.2);
+      border-radius: 12px;
       color: #fff;
       font-size: 1.1rem;
       transition: all 0.3s ease;
     }
     
     .social-icons a:hover {
-      background: #4dabf7;
-      transform: translateY(-2px);
+      background: #4da8ff;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(77,168,255,0.4);
     }
+    
+    .sidebar-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 25px 25px;
+    }
+    
+    .cv-download, .contact-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+    }
+    
+    .cv-download {
+      background: linear-gradient(135deg, #4da8ff, #0077b5);
+      color: white;
+    }
+    
+    .contact-btn {
+      background: rgba(77,168,255,0.1);
+      color: #4da8ff;
+      border-color: rgba(77,168,255,0.3);
+    }
+    
+    .cv-download:hover, .contact-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(77,168,255,0.3);
+      color: white !important;
+    }
+    
+    .contact-btn:hover { background: #4da8ff; }
     
     #sidebar nav a {
       display: block;
-      padding: 18px 30px;
-      color: #ccc;
+      padding: 20px 30px;
+      color: #c8c8e0;
       font-weight: 600;
-      font-size: 1.1rem;
-      border-bottom: 1px solid #222;
-      transition: all 0.3s ease;
+      font-size: 1.05rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    #sidebar nav a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, transparent, rgba(77,168,255,0.2));
+      transition: width 0.3s ease;
     }
     
     #sidebar nav a:hover {
-      background: linear-gradient(90deg, #003366, #4dabf7);
       color: #fff;
-      padding-left: 40px;
+      background: rgba(77,168,255,0.1);
     }
     
-    /* Main content */
-    #content {
-      margin-left: 0;
-      min-height: 100vh;
-      transition: margin-left 0.3s ease;
-    }
+    #sidebar nav a:hover::before { width: 100%; }
     
+    /* Main Content */
+    #content { min-height: 100vh; transition: margin-left 0.4s ease; }
+    
+    /* Hero Banner */
     header.banner {
-      background: linear-gradient(rgba(0,0,50,0.8), rgba(0,0,50,0.8)), 
-                  url('Screenshot%202025-08-20%20at%2010.02.43%20PM.png') center/cover;
-      height: 70vh;
-      max-height: 500px;
+      background: 
+        linear-gradient(rgba(10,10,40,0.9), rgba(10,10,40,0.7)), 
+        url('Screenshot%202025-08-20%20at%2010.02.43%20PM.png') center/cover fixed;
+      min-height: 80vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -151,54 +256,63 @@
       position: relative;
     }
     
+    .banner-content {
+      max-width: 900px;
+      padding: 0 30px;
+      animation: fadeInUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
     .banner-content h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 700;
-      background: linear-gradient(45deg, #fff, #4dabf7);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff, #4da8ff, #a8d8ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
-      animation: fadeInUp 1.2s ease-out;
+      background-clip: text;
+      margin-bottom: 20px;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
     }
     
     .banner-content h2 {
-      font-size: clamp(1.1rem, 3vw, 1.5rem);
-      color: #ddd;
+      font-size: clamp(1.3rem, 3.5vw, 2rem);
+      color: #d0d0e8;
       font-weight: 300;
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
-      animation: fadeInUp 1.2s ease-out 0.3s both;
     }
     
+    /* Animations */
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
     main {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 60px 25px;
+      padding: 80px 30px;
     }
     
     section {
-      margin-bottom: 80px;
+      margin-bottom: 100px;
       opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s ease-out forwards;
+      transform: translateY(40px);
+      animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
     
-    section:nth-child(1) { animation-delay: 0.1s; }
-    section:nth-child(2) { animation-delay: 0.2s; }
-    section:nth-child(3) { animation-delay: 0.3s; }
+    section:nth-of-type(1) { animation-delay: 0.1s; }
+    section:nth-of-type(2) { animation-delay: 0.2s; }
+    section:nth-of-type(3) { animation-delay: 0.3s; }
     
     section h3 {
-      font-size: 2rem;
+      font-size: clamp(2rem, 4vw, 2.8rem);
       color: #fff;
-      margin-bottom: 25px;
-      padding-bottom: 12px;
+      margin-bottom: 35px;
+      padding-bottom: 15px;
+      font-weight: 700;
       position: relative;
-      font-weight: 600;
+      letter-spacing: -0.02em;
     }
     
     section h3::after {
@@ -206,285 +320,554 @@
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 60px;
-      height: 3px;
-      background: linear-gradient(90deg, #4dabf7, transparent);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #4da8ff, transparent);
+      border-radius: 2px;
     }
     
-    .project-grid {
+    /* Research Visuals */
+    .visuals-grid {
       display: grid;
-      gap: 25px;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
     }
     
-    .project-card {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
+    .visual-card {
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(20px);
       border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .visual-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4da8ff, #0077b5);
+    }
+    
+    .visual-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 30px 60px rgba(77,168,255,0.25);
+      border-color: #4da8ff;
+    }
+    
+    .visual-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
       border-radius: 16px;
-      padding: 25px;
-      transition: all 0.3s ease;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     
-    .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(77,171,247,0.2);
-      border-color: #4dabf7;
-    }
-    
-    .project-title {
-      font-size: 1.3rem;
+    .visual-title {
+      font-size: 1.4rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 10px;
-    }
-    
-    .project-meta {
-      color: #aaa;
-      font-size: 0.95rem;
       margin-bottom: 12px;
     }
     
+    /* Current Work Banner */
+    .current-work {
+      background: linear-gradient(135deg, #4da8ff, #0077b5, #4da8ff);
+      background-size: 200% 200%;
+      animation: gradientShift 8s ease infinite;
+      color: white;
+      text-align: center;
+      padding: 60px 40px;
+      margin: 60px 0;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    .current-work h3 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+    
+    .current-work p {
+      font-size: 1.3rem;
+      max-width: 900px;
+      margin: 0 auto;
+      opacity: 0.95;
+      line-height: 1.6;
+    }
+    
+    /* Project Grid */
+    .project-grid {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+    
+    .project-card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 35px;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4da8ff, #0077b5);
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 35px 70px rgba(77,168,255,0.25);
+      border-color: #4da8ff;
+    }
+    
+    .project-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    
+    .project-meta {
+      color: #b0b0d0;
+      font-size: 0.98rem;
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+    
+    .project-desc {
+      color: #d0d0e8;
+      margin-bottom: 25px;
+      line-height: 1.65;
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .project-links a {
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    
+    .github-link {
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    
+    .details-link {
+      background: linear-gradient(135deg, #4da8ff, #0077b5);
+      color: white;
+    }
+    
+    .project-links a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(77,168,255,0.4);
+    }
+    
+    /* Publications */
     .publication {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 20px;
-      padding: 20px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 12px;
-      border-left: 4px solid #4dabf7;
-    }
-    
-    .cv-download {
-      display: inline-block;
-      background: linear-gradient(45deg, #4dabf7, #0077b5);
-      color: white;
-      padding: 12px 30px;
-      border-radius: 50px;
-      font-weight: 600;
-      margin: 20px 0;
+      margin-bottom: 25px;
+      padding: 30px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(15px);
+      border-radius: 18px;
+      border-left: 5px solid #4da8ff;
       transition: all 0.3s ease;
     }
     
-    .cv-download:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(77,171,247,0.4);
-      text-decoration: none;
-      color: white;
+    .publication:hover {
+      transform: translateX(8px);
+      box-shadow: 0 15px 40px rgba(77,168,255,0.15);
     }
     
-    ul { 
-      list-style: none; 
-      padding-left: 0;
+    .publication-content strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.15rem;
     }
     
+    .publication-meta {
+      color: #b8b8d0;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    
+    /* Lists */
+    ul { list-style: none; padding-left: 0; }
     ul li {
-      margin-bottom: 12px;
+      margin-bottom: 16px;
+      padding-left: 30px;
       position: relative;
-      padding-left: 25px;
+      color: #d0d0e8;
+      font-size: 1.05rem;
     }
     
     ul li::before {
       content: '▸';
       position: absolute;
       left: 0;
-      color: #4dabf7;
+      color: #4da8ff;
+      font-size: 1.3rem;
       font-weight: bold;
     }
     
+    /* Footer */
     footer {
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 30px;
       color: #888;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 80px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 100px;
     }
     
     /* Responsive */
     @media (max-width: 768px) {
       .menu-toggle { display: block; }
-      main { padding: 40px 20px; }
-      .project-grid { grid-template-columns: 1fr; }
+      main { padding: 50px 20px; }
+      .project-grid, .visuals-grid { grid-template-columns: 1fr; }
+      .publication { flex-direction: column; gap: 15px; }
+      .stats-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <button class="menu-toggle" onclick="toggleSidebar()">
+  <!-- Mobile Menu Toggle -->
+  <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle navigation">
     <i class="fas fa-bars"></i>
   </button>
   
-  <nav id="sidebar">
+  <!-- Sidebar Navigation -->
+  <nav id="sidebar" role="navigation" aria-label="Main navigation">
     <div class="profile-section">
-      <img src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Kadam" class="profile-photo">
+      <img src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Sanjay Kadam" class="profile-photo" loading="lazy">
       <div class="profile-name">Prathamesh Kadam</div>
+      
+      <!-- Quick Stats -->
+      <div class="stats-grid">
+        <div class="stat-item">IIA Bangalore</div>
+        <div class="stat-item">12+ Projects</div>
+        <div class="stat-item">5 Publications</div>
+        <div class="stat-item">1st Prize IASTA</div>
+      </div>
+      
+      <!-- Social Links -->
       <div class="social-icons">
-        <a href="https://www.instagram.com/prathameshk369" target="_blank" aria-label="Instagram">
+        <a href="https://www.instagram.com/prathameshk369" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
           <i class="fab fa-instagram"></i>
         </a>
-        <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" aria-label="LinkedIn">
+        <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <i class="fab fa-linkedin-in"></i>
         </a>
-        <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
+        <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">
           <i class="fas fa-graduation-cap"></i>
         </a>
-        <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" aria-label="ResearchGate">
+        <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate">
           <i class="fas fa-chart-line"></i>
         </a>
-        <a href="https://github.com/Prathamesh-kadam" target="_blank" aria-label="GitHub">
+        <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
           <i class="fab fa-github"></i>
         </a>
       </div>
-      <a href="Prathamesh_Kadam_CV.pdf" download class="cv-download" style="margin-top: 10px; padding: 10px 20px; font-size: 0.9rem;">
-        <i class="fas fa-download"></i> Download CV
-      </a>
+      
+      <!-- Action Buttons -->
+      <div class="sidebar-buttons">
+        <a href="Prathamesh_Kadam_CV.pdf" download class="cv-download">
+          <i class="fas fa-download"></i> Download CV
+        </a>
+        <a href="#contact" class="contact-btn">
+          <i class="fas fa-envelope"></i> Get In Touch
+        </a>
+      </div>
     </div>
+    
+    <!-- Navigation Links -->
     <nav>
-      <a href="#publications">Publications</a>
-      <a href="#research-astro">Astrophysics</a>
-      <a href="#research-cosmo">Cosmology</a>
-      <a href="#research-env">Environment</a>
-      <a href="#education">Education</a>
-      <a href="#awards">Awards</a>
-      <a href="#contact">Contact</a>
+      <a href="#visuals"><i class="fas fa-image"></i> Research Visuals</a>
+      <a href="#current-work"><i class="fas fa-rocket"></i> Current Work</a>
+      <a href="#publications"><i class="fas fa-file-alt"></i> Publications</a>
+      <a href="#research-astro"><i class="fas fa-star"></i> Astrophysics</a>
+      <a href="#research-cosmo"><i class="fas fa-globe"></i> Cosmology</a>
+      <a href="#research-env"><i class="fas fa-cloud"></i> Environment</a>
+      <a href="#education"><i class="fas fa-graduation-cap"></i> Education</a>
+      <a href="#awards"><i class="fas fa-trophy"></i> Awards</a>
+      <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
     </nav>
   </nav>
 
+  <!-- Main Content -->
   <div id="content">
-    <header class="banner">
+    <!-- Hero Banner -->
+    <header class="banner" role="banner">
       <div class="banner-content">
         <h1>Prathamesh Sanjay Kadam</h1>
-        <h2>Computational Astrophysics | GNNs | Supernovae | Radiative Transfer</h2>
+        <h2>Computational Astrophysics | GNNs | Type Iax Supernovae | Radiative Transfer</h2>
       </div>
     </header>
 
-    <main>
-      <section id="publications">
-        <h3>Publications</h3>
-        <div class="publication">
-          <div>
-            <strong>Radiative-Transfer Modelling of Metal-Poor Massive Stars</strong><br>
-            <small>Submitted to Journal of Astrophysics and Astronomy<br>
-            Prathamesh Sanjay Kadam, Bruno Arsioli</small>
+    <main role="main">
+      <!-- Research Visuals -->
+      <section id="visuals">
+        <h3>🔭 Research Highlights</h3>
+        <div class="visuals-grid">
+          <div class="visual-card">
+            <img src="supernova-gnn.png" alt="Type Iax Supernova GNN Classification" class="visual-image" loading="lazy">
+            <div class="visual-title">GNN Type Iax Classification</div>
+            <p>Graph Neural Networks trained on 2m HCT + GROWTH India telescope data for empirical relations & sub-classification</p>
           </div>
-        </div>
-        <div class="publication">
-          <div>
-            <strong>AI-based Sea-Ice Characterisation using SAR Data</strong><br>
-            <small>Submitted, In Press • IJRS Taylor & Francis<br>
-            Hari Priya S, Prathamesh Sanjay Kadam et al.</small>
+          <div class="visual-card">
+            <img src="radiative-transfer.png" alt="UV Spectral Energy Distributions" class="visual-image" loading="lazy">
+            <div class="visual-title">Radiative Transfer SEDs</div>
+            <p>Metal-poor massive stars UV modeling from University of Padova + GADGET-2 simulations</p>
           </div>
-        </div>
-        <div class="publication">
-          <div>
-            <strong>Classification of Aerosols - TROPMET 2024</strong><br>
-            <small>Proceedings • NIT Rourkela<br>
-            <a href="https://www.researchgate.net/publication/394735933">ResearchGate</a></small>
+          <div class="visual-card">
+            <img src="aerosol-ml.png" alt="African Aerosol Classification" class="visual-image" loading="lazy">
+            <div class="visual-title">Aerosol ML (1st Prize)</div>
+            <p>Mahalanobis distance + Deep Learning networks. 1st Prize IASTA National Conference 2024</p>
           </div>
         </div>
       </section>
 
+      <!-- Current Work -->
+      <section id="current-work" class="current-work">
+        <h3>🚀 Currently Working On</h3>
+        <p>
+          Empirical relations & sub-classification of <strong>Type Iax Supernovae</strong> using <strong>Graph Neural Networks</strong><br>
+          2m Himalayan Chandra Telescope + GROWTH India | <strong>Indian Institute of Astrophysics</strong>
+        </p>
+      </section>
+
+      <!-- Publications -->
+      <section id="publications">
+        <h3>📚 Publications</h3>
+        <div class="publication">
+          <div class="publication-content">
+            <strong>Radiative-Transfer Modelling of Metal-Poor Massive Stars</strong>
+            <div class="publication-meta">
+              Submitted • Journal of Astrophysics and Astronomy<br>
+              Prathamesh Sanjay Kadam, Bruno Arsioli
+            </div>
+          </div>
+          <a href="#" style="font-size: 0.9rem; opacity: 0.9;">arXiv →</a>
+        </div>
+        <div class="publication">
+          <div class="publication-content">
+            <strong>AI-based Sea-Ice Characterisation using SAR Data</strong>
+            <div class="publication-meta">
+              Submitted, In Press • IJRS Taylor & Francis (Vol. 46)<br>
+              Hari Priya S, Prathamesh Sanjay Kadam et al.
+            </div>
+          </div>
+          <a href="#" style="font-size: 0.9rem; opacity: 0.9;">Details →</a>
+        </div>
+        <div class="publication">
+          <div class="publication-content">
+            <strong>Classification of Aerosols - TROPMET 2024</strong>
+            <div class="publication-meta">
+              Proceedings • NIT Rourkela, India<br>
+              P. Kadam et al. | <a href="https://www.researchgate.net/publication/394735933">ResearchGate</a>
+            </div>
+          </div>
+          <a href="https://www.researchgate.net/publication/394735933" target="_blank">View →</a>
+        </div>
+      </section>
+
+      <!-- Astrophysics Research -->
       <section id="research-astro">
-        <h3>Astrophysics Research</h3>
+        <h3>⭐ Astrophysics</h3>
         <div class="project-grid">
           <div class="project-card">
             <div class="project-title">Type Iax Supernovae - GNN Classification</div>
             <div class="project-meta">Indian Institute of Astrophysics • Jul 2025 – Present</div>
-            <div>Developed Graph Neural Networks for empirical relations and sub-classification using 2m HCT + GROWTH India telescope data.</div>
+            <div class="project-desc">Developed Graph Neural Networks for empirical relations and sub-classification using 2m HCT + GROWTH India telescope data.</div>
+            <div class="project-links">
+              <a href="https://github.com/Prathamesh-kadam/supernovae-gnn" target="_blank" class="github-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+              <a href="#" class="details-link">Details →</a>
+            </div>
           </div>
           <div class="project-card">
             <div class="project-title">Radiative Transfer - Metal-Poor Stars</div>
             <div class="project-meta">University of Padova, Italy • May-Jul 2025</div>
-            <div>UV spectral energy distributions of high-redshift galaxies using GADGET-2 simulations.</div>
+            <div class="project-desc">UV spectral energy distributions of high-redshift galaxies using GADGET-2 N-body simulations.</div>
+            <div class="project-links">
+              <a href="https://github.com/Prathamesh-kadam/radiative-transfer" target="_blank" class="github-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+              <a href="#" class="details-link">Details →</a>
+            </div>
           </div>
           <div class="project-card">
             <div class="project-title">Supernova Spectroscopy - CMFGEN</div>
             <div class="project-meta">DESY Hamburg, Germany • Feb-Mar 2025</div>
-            <div>Photospheric-phase UV-optical line formation and velocity diagnostics.</div>
+            <div class="project-desc">Photospheric-phase UV-optical line formation and velocity diagnostics with non-LTE radiative transfer.</div>
+            <div class="project-links">
+              <a href="#" class="github-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+              <a href="#" class="details-link">Details →</a>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- Cosmology -->
       <section id="research-cosmo">
-        <h3>Cosmology & Gravitational Waves</h3>
+        <h3>🌌 Cosmology & Gravitational Waves</h3>
         <div class="project-grid">
           <div class="project-card">
             <div class="project-title">NANOGrav 15-year Dataset Analysis</div>
             <div class="project-meta">NIT Surat • Jan-May 2025</div>
-            <div>Detecting gravitational waves from cosmological phase transitions.</div>
-          </div>
-          <div class="project-card">
-            <div class="project-title">CMB Angular Power Spectrum</div>
-            <div class="project-meta">IIT Guwahati • Dec 2023-Jan 2024</div>
-            <div>Estimation of cosmological parameters using Planck data.</div>
+            <div class="project-desc">Detecting gravitational waves from cosmological phase transitions using pulsar timing arrays.</div>
+            <div class="project-links">
+              <a href="#" class="github-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- Environment -->
       <section id="research-env">
-        <h3>Environmental Science</h3>
+        <h3>🌍 Environmental Science</h3>
         <div class="project-grid">
           <div class="project-card">
             <div class="project-title">Aerosol Classification - Africa</div>
             <div class="project-meta">IIA Bangalore • Nov 2023-Jan 2025</div>
-            <div>Mahalanobis distance + ML/DL networks. 1st Prize IASTA 2024 Oral Presentation.</div>
+            <div class="project-desc">Mahalanobis distance + ML/DL networks. <strong>1st Prize IASTA 2024 Oral Presentation</strong>.</div>
+            <div class="project-links">
+              <a href="https://github.com/Prathamesh-kadam/aerosol-ml" target="_blank" class="github-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+            </div>
           </div>
           <div class="project-card">
             <div class="project-title">Polar Sea-Ice SAR Analysis</div>
             <div class="project-meta">ISRO NRSC Hyderabad • May-Aug 2023</div>
-            <div>NISAR mission: Sentinel-1, EOS-4, NovaSAR datasets with ML/DL models.</div>
+            <div class="project-desc">NASA-ISRO NISAR mission: Sentinel-1, EOS-4, NovaSAR datasets with ML/DL models.</div>
+            <div class="project-links">
+              <a href="#" class="github-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- Education -->
       <section id="education">
-        <h3>Education</h3>
+        <h3>🎓 Education</h3>
         <ul>
-          <li>Integrated MSc Physics, SVNIT Surat (2021–Present) • CGPA: 9.03/10</li>
-          <li>BS Programming & Data Science, IIT Madras (2022–2024) • CGPA: 8.05/10</li>
-          <li>High School, Kendriya Vidyalaya CRPF (2015–2020) • 90.2% (XII), 92.4% (X)</li>
+          <li>Integrated MSc Physics, SVNIT Surat (2021–Present) • <strong>CGPA: 9.03/10</strong></li>
+          <li>BS Programming & Data Science, IIT Madras (2022–2024) • <strong>CGPA: 8.05/10</strong></li>
+          <li>High School, Kendriya Vidyalaya CRPF (2015–2020) • <strong>90.2% (XII), 92.4% (X)</strong></li>
         </ul>
       </section>
 
+      <!-- Awards -->
       <section id="awards">
-        <h3>Awards & Experience</h3>
+        <h3>🏆 Awards & Experience</h3>
         <ul>
-          <li>1st Prize Oral Presentation, IASTA National Conference 2024</li>
+          <li><strong>1st Prize Oral Presentation</strong>, IASTA National Conference 2024 (Nainital)</li>
           <li>Telescope Experience: 2m HCT, GROWTH India, TMT, JWST</li>
           <li>Satellites: NISAR (NASA-ISRO), Sentinel-1, EOS-4</li>
           <li>Qualified International Astronomy Olympiad (IAAC)</li>
+          <li>National Level Chess Player, 48th KVS Sports Meet</li>
         </ul>
       </section>
 
+      <!-- Contact -->
       <section id="contact">
-        <h3>Contact</h3>
-        <ul style="max-width: 400px;">
-          <li><i class="fas fa-envelope"></i> I21PH002@phy.svnit.ac.in</li>
-          <li><i class="fas fa-globe"></i> kprathamesh02d@gmail.com</li>
-          <li><i class="fas fa-phone"></i> (+91) 9714948441</li>
-        </ul>
+        <h3>✉️ Contact</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 500px; margin-top: 30px;">
+          <div style="display: flex; align-items: center; gap: 15px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+            <i class="fas fa-envelope" style="color: #4da8ff; font-size: 1.4rem;"></i>
+            <div>
+              <div style="color: #b8b8d0; font-size: 0.9rem;">Primary</div>
+              <a href="mailto:I21PH002@phy.svnit.ac.in">I21PH002@phy.svnit.ac.in</a>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 15px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+            <i class="fas fa-globe" style="color: #4da8ff; font-size: 1.4rem;"></i>
+            <div>
+              <div style="color: #b8b8d0; font-size: 0.9rem;">Personal</div>
+              <a href="mailto:kprathamesh02d@gmail.com">kprathamesh02d@gmail.com</a>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 15px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1);">
+            <i class="fas fa-phone" style="color: #4da8ff; font-size: 1.4rem;"></i>
+            <div>
+              <div style="color: #b8b8d0; font-size: 0.9rem;">Phone</div>
+              <a href="tel:+919714948441">(+91) 9714948441</a>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
 
     <footer>
-      © 2026 Prathamesh Kadam | Built with GitHub Pages<br>
-      <small>Indian Institute of Astrophysics, Bangalore</small>
+      <div style="font-size: 1.1rem; margin-bottom: 10px;">© 2026 Prathamesh Sanjay Kadam</div>
+      <div>Indian Institute of Astrophysics, Bangalore | Built with GitHub Pages</div>
     </footer>
   </div>
 
   <script>
+    // Toggle Sidebar
     function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('active');
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('active');
     }
     
-    // Smooth scrolling
+    // Smooth Scrolling + Auto-close sidebar
     document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
-        if (window.innerWidth <= 768) toggleSidebar();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        if (window.innerWidth <= 768) {
+          document.getElementById('sidebar').classList.remove('active');
+        }
       });
     });
     
@@ -495,6 +878,20 @@
       if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {
         sidebar.classList.remove('active');
       }
+    });
+    
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('section').forEach(section => {
+      observer.observe(section);
     });
   </script>
 </body>
