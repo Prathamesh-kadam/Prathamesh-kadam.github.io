@@ -11,16 +11,16 @@
 
 <style>
   :root {
-    --bg: #ffffff;
-    --bg-alt: #f6f7f9;
+    --bg: #f7f8fa;
+    --bg-alt: #f0f1f4;
     --card: #ffffff;
     --ink: #14181f;
     --ink-soft: #4b5563;
     --muted: #8a93a3;
-    --line: #e6e8ec;
-    --accent: #1a56a8;
+    --line: #e3e5ea;
+    --accent: #1565c0;
     --accent-soft: #eaf1fb;
-    --chip: #f0f2f5;
+    --chip: #eef0f3;
     --shadow: 0 1px 2px rgba(20,24,31,.04);
   }
   html[data-theme="dark"] {
@@ -49,7 +49,7 @@
   a { color: var(--accent); text-decoration: none; }
   a:hover { text-decoration: underline; }
   h1, h2, h3 { font-family: 'Source Serif 4', Georgia, serif; margin: 0; }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  .wrap { max-width: 800px; margin: 0 auto; padding: 0 24px; }
 
   /* ---- Top nav ---- */
   nav.topnav {
@@ -74,29 +74,36 @@
   }
   .theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
 
-  /* ---- Hero ---- */
-  header.hero { padding: 64px 0 40px; text-align: center; }
+  /* ---- Hero: two-column about block ---- */
+  header.hero { padding: 56px 0 8px; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .about-side { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
   .avatar {
-    width: 148px; height: 148px; border-radius: 50%; object-fit: cover;
+    width: 168px; height: 168px; border-radius: 50%; object-fit: cover;
     border: 4px solid var(--card); box-shadow: 0 0 0 1px var(--line), var(--shadow);
-    margin-bottom: 22px;
   }
-  header.hero h1 { font-size: 2.1rem; font-weight: 600; letter-spacing: -.01em; }
-  .role { font-size: 1.05rem; color: var(--ink-soft); margin-top: 8px; }
-  .affil { font-size: .95rem; color: var(--muted); margin-top: 4px; }
-  .social-row { display: flex; justify-content: center; gap: 16px; margin-top: 20px; }
-  .social-row a {
-    width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center; color: var(--ink-soft); font-size: 15px;
+  .about-side h1 { font-size: 1.55rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+  .role { font-size: .98rem; color: var(--ink-soft); }
+  .affil { font-size: .92rem; color: var(--muted); line-height: 1.5; }
+  .social-col { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+  .social-col a {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--ink-soft); font-size: .88rem; padding: 2px 0;
   }
-  .social-row a:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
-  .social-row svg { fill: currentColor; }
+  .social-col a i, .social-col a svg { width: 16px; color: var(--accent); flex-shrink: 0; }
+  .social-col a:hover { color: var(--accent); text-decoration: none; }
+  .social-col svg { fill: var(--accent); }
 
   /* ---- Sections ---- */
   section { padding: 44px 0; border-top: 1px solid var(--line); }
   section:first-of-type { border-top: none; }
-  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 22px; }
-  .section-head h2 { font-size: 1.5rem; font-weight: 600; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
+  .section-head h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -.01em; }
   .section-head .count { font-size: .85rem; color: var(--muted); }
 
   .bio p { color: var(--ink-soft); font-size: 1rem; max-width: 68ch; }
@@ -151,10 +158,13 @@
     text-align: center; padding: 36px 24px 60px; color: var(--muted); font-size: .82rem;
   }
 
-  @media (max-width: 620px) {
+  @media (max-width: 700px) {
     .navlinks { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-side { align-items: center; text-align: center; }
+    .social-col { align-items: center; }
+    .social-col a { justify-content: center; }
     .two-col { grid-template-columns: 1fr; gap: 26px; }
-    header.hero h1 { font-size: 1.7rem; }
   }
 </style>
 </head>
@@ -182,53 +192,64 @@
 </nav>
 
 <header class="hero wrap" id="about">
-  <img class="avatar" src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Sanjay Kadam" />
-  <h1>Prathamesh Sanjay Kadam</h1>
-  <div class="role">Computational Astrophysics Researcher</div>
-  <div class="affil"><a href="https://www.iiap.res.in/" target="_blank" rel="noopener noreferrer">Indian Institute of Astrophysics</a> &middot; <a href="https://www.ztf.caltech.edu/" target="_blank" rel="noopener noreferrer">ZTF Observational Facility, Caltech</a></div>
-  <div class="social-row" aria-label="Social links">
-    <a href="https://www.instagram.com/prathameshk369/?igsh=NmVibG5rNWdnMTVw#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-    <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
-    <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate">
-      <svg width="15" height="15" viewBox="0 0 512 512"><path d="M348.9 209.7c-12-23.1-23.6-25.3-33-25.3-12.9 0-19.7 7.9-19.7 19.5v132.7h-34.6v-195h27.3v19.9a39.28 39.28 0 0 1 35-19.6c18.8 0 35.6 13.2 45 38.7zM462.7 119.4l-47.4 82c6 1.4 13.8 4.5 13.8 16.1 0 17.7-20.3 21.2-29.9 21.2-38 0-62.3-42.9-62.3-96 0-41.7 19.5-84.2 83-84.2 66.9 0 82.8 54.9 82.3 75zM245.9 514.8c-69.1 0-127-57.3-127-128 0-59.7 43.4-110 101.9-124.8 7.9-1.8 3.2-4.4 3.2-4.4v-86.9h39.5v90.8c24-7.3 39.1-14 39.1-14v34.2c-21 8.1-36.1 21.8-36.1 21.8v43.4c0 21 4.9 45.9 18.6 61.2 5.4 7.1 13 14.3 26.3 21.1 42.2-40.3 65.1-89.9 65.1-144.9 0-113.5-88.2-206-196.8-206s-196.8 92.5-196.8 206 88.1 206 196.8 206c68.2.1 141-35.5 171.9-90.9l-32-15.3c-26.6 27-72.2 79.1-139.8 79.1z"/></svg>
-    </a>
-    <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+  <div class="about-grid">
+    <div class="about-side">
+      <img class="avatar" src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Sanjay Kadam" />
+      <div>
+        <h1>Prathamesh Sanjay Kadam</h1>
+        <div class="role">Computational Astrophysics Researcher</div>
+      </div>
+      <div class="affil">
+        <a href="https://www.iiap.res.in/" target="_blank" rel="noopener noreferrer">Indian Institute of Astrophysics</a><br>
+        <a href="https://www.ztf.caltech.edu/" target="_blank" rel="noopener noreferrer">ZTF Observational Facility, Caltech</a>
+      </div>
+      <nav class="social-col" aria-label="Social links">
+        <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+        <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 512 512"><path d="M348.9 209.7c-12-23.1-23.6-25.3-33-25.3-12.9 0-19.7 7.9-19.7 19.5v132.7h-34.6v-195h27.3v19.9a39.28 39.28 0 0 1 35-19.6c18.8 0 35.6 13.2 45 38.7zM462.7 119.4l-47.4 82c6 1.4 13.8 4.5 13.8 16.1 0 17.7-20.3 21.2-29.9 21.2-38 0-62.3-42.9-62.3-96 0-41.7 19.5-84.2 83-84.2 66.9 0 82.8 54.9 82.3 75zM245.9 514.8c-69.1 0-127-57.3-127-128 0-59.7 43.4-110 101.9-124.8 7.9-1.8 3.2-4.4 3.2-4.4v-86.9h39.5v90.8c24-7.3 39.1-14 39.1-14v34.2c-21 8.1-36.1 21.8-36.1 21.8v43.4c0 21 4.9 45.9 18.6 61.2 5.4 7.1 13 14.3 26.3 21.1 42.2-40.3 65.1-89.9 65.1-144.9 0-113.5-88.2-206-196.8-206s-196.8 92.5-196.8 206 88.1 206 196.8 206c68.2.1 141-35.5 171.9-90.9l-32-15.3c-26.6 27-72.2 79.1-139.8 79.1z"/></svg>
+          ResearchGate
+        </a>
+        <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://www.instagram.com/prathameshk369/?igsh=NmVibG5rNWdnMTVw#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+      </nav>
+    </div>
+
+    <div class="bio">
+      <p>I am an astrophysics researcher at the Indian Institute of Astrophysics (IIA), Bengaluru, working with Prof. G.C. Anupama and Dr. Mridweeka Singh, alongside a collaborative position at the ZTF Observational Facility, Caltech. My research spans supernova spectroscopy and classification, deep learning for astronomical alert pipelines, stellar evolution modelling, and cosmological parameter estimation &mdash; using tools that range from the 2m HCT and GROWTH India telescopes to JWST, and satellite missions including NISAR and Sentinel&#8209;1. I am the author of three journal papers, including one in <em>Nature Astronomy</em>.</p>
+
+      <div class="two-col">
+        <div>
+          <h3>Interests</h3>
+          <ul class="interest-list">
+            <li>Supernova spectroscopy &amp; classification</li>
+            <li>Deep learning for astronomical alert pipelines</li>
+            <li>Stellar evolution &amp; hydrodynamical simulation</li>
+            <li>Cosmology &amp; gravitational waves</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Education</h3>
+          <ul class="edu-list">
+            <li>
+              <div class="deg">Integrated MSc. Physics</div>
+              <div class="place">SVNIT, Surat</div>
+              <div class="yr">2021 &ndash; 2026 &middot; CGPA 9.09/10</div>
+            </li>
+            <li>
+              <div class="deg">BS Programming &amp; Data Science</div>
+              <div class="place">IIT Madras</div>
+              <div class="yr">2022 &ndash; 2024 &middot; CGPA 8.05/10</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
 <main class="wrap">
-
-  <section class="bio">
-    <p>I am an astrophysics researcher at the Indian Institute of Astrophysics (IIA), Bengaluru, working with Prof. G.C. Anupama and Dr. Mridweeka Singh, alongside a collaborative position at the ZTF Observational Facility, Caltech. My research spans supernova spectroscopy and classification, deep learning for astronomical alert pipelines, stellar evolution modelling, and cosmological parameter estimation &mdash; using tools that range from the 2m HCT and GROWTH India telescopes to JWST, and satellite missions including NISAR and Sentinel&#8209;1. I am the author of three journal papers, including one in <em>Nature Astronomy</em>.</p>
-
-    <div class="two-col">
-      <div>
-        <h3>Interests</h3>
-        <ul class="interest-list">
-          <li>Supernova spectroscopy &amp; classification</li>
-          <li>Deep learning for astronomical alert pipelines</li>
-          <li>Stellar evolution &amp; hydrodynamical simulation</li>
-          <li>Cosmology &amp; gravitational waves</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Education</h3>
-        <ul class="edu-list">
-          <li>
-            <div class="deg">Integrated MSc. Physics</div>
-            <div class="place">SVNIT, Surat</div>
-            <div class="yr">2021 &ndash; 2026 &middot; CGPA 9.09/10</div>
-          </li>
-          <li>
-            <div class="deg">BS Programming &amp; Data Science</div>
-            <div class="place">IIT Madras</div>
-            <div class="yr">2022 &ndash; 2024 &middot; CGPA 8.05/10</div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
 
   <section id="research">
     <div class="section-head"><h2>Research Projects</h2></div>
