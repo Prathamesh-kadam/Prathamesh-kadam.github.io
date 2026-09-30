@@ -192,70 +192,80 @@
     text-align: center; padding: 36px 24px 60px; color: var(--muted); font-size: .85rem;
   }
 
-  /* ---- Book: full-bleed spotlight section (always dark, independent of site theme) ---- */
+  /* ---- Book: full-bleed "Shelf" section (warm cream/brown, independent of site theme) ---- */
   .full-bleed {
     width: 100vw; position: relative; left: 50%; right: 50%;
     margin-left: -50vw; margin-right: -50vw;
   }
   #book { padding: 0; border-top: none; }
   .book-spotlight {
-    background:
-      radial-gradient(ellipse 700px 420px at 50% 0%, rgba(202,161,75,.16), transparent 70%),
-      linear-gradient(180deg, #0a0a0c 0%, #060607 100%);
-    padding: 72px 24px 60px;
-    color: #f1ede3;
+    background: linear-gradient(180deg, #f1e4cd 0%, #e8d7b8 100%);
+    padding: 72px 24px 56px;
+    color: #4a3524;
   }
   .book-spotlight .inner { max-width: 800px; margin: 0 auto; text-align: center; }
   .book-eyebrow {
     font-size: .82rem; letter-spacing: .18em; text-transform: uppercase;
-    color: #caa14b; font-weight: 700; margin-bottom: 18px;
+    color: #9c5f2e; font-weight: 700; margin-bottom: 22px;
   }
   .book-cover {
-    width: 200px; margin: 0 auto 30px;
-    border-radius: 4px;
-    box-shadow: 0 0 0 1px rgba(255,255,255,.06), 0 30px 60px -12px rgba(0,0,0,.8), 0 0 90px -10px rgba(202,161,75,.35);
+    width: 200px; margin: 0 auto 20px;
+    border-radius: 3px;
+    box-shadow: 0 22px 40px -14px rgba(60,38,17,.45), 0 4px 10px rgba(60,38,17,.2);
     aspect-ratio: 2 / 3;
     display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(160deg, #1b2340, #0d1120);
+    background: linear-gradient(160deg, #8a5a34, #5c3a20);
     padding: 20px;
+    transform: rotate(-7deg);
+    transition: transform .35s ease;
   }
-  .book-cover img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; }
-  .book-cover .cover-placeholder { color: #d8c48f; font-size: 1rem; line-height: 1.4; }
-  .book-title { font-size: 2rem; font-weight: 700; margin-bottom: 10px; color: #fff; }
-  .book-tagline { color: #c9c4b6; font-size: 1.02rem; max-width: 52ch; margin: 0 auto 26px; }
+  .book-cover:hover { transform: rotate(-2deg) translateY(-4px); }
+  .book-cover img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+  .book-cover .cover-placeholder { color: #f0e0c4; font-size: 1rem; line-height: 1.4; }
+  .shelf-ledge {
+    width: 260px; height: 14px; margin: 0 auto 30px;
+    background: linear-gradient(180deg, #b98a52, #8a5f34);
+    border-radius: 2px;
+    box-shadow: 0 6px 10px -4px rgba(60,38,17,.35);
+  }
+  .book-title { font-size: 2rem; font-weight: 700; margin-bottom: 10px; color: #3a2717; }
+  .book-tagline { color: #6b4f37; font-size: 1.02rem; max-width: 52ch; margin: 0 auto 26px; }
   .book-meta {
     display: flex; justify-content: center; gap: 26px; flex-wrap: wrap;
-    font-size: .88rem; color: #a7a294; margin-bottom: 30px;
+    font-size: .88rem; color: #7a5c40; margin-bottom: 30px;
   }
-  .book-meta span strong { display: block; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: #caa14b; margin-bottom: 3px; }
+  .book-meta span strong { display: block; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: #9c5f2e; margin-bottom: 3px; }
   .book-buy { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
   .book-buy a {
-    background: #caa14b; color: #171207; font-weight: 700; font-size: .92rem;
+    background: #9c5f2e; color: #fbf3e4; font-weight: 700; font-size: .92rem;
     padding: 12px 26px; border-radius: 999px; text-decoration: none;
-    box-shadow: 0 8px 22px -6px rgba(202,161,75,.5);
+    box-shadow: 0 8px 18px -6px rgba(156,95,46,.5);
   }
   .book-buy a.secondary {
-    background: transparent; color: #f1ede3; border: 1px solid rgba(255,255,255,.25); box-shadow: none;
+    background: transparent; color: #6b4f37; border: 1px solid rgba(74,53,36,.3); box-shadow: none;
   }
-  .book-buy a:hover { opacity: .9; text-decoration: none; }
+  .book-buy a:hover { opacity: .88; text-decoration: none; }
 
   .book-credits {
-    max-width: 800px; margin: 56px auto 0; padding-top: 44px;
-    border-top: 1px solid rgba(255,255,255,.1);
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    max-width: 800px; margin: 52px auto 0; padding-top: 40px;
+    border-top: 1px solid rgba(74,53,36,.15);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
   }
-  .credit-card { text-align: center; }
+  .credit-card {
+    text-align: center; background: #fbf3e4; border: 1px solid rgba(74,53,36,.15);
+    border-radius: 10px; padding: 20px 14px; box-shadow: 0 2px 6px rgba(74,53,36,.08);
+  }
   .credit-photo {
-    width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 14px;
-    background: linear-gradient(160deg, #26314f, #12172a);
-    border: 1px solid rgba(255,255,255,.1);
+    width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 14px;
+    background: linear-gradient(160deg, #d8c19a, #b98a52);
+    border: 1px solid rgba(74,53,36,.15);
     display: flex; align-items: center; justify-content: center;
-    color: #caa14b; font-size: 1.3rem; overflow: hidden;
+    color: #6b3f1d; font-size: 1.2rem; overflow: hidden;
   }
   .credit-photo img { width: 100%; height: 100%; object-fit: cover; }
-  .credit-role { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: #caa14b; font-weight: 700; margin-bottom: 4px; }
-  .credit-name { font-weight: 700; color: #f1ede3; margin-bottom: 6px; font-size: .98rem; }
-  .credit-bio { font-size: .85rem; color: #a7a294; line-height: 1.5; }
+  .credit-role { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: #9c5f2e; font-weight: 700; margin-bottom: 4px; }
+  .credit-name { font-weight: 700; color: #3a2717; margin-bottom: 6px; font-size: .98rem; }
+  .credit-bio { font-size: .85rem; color: #7a5c40; line-height: 1.5; }
 
   @media (max-width: 700px) {
     .navlinks { display: none; }
@@ -534,6 +544,7 @@
           <!-- Replace this placeholder with: <img src="book-cover.jpg" alt="Book cover"> -->
           <div class="cover-placeholder">Your Book<br>Title Here</div>
         </div>
+        <div class="shelf-ledge"></div>
 
         <h2 class="book-title">Book Title Goes Here</h2>
         <p class="book-tagline">A short one- or two-line blurb about what the book is about goes here &mdash; enough to make someone want to pick it up.</p>
