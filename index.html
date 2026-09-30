@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="black">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,7 +8,7 @@
 
 <style>
   /* Default theme: Dark Blue (navy) */
-  html[data-theme="navy"] {
+  :root, html[data-theme="navy"] {
     --bg: #050c18;
     --bg-alt: #08101f;
     --card: #0b1526;
@@ -21,7 +21,7 @@
     --chip: #0f1c33;
     --shadow: 0 1px 4px rgba(0,0,0,.5);
   }
-  :root, html[data-theme="light"] {
+  html[data-theme="light"] {
     --bg: #f7f8fa;
     --bg-alt: #f0f1f4;
     --card: #ffffff;
@@ -330,51 +330,6 @@
   .book-modal-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 14px; color: #3a2717; }
   .book-modal-bio { font-size: .95rem; color: #6b4f37; line-height: 1.6; }
 
-
-  /* ---- Book teaser link (whole section acts as a card) ---- */
-  .book-teaser-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-  }
-  .book-teaser-link:hover { text-decoration: none; }
-
-  .book-visit-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: #9c5f2e;
-    color: #fbf3e4;
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 14px 32px;
-    border-radius: 999px;
-    margin-top: 8px;
-    box-shadow: 0 8px 18px -6px rgba(156,95,46,.5);
-    transition: transform .2s ease, box-shadow .2s ease;
-  }
-  .book-teaser-link:hover .book-visit-cta {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px -6px rgba(156,95,46,.6);
-  }
-  .book-visit-cta i { transition: transform .2s ease; }
-  .book-teaser-link:hover .book-visit-cta i { transform: translateX(4px); }
-
-  .book-visit-note {
-    font-size: .85rem;
-    color: #7a5c40;
-    margin: 12px 0 0;
-    font-style: italic;
-  }
-
-  .book-teaser-link .book-spotlight {
-    transition: filter .25s ease;
-  }
-  .book-teaser-link:hover .book-spotlight {
-    filter: brightness(1.02);
-  }
-
   @media (max-width: 700px) {
     .navlinks { display: none; }
     .about-grid { grid-template-columns: 1fr; }
@@ -405,7 +360,7 @@
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
       <a href="#presentations">Presentations</a>
-      <a href="https://comebackhome.com" target="_blank" rel="noopener noreferrer">Book ↗</a>
+      <a href="#book">Book</a>
       <a href="#topics">Topics</a>
       <a href="#visitors">Visitors</a>
       <a href="#contact">Contact</a>
@@ -645,32 +600,89 @@
   </section>
 
   <section id="book" class="full-bleed">
-    <a href="https://comebackhome.com" target="_blank" rel="noopener noreferrer" class="book-teaser-link">
-      <div class="book-spotlight">
-        <div class="inner">
-          <div class="book-eyebrow">Part One of The Home Trilogy</div>
-  
-          <div class="book-cover">
-            <img src="photo_2026-09-30 13.50.38.jpeg" alt="Come Back Home — book cover">
+    <div class="book-spotlight">
+      <div class="inner">
+        <div class="book-eyebrow">Part One of The Home Trilogy</div>
+
+        <div class="book-cover">
+          <img src="photo_2026-09-30 13.50.38.jpeg" alt="Come Back Home &mdash; book cover">
+        </div>
+        <div class="shelf-ledge"></div>
+
+        <h2 class="book-title">Come Back Home</h2>
+        <p class="book-tagline">When everything is lost, where are you found?</p>
+
+        <blockquote class="book-pullquote">&ldquo;Curiosity in the wrong place&hellip; It can have dire consequences.&rdquo;</blockquote>
+
+        <details class="synopsis-toggle">
+          <summary>Read the synopsis <i class="fa-solid fa-chevron-down"></i></summary>
+          <p>23-year-old Christine Tavley has been searching for the truth behind the incident that destroyed her life five years ago. The explosion of 22nd March 1982 wiped her hometown, Totin, off the map. It was the beginning of the serial bomber known as Absinthe. Hiding behind the symbol of a green fairy, Absinthe comes alive with a broadcast. Two weeks later, another town vanishes just like Totin.</p>
+          <p>Christine's survival is fueled by the people she has left, the old memories, and the hope that she will one day get to the bottom of what Absinthe really wants. She visits the deserted town in search of answers which ultimately forces her to look closer than she expected. Getting closer to the truth feels freeing &mdash; until she overhears something she wasn't supposed to.</p>
+          <p class="synopsis-hook">The truth that was supposed to be worth the loss becomes deadly, trapping her in ways she had never imagined.</p>
+        </details>
+
+        <div class="book-meta">
+          <span><strong>ISBN</strong>978-93-6012-157-0</span>
+          <span><strong>Series</strong>Book 1 of 3 &middot; The Home Trilogy</span>
+        </div>
+
+        <div class="book-buy">
+          <a href="#" target="_blank" rel="noopener noreferrer">Buy Now</a>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="secondary">More Retailers</a>
+        </div>
+        <div class="trilogy-teaser">
+          <div class="trilogy-teaser-label">The Home Trilogy</div>
+          <div class="trilogy-books">
+            <div class="trilogy-book done">
+              <span class="tb-num">Book 1</span>
+              <span class="tb-title">Come Back Home</span>
+              <span class="tb-status">Available Now</span>
+            </div>
+            <div class="trilogy-book">
+              <span class="tb-num">Book 2</span>
+              <span class="tb-title">Back Home</span>
+              <span class="tb-status">Coming Soon</span>
+            </div>
+            <div class="trilogy-book">
+              <span class="tb-num">Book 3</span>
+              <span class="tb-title">Home</span>
+              <span class="tb-status">Coming Soon</span>
+            </div>
           </div>
-          <div class="shelf-ledge"></div>
-  
-          <h2 class="book-title">Come Back Home</h2>
-          <p class="book-tagline">When everything is lost, where are you found?</p>
-  
-          <div class="book-meta">
-            <span><strong>ISBN</strong>978-93-6012-157-0</span>
-            <span><strong>Series</strong>Book 1 of 3 · The Home Trilogy</span>
-          </div>
-  
-          <div class="book-visit-cta">
-            Visit the book site <i class="fa-solid fa-arrow-right"></i>
-          </div>
-          <p class="book-visit-note">Synopsis, buy links, trilogy info &amp; contributor bios →</p>
         </div>
       </div>
-    </a>
+
+      <div class="book-credits">
+        <div class="credit-card" data-role="Author" data-name="Krystal Green" data-bio="Author bio coming soon.">
+          <div class="credit-photo"><img src="photo_2026-09-30 14.27.08.jpeg" alt="Krystal Green"></div>
+          <div class="credit-role">Author</div>
+          <div class="credit-name">Krystal Green</div>
+          <div class="credit-tap">Tap to view &rsaquo;</div>
+        </div>
+        <div class="credit-card" data-role="Editor" data-name="Prathamesh S. Kadam" data-bio="Prathamesh edited and typeset Come Back Home. By day he researches supernovae and machine learning in astrophysics &mdash; by night, he shapes stories into their final form.">
+          <div class="credit-photo"><img src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh S. Kadam"></div>
+          <div class="credit-role">Editor</div>
+          <div class="credit-name">Prathamesh S. Kadam</div>
+          <div class="credit-tap">Tap to view &rsaquo;</div>
+        </div>
+        <div class="credit-card" data-role="Cover Design &amp; Illustrations" data-name="Aditi Srivastava" data-bio="Designer bio coming soon.">
+          <div class="credit-photo"><i class="fa-solid fa-palette"></i></div>
+          <div class="credit-role">Cover Designer</div>
+          <div class="credit-name">Aditi Srivastava</div>
+          <div class="credit-tap">Tap to view &rsaquo;</div>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <div class="book-modal-overlay" id="bookModalOverlay">
+    <div class="book-modal">
+      <button class="book-modal-close" id="bookModalClose" aria-label="Close">&times;</button>
+      <div class="book-modal-role" id="modalRole"></div>
+      <div class="book-modal-name" id="modalName"></div>
+      <div class="book-modal-bio" id="modalBio"></div>
+    </div>
+  </div>
 
   <section id="topics">
     <div class="section-head"><h2>Topics</h2></div>
@@ -712,7 +724,7 @@
   const menu = document.getElementById('themeMenu');
   const choices = menu.querySelectorAll('button[data-theme-choice]');
 
-  const saved = localStorage.getItem('theme') || 'light';
+  const saved = localStorage.getItem('theme') || 'black';
   root.setAttribute('data-theme', saved);
 
   function markActive() {
