@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="black">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -724,7 +724,7 @@
   const menu = document.getElementById('themeMenu');
   const choices = menu.querySelectorAll('button[data-theme-choice]');
 
-  const saved = localStorage.getItem('theme') || 'black';
+  const saved = localStorage.getItem('theme') || 'light';
   root.setAttribute('data-theme', saved);
 
   function markActive() {
