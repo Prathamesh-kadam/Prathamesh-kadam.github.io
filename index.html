@@ -230,6 +230,24 @@
   }
   .book-title { font-size: 2rem; font-weight: 700; margin-bottom: 10px; color: #3a2717; }
   .book-tagline { color: #6b4f37; font-size: 1.02rem; max-width: 52ch; margin: 0 auto 26px; }
+  .book-pullquote {
+    font-style: italic; font-size: 1.15rem; color: #5c3a20; max-width: 46ch;
+    margin: 0 auto 26px; padding: 0 10px; line-height: 1.5;
+  }
+  .synopsis-toggle {
+    max-width: 560px; margin: 0 auto 30px; text-align: left;
+    background: rgba(255,255,255,.35); border: 1px solid rgba(74,53,36,.15);
+    border-radius: 10px; padding: 14px 20px;
+  }
+  .synopsis-toggle summary {
+    cursor: pointer; text-align: center; list-style: none; font-weight: 700;
+    color: #9c5f2e; font-size: .92rem; letter-spacing: .02em;
+  }
+  .synopsis-toggle summary::-webkit-details-marker { display: none; }
+  .synopsis-toggle summary i { margin-left: 6px; transition: transform .25s ease; }
+  .synopsis-toggle[open] summary i { transform: rotate(180deg); }
+  .synopsis-toggle p { color: #5a4128; font-size: .95rem; line-height: 1.65; margin: 14px 0 0; }
+  .synopsis-toggle .synopsis-hook { font-weight: 700; font-style: italic; color: #7a3a1d; }
   .book-meta {
     display: flex; justify-content: center; gap: 26px; flex-wrap: wrap;
     font-size: .88rem; color: #7a5c40; margin-bottom: 30px;
@@ -245,6 +263,7 @@
     background: transparent; color: #6b4f37; border: 1px solid rgba(74,53,36,.3); box-shadow: none;
   }
   .book-buy a:hover { opacity: .88; text-decoration: none; }
+  .book-more-note { font-size: .82rem; color: #8a6d4d; font-style: italic; margin-top: 6px; }
 
   .book-credits {
     max-width: 800px; margin: 52px auto 0; padding-top: 40px;
@@ -254,7 +273,12 @@
   .credit-card {
     text-align: center; background: #fbf3e4; border: 1px solid rgba(74,53,36,.15);
     border-radius: 10px; padding: 20px 14px; box-shadow: 0 2px 6px rgba(74,53,36,.08);
+    cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;
   }
+  .credit-card:hover {
+    transform: translateY(-3px); box-shadow: 0 8px 16px rgba(74,53,36,.16);
+  }
+  .credit-tap { font-size: .74rem; color: #9c5f2e; font-weight: 700; margin-top: 4px; }
   .credit-photo {
     width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 14px;
     background: linear-gradient(160deg, #d8c19a, #b98a52);
@@ -266,6 +290,28 @@
   .credit-role { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: #9c5f2e; font-weight: 700; margin-bottom: 4px; }
   .credit-name { font-weight: 700; color: #3a2717; margin-bottom: 6px; font-size: .98rem; }
   .credit-bio { font-size: .85rem; color: #7a5c40; line-height: 1.5; }
+
+  /* ---- Contributor bio modal ---- */
+  .book-modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(30,20,10,.55); backdrop-filter: blur(2px);
+    align-items: center; justify-content: center; padding: 24px;
+  }
+  .book-modal-overlay.open { display: flex; }
+  .book-modal {
+    position: relative; background: #fbf3e4; color: #4a3524;
+    border-radius: 14px; max-width: 420px; width: 100%;
+    padding: 34px 28px 28px; text-align: center;
+    box-shadow: 0 30px 60px -12px rgba(0,0,0,.5);
+  }
+  .book-modal-close {
+    position: absolute; top: 10px; right: 14px; background: none; border: none;
+    font-size: 1.4rem; color: #8a6d4d; cursor: pointer; line-height: 1;
+  }
+  .book-modal-close:hover { color: #4a3524; }
+  .book-modal-role { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: #9c5f2e; font-weight: 700; margin-bottom: 6px; }
+  .book-modal-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 14px; color: #3a2717; }
+  .book-modal-bio { font-size: .95rem; color: #6b4f37; line-height: 1.6; }
 
   @media (max-width: 700px) {
     .navlinks { display: none; }
@@ -538,52 +584,68 @@
   <section id="book" class="full-bleed">
     <div class="book-spotlight">
       <div class="inner">
-        <div class="book-eyebrow">Now Available</div>
+        <div class="book-eyebrow">Part One of The Home Trilogy</div>
 
         <div class="book-cover">
-          <!-- Replace this placeholder with: <img src="book-cover.jpg" alt="Book cover"> -->
-          <div class="cover-placeholder">Your Book<br>Come Back Home</div>
+          <img src="photo_2026-09-30 13.50.38.jpeg" alt="Come Back Home &mdash; book cover">
         </div>
         <div class="shelf-ledge"></div>
 
-        <h2 class="book-title">Book Title Goes Here</h2>
-        <p class="book-tagline">A short one- or two-line blurb about what the book is about goes here &mdash; enough to make someone want to pick it up.</p>
+        <h2 class="book-title">Come Back Home</h2>
+        <p class="book-tagline">When everything is lost, where are you found?</p>
+
+        <blockquote class="book-pullquote">&ldquo;Curiosity in the wrong place&hellip; It can have dire consequences.&rdquo;</blockquote>
+
+        <details class="synopsis-toggle">
+          <summary>Read the synopsis <i class="fa-solid fa-chevron-down"></i></summary>
+          <p>23-year-old Christine Tavley has been searching for the truth behind the incident that destroyed her life five years ago. The explosion of 22nd March 1982 wiped her hometown, Totin, off the map. It was the beginning of the serial bomber known as Absinthe. Hiding behind the symbol of a green fairy, Absinthe comes alive with a broadcast. Two weeks later, another town vanishes just like Totin.</p>
+          <p>Christine's survival is fueled by the people she has left, the old memories, and the hope that she will one day get to the bottom of what Absinthe really wants. She visits the deserted town in search of answers which ultimately forces her to look closer than she expected. Getting closer to the truth feels freeing &mdash; until she overhears something she wasn't supposed to.</p>
+          <p class="synopsis-hook">The truth that was supposed to be worth the loss becomes deadly, trapping her in ways she had never imagined.</p>
+        </details>
 
         <div class="book-meta">
-          <span><strong>ISBN</strong>000-0-000-00000-0</span>
-          <span><strong>Format</strong>Paperback</span>
-          <span><strong>Pages</strong>000</span>
-          <span><strong>Published</strong>2026</span>
+          <span><strong>ISBN</strong>978-93-6012-157-0</span>
+          <span><strong>Series</strong>Book 1 of 3 &middot; The Home Trilogy</span>
         </div>
 
         <div class="book-buy">
           <a href="#" target="_blank" rel="noopener noreferrer">Buy Now</a>
           <a href="#" target="_blank" rel="noopener noreferrer" class="secondary">More Retailers</a>
         </div>
+        <p class="book-more-note">More books in The Home Trilogy &mdash; coming soon.</p>
       </div>
 
       <div class="book-credits">
-        <div class="credit-card">
+        <div class="credit-card" data-role="Author" data-name="Krystal Green" data-bio="Author bio coming soon.">
           <div class="credit-photo"><i class="fa-solid fa-pen-nib"></i></div>
           <div class="credit-role">Author</div>
-          <div class="credit-name">Author Name</div>
-          <div class="credit-bio">Short author bio goes here.</div>
+          <div class="credit-name">Krystal Green</div>
+          <div class="credit-tap">Tap to view &rsaquo;</div>
         </div>
-        <div class="credit-card">
+        <div class="credit-card" data-role="Editor" data-name="Prathamesh S. Kadam" data-bio="Prathamesh edited and typeset Come Back Home. By day he researches supernovae and machine learning in astrophysics &mdash; by night, he shapes stories into their final form.">
           <div class="credit-photo"><i class="fa-solid fa-book-open"></i></div>
           <div class="credit-role">Editor</div>
-          <div class="credit-name">Editor Name</div>
-          <div class="credit-bio">Short editor bio goes here.</div>
+          <div class="credit-name">Prathamesh S. Kadam</div>
+          <div class="credit-tap">Tap to view &rsaquo;</div>
         </div>
-        <div class="credit-card">
+        <div class="credit-card" data-role="Cover Design &amp; Illustrations" data-name="Aditi Srivastava" data-bio="Designer bio coming soon.">
           <div class="credit-photo"><i class="fa-solid fa-palette"></i></div>
           <div class="credit-role">Cover Designer</div>
-          <div class="credit-name">Designer Name</div>
-          <div class="credit-bio">Short designer bio goes here.</div>
+          <div class="credit-name">Aditi Srivastava</div>
+          <div class="credit-tap">Tap to view &rsaquo;</div>
         </div>
       </div>
     </div>
   </section>
+
+  <div class="book-modal-overlay" id="bookModalOverlay">
+    <div class="book-modal">
+      <button class="book-modal-close" id="bookModalClose" aria-label="Close">&times;</button>
+      <div class="book-modal-role" id="modalRole"></div>
+      <div class="book-modal-name" id="modalName"></div>
+      <div class="book-modal-bio" id="modalBio"></div>
+    </div>
+  </div>
 
   <section id="topics">
     <div class="section-head"><h2>Topics</h2></div>
@@ -675,6 +737,24 @@
 
   const startId = (location.hash || '#about').slice(1);
   showSection(startId);
+
+  /* ---- Book contributor modal ---- */
+  const bookOverlay = document.getElementById('bookModalOverlay');
+  const modalRole = document.getElementById('modalRole');
+  const modalName = document.getElementById('modalName');
+  const modalBio = document.getElementById('modalBio');
+
+  document.querySelectorAll('.credit-card').forEach(card => {
+    card.addEventListener('click', () => {
+      modalRole.innerHTML = card.dataset.role;
+      modalName.textContent = card.dataset.name;
+      modalBio.innerHTML = card.dataset.bio;
+      bookOverlay.classList.add('open');
+    });
+  });
+  document.getElementById('bookModalClose').addEventListener('click', () => bookOverlay.classList.remove('open'));
+  bookOverlay.addEventListener('click', (e) => { if (e.target === bookOverlay) bookOverlay.classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') bookOverlay.classList.remove('open'); });
 </script>
 
 </body>
