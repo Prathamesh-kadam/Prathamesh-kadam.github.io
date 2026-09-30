@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Prathamesh Sanjay Kadam</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+  /* Default theme: Dark Blue (navy) */
+  html[data-theme="navy"] {
+    --bg: #050c18;
+    --bg-alt: #08101f;
+    --card: #0b1526;
+    --ink: #e9edf5;
+    --ink-soft: #aab7cc;
+    --muted: #6b7994;
+    --line: #16233b;
+    --accent: #5b93e0;
+    --accent-soft: #12294d;
+    --chip: #0f1c33;
+    --shadow: 0 1px 4px rgba(0,0,0,.5);
+  }
+  :root, html[data-theme="light"] {
+    --bg: #f7f8fa;
+    --bg-alt: #f0f1f4;
+    --card: #ffffff;
+    --ink: #14181f;
+    --ink-soft: #4b5563;
+    --muted: #8a93a3;
+    --line: #e3e5ea;
+    --accent: #1565c0;
+    --accent-soft: #eaf1fb;
+    --chip: #eef0f3;
+    --shadow: 0 1px 2px rgba(20,24,31,.04);
+  }
+  html[data-theme="black"] {
+    --bg: #0a0a0c;
+    --bg-alt: #111113;
+    --card: #17171b;
+    --ink: #f1f1f3;
+    --ink-soft: #b8b9c0;
+    --muted: #77787f;
+    --line: #232327;
+    --accent: #6ea4e8;
+    --accent-soft: #1a2230;
+    --chip: #1c1c21;
+    --shadow: 0 1px 3px rgba(0,0,0,.4);
+  }
+  * { box-sizing: border-box; font-family: 'Times New Roman', Times, serif; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1.6;
+    transition: background .25s ease, color .25s ease;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  h1, h2, h3 { font-family: 'Times New Roman', Times, serif; margin: 0; }
+  .wrap { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---- Top nav ---- */
+  nav.topnav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .navbar {
+    max-width: 900px; margin: 0 auto; padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; color: var(--ink); }
+  .brand img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
+  .navlinks { display: flex; gap: 22px; flex-wrap: wrap; }
+  .navlinks a { color: var(--ink-soft); font-size: .95rem; font-weight: 500; }
+  .navlinks a:hover { color: var(--accent); text-decoration: none; }
+  .navlinks a.active { color: var(--accent); font-weight: 700; }
+  .theme-switch { position: relative; }
+  .theme-toggle {
+    border: 1px solid var(--line); background: var(--card); color: var(--ink-soft);
+    width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; font-size: .85rem;
+  }
+  .theme-toggle:hover { color: var(--accent); border-color: var(--accent); }
+  .theme-menu {
+    position: absolute; top: 42px; right: 0; z-index: 60;
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,.18); padding: 6px; min-width: 150px;
+    display: none; flex-direction: column; gap: 2px;
+  }
+  .theme-menu.open { display: flex; }
+  .theme-menu button {
+    display: flex; align-items: center; gap: 10px;
+    background: none; border: none; text-align: left; cursor: pointer;
+    padding: 8px 10px; border-radius: 6px; font-size: .92rem; color: var(--ink-soft);
+  }
+  .theme-menu button:hover { background: var(--bg-alt); color: var(--ink); }
+  .theme-menu button.active { color: var(--accent); font-weight: 600; }
+  .theme-menu .swatch {
+    width: 14px; height: 14px; border-radius: 50%; border: 1px solid var(--line); flex-shrink: 0;
+  }
+
+  /* ---- Hero: two-column about block ---- */
+  header.hero { padding: 40px 0 8px; }
+  .top-photos { display: flex; justify-content: center; gap: 20px; margin-bottom: 36px; }
+  .top-photos img {
+    width: 220px; height: 220px; object-fit: cover; border-radius: 12px;
+    border: 2px solid var(--line); box-shadow: var(--shadow);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .about-side { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+  .avatar {
+    width: 168px; height: 168px; border-radius: 50%; object-fit: cover;
+    border: 4px solid var(--card); box-shadow: 0 0 0 1px var(--line), var(--shadow);
+  }
+  .about-side h1 { font-size: 1.6rem; font-weight: 700; line-height: 1.3; }
+  .role { font-size: 1rem; color: var(--ink-soft); }
+  .affil { font-size: .95rem; color: var(--muted); line-height: 1.5; }
+  .social-col { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+  .social-col a {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--ink-soft); font-size: .92rem; padding: 2px 0;
+  }
+  .social-col a i, .social-col a svg { width: 16px; color: var(--accent); flex-shrink: 0; }
+  .social-col a:hover { color: var(--accent); text-decoration: none; }
+  .social-col svg { fill: var(--accent); }
+
+  /* ---- Sections ---- */
+  section { padding: 44px 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: none; }
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 24px; padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
+  .section-head h2 { font-size: 1.45rem; font-weight: 700; }
+  .section-head .count { font-size: .88rem; color: var(--muted); }
+
+  .bio p { color: var(--ink-soft); font-size: 1.02rem; max-width: 68ch; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 28px; }
+  .two-col h3 { font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; margin-bottom: 12px; }
+  .interest-list, .edu-list { list-style: none; padding: 0; margin: 0; }
+  .interest-list li { padding: 7px 0; color: var(--ink-soft); font-size: .98rem; }
+  .edu-list li { padding: 10px 0; border-top: 1px solid var(--line); }
+  .edu-list li:first-child { border-top: none; padding-top: 0; }
+  .edu-list .deg { font-weight: 700; font-size: .98rem; }
+  .edu-list .place { color: var(--ink-soft); font-size: .92rem; }
+  .edu-list .yr { color: var(--muted); font-size: .85rem; }
+
+  .group-label { font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); font-weight: 700; margin: 28px 0 12px; }
+  .group-label:first-child { margin-top: 0; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 16px 18px; margin-bottom: 12px; box-shadow: var(--shadow);
+  }
+  .card .title { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+  .card .meta { color: var(--ink-soft); font-size: .9rem; }
+  .card .venue { color: var(--muted); font-size: .88rem; margin-top: 4px; font-style: italic; }
+  .card .links { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .card .links a {
+    font-size: .8rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .card .links a:hover { text-decoration: none; opacity: .85; }
+
+  ul.plain { list-style: none; padding: 0; margin: 0; }
+  ul.plain li {
+    padding: 12px 0; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .95rem;
+  }
+  ul.plain li:first-child { border-top: none; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { background: var(--chip); color: var(--ink-soft); font-size: .85rem; padding: 6px 12px; border-radius: 999px; }
+
+  .skill-block { margin-bottom: 18px; }
+  .skill-block .label { font-weight: 700; font-size: .92rem; margin-bottom: 8px; color: var(--ink); }
+
+  #visitors img { max-width: 100%; height: auto; border-radius: 6px; }
+  #visitors p.lead { color: var(--ink-soft); margin-bottom: 14px; }
+
+  .contact-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .contact-list li { display: flex; gap: 10px; align-items: center; color: var(--ink-soft); font-size: .96rem; }
+  .contact-list i { width: 18px; color: var(--accent); }
+
+  footer {
+    text-align: center; padding: 36px 24px 60px; color: var(--muted); font-size: .85rem;
+  }
+
+  /* ---- Book: full-bleed "Shelf" section (warm cream/brown, independent of site theme) ---- */
+  .full-bleed {
+    width: 100vw; position: relative; left: 50%; right: 50%;
+    margin-left: -50vw; margin-right: -50vw;
+  }
+  #book { padding: 0; border-top: none; }
+  .book-spotlight {
+    background: linear-gradient(180deg, #f1e4cd 0%, #e8d7b8 100%);
+    padding: 72px 24px 56px;
+    color: #4a3524;
+  }
+  .book-spotlight .inner { max-width: 800px; margin: 0 auto; text-align: center; }
+  .book-eyebrow {
+    font-size: .82rem; letter-spacing: .18em; text-transform: uppercase;
+    color: #9c5f2e; font-weight: 700; margin-bottom: 22px;
+  }
+  .book-cover {
+    width: 300px; margin: 0 auto 20px;
+    border-radius: 6px;
+    box-shadow: 0 22px 40px -14px rgba(60,38,17,.45), 0 4px 10px rgba(60,38,17,.2);
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    background: linear-gradient(160deg, #8a5a34, #5c3a20);
+    transform: rotate(-7deg);
+    transition: transform .35s ease;
+  }
+  .book-cover:hover { transform: rotate(-2deg) translateY(-4px); }
+  .book-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .book-cover .cover-placeholder { color: #f0e0c4; font-size: 1rem; line-height: 1.4; }
+  .shelf-ledge {
+    width: 340px; height: 14px; margin: 0 auto 30px;
+    background: linear-gradient(180deg, #b98a52, #8a5f34);
+    border-radius: 2px;
+    box-shadow: 0 6px 10px -4px rgba(60,38,17,.35);
+  }
+  .book-title { font-size: 2rem; font-weight: 700; margin-bottom: 10px; color: #3a2717; }
+  .book-tagline { color: #6b4f37; font-size: 1.02rem; max-width: 52ch; margin: 0 auto 26px; }
+  .book-pullquote {
+    font-style: italic; font-size: 1.15rem; color: #5c3a20; max-width: 46ch;
+    margin: 0 auto 26px; padding: 0 10px; line-height: 1.5;
+  }
+  .synopsis-toggle {
+    max-width: 560px; margin: 0 auto 30px; text-align: left;
+    background: rgba(255,255,255,.35); border: 1px solid rgba(74,53,36,.15);
+    border-radius: 10px; padding: 14px 20px;
+  }
+  .synopsis-toggle summary {
+    cursor: pointer; text-align: center; list-style: none; font-weight: 700;
+    color: #9c5f2e; font-size: .92rem; letter-spacing: .02em;
+  }
+  .synopsis-toggle summary::-webkit-details-marker { display: none; }
+  .synopsis-toggle summary i { margin-left: 6px; transition: transform .25s ease; }
+  .synopsis-toggle[open] summary i { transform: rotate(180deg); }
+  .synopsis-toggle p { color: #5a4128; font-size: .95rem; line-height: 1.65; margin: 14px 0 0; }
+  .synopsis-toggle .synopsis-hook { font-weight: 700; font-style: italic; color: #7a3a1d; }
+  .book-meta {
+    display: flex; justify-content: center; gap: 26px; flex-wrap: wrap;
+    font-size: .88rem; color: #7a5c40; margin-bottom: 30px;
+  }
+  .book-meta span strong { display: block; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: #9c5f2e; margin-bottom: 3px; }
+  .book-buy { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 10px; }
+  .book-buy a {
+    background: #9c5f2e; color: #fbf3e4; font-weight: 700; font-size: .92rem;
+    padding: 12px 26px; border-radius: 999px; text-decoration: none;
+    box-shadow: 0 8px 18px -6px rgba(156,95,46,.5);
+  }
+  .book-buy a.secondary {
+    background: transparent; color: #6b4f37; border: 1px solid rgba(74,53,36,.3); box-shadow: none;
+  }
+  .book-buy a:hover { opacity: .88; text-decoration: none; }
+
+  .trilogy-teaser { margin-top: 38px; }
+  .trilogy-teaser-label {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .14em;
+    color: #9c5f2e; font-weight: 700; margin-bottom: 14px;
+  }
+  .trilogy-books {
+    display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+  }
+  .trilogy-book {
+    background: rgba(255,255,255,.4); border: 1px solid rgba(74,53,36,.15);
+    border-radius: 10px; padding: 12px 18px; min-width: 140px;
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .trilogy-book.done { background: #9c5f2e; border-color: #9c5f2e; }
+  .trilogy-book.done .tb-num, .trilogy-book.done .tb-title, .trilogy-book.done .tb-status { color: #fbf3e4; }
+  .tb-num { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: #9c5f2e; font-weight: 700; }
+  .tb-title { font-weight: 700; font-size: .98rem; color: #3a2717; }
+  .tb-status { font-size: .76rem; font-style: italic; color: #8a6d4d; }
+
+  .book-credits {
+    max-width: 800px; margin: 52px auto 0; padding-top: 40px;
+    border-top: 1px solid rgba(74,53,36,.15);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .credit-card {
+    text-align: center; background: #fbf3e4; border: 1px solid rgba(74,53,36,.15);
+    border-radius: 10px; padding: 20px 14px; box-shadow: 0 2px 6px rgba(74,53,36,.08);
+    cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .credit-card:hover {
+    transform: translateY(-3px); box-shadow: 0 8px 16px rgba(74,53,36,.16);
+  }
+  .credit-tap { font-size: .74rem; color: #9c5f2e; font-weight: 700; margin-top: 4px; }
+  .credit-photo {
+    width: 76px; height: 76px; border-radius: 50%; margin: 0 auto 14px;
+    background: linear-gradient(160deg, #d8c19a, #b98a52);
+    border: 1px solid rgba(74,53,36,.15);
+    display: flex; align-items: center; justify-content: center;
+    color: #6b3f1d; font-size: 1.2rem; overflow: hidden;
+  }
+  .credit-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .credit-role { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: #9c5f2e; font-weight: 700; margin-bottom: 4px; }
+  .credit-name { font-weight: 700; color: #3a2717; margin-bottom: 6px; font-size: .98rem; }
+  .credit-bio { font-size: .85rem; color: #7a5c40; line-height: 1.5; }
+
+  /* ---- Contributor bio modal ---- */
+  .book-modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(30,20,10,.55); backdrop-filter: blur(2px);
+    align-items: center; justify-content: center; padding: 24px;
+  }
+  .book-modal-overlay.open { display: flex; }
+  .book-modal {
+    position: relative; background: #fbf3e4; color: #4a3524;
+    border-radius: 14px; max-width: 420px; width: 100%;
+    padding: 34px 28px 28px; text-align: center;
+    box-shadow: 0 30px 60px -12px rgba(0,0,0,.5);
+  }
+  .book-modal-close {
+    position: absolute; top: 10px; right: 14px; background: none; border: none;
+    font-size: 1.4rem; color: #8a6d4d; cursor: pointer; line-height: 1;
+  }
+  .book-modal-close:hover { color: #4a3524; }
+  .book-modal-role { font-size: .78rem; text-transform: uppercase; letter-spacing: .1em; color: #9c5f2e; font-weight: 700; margin-bottom: 6px; }
+  .book-modal-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 14px; color: #3a2717; }
+  .book-modal-bio { font-size: .95rem; color: #6b4f37; line-height: 1.6; }
+
+
+  /* ---- Book teaser link (whole section acts as a card) ---- */
+  .book-teaser-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .book-teaser-link:hover { text-decoration: none; }
+
+  .book-visit-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #9c5f2e;
+    color: #fbf3e4;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 999px;
+    margin-top: 8px;
+    box-shadow: 0 8px 18px -6px rgba(156,95,46,.5);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .book-teaser-link:hover .book-visit-cta {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -6px rgba(156,95,46,.6);
+  }
+  .book-visit-cta i { transition: transform .2s ease; }
+  .book-teaser-link:hover .book-visit-cta i { transform: translateX(4px); }
+
+  .book-visit-note {
+    font-size: .85rem;
+    color: #7a5c40;
+    margin: 12px 0 0;
+    font-style: italic;
+  }
+
+  .book-teaser-link .book-spotlight {
+    transition: filter .25s ease;
+  }
+  .book-teaser-link:hover .book-spotlight {
+    filter: brightness(1.02);
+  }
+
+  @media (max-width: 700px) {
+    .navlinks { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-side { align-items: center; text-align: center; }
+    .social-col { align-items: center; }
+    .social-col a { justify-content: center; }
+    .two-col { grid-template-columns: 1fr; gap: 26px; }
+    .top-photos { gap: 12px; }
+    .top-photos img { width: 45%; height: 140px; }
+    .book-credits { grid-template-columns: 1fr; gap: 32px; }
+    .trilogy-books { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="navbar">
+    <div class="brand">
+      <img src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Kadam" />
+      <span>Prathamesh Kadam</span>
+    </div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#conferences">Conferences</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#presentations">Presentations</a>
+      <a href="https://comebackhome.com" target="_blank" rel="noopener noreferrer">Book ↗</a>
+      <a href="#topics">Topics</a>
+      <a href="#visitors">Visitors</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="theme-switch">
+      <button class="theme-toggle" id="themeToggle" aria-label="Change theme"><i class="fa-solid fa-palette"></i></button>
+      <div class="theme-menu" id="themeMenu">
+        <button data-theme-choice="navy"><span class="swatch" style="background:#050c18"></span> Dark Blue</button>
+        <button data-theme-choice="light"><span class="swatch" style="background:#f7f8fa"></span> Light</button>
+        <button data-theme-choice="black"><span class="swatch" style="background:#0a0a0c"></span> Black</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap" id="about">
+  <div class="top-photos">
+    <img src="telescope_photo_1.jpeg" alt="Prathamesh with telescope 1" />
+    <img src="telescope_photo_2.jpeg" alt="Prathamesh with telescope 2" />
+  </div>
+  <div class="about-grid">
+    <div class="about-side">
+      <img class="avatar" src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Sanjay Kadam" />
+      <div>
+        <h1>Prathamesh Sanjay Kadam</h1>
+        <div class="role">Computational Astrophysics Researcher</div>
+      </div>
+      <div class="affil">
+        <a href="https://www.iiap.res.in/" target="_blank" rel="noopener noreferrer">Indian Institute of Astrophysics</a><br>
+        <a href="https://www.ztf.caltech.edu/" target="_blank" rel="noopener noreferrer">ZTF Observational Facility, Caltech</a>
+      </div>
+      <nav class="social-col" aria-label="Social links">
+        <a href="https://scholar.google.com/citations?user=-WiJxUMAAAAJ&hl=en" target="_blank" rel="noopener noreferrer"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+        <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 512 512"><path d="M348.9 209.7c-12-23.1-23.6-25.3-33-25.3-12.9 0-19.7 7.9-19.7 19.5v132.7h-34.6v-195h27.3v19.9a39.28 39.28 0 0 1 35-19.6c18.8 0 35.6 13.2 45 38.7zM462.7 119.4l-47.4 82c6 1.4 13.8 4.5 13.8 16.1 0 17.7-20.3 21.2-29.9 21.2-38 0-62.3-42.9-62.3-96 0-41.7 19.5-84.2 83-84.2 66.9 0 82.8 54.9 82.3 75zM245.9 514.8c-69.1 0-127-57.3-127-128 0-59.7 43.4-110 101.9-124.8 7.9-1.8 3.2-4.4 3.2-4.4v-86.9h39.5v90.8c24-7.3 39.1-14 39.1-14v34.2c-21 8.1-36.1 21.8-36.1 21.8v43.4c0 21 4.9 45.9 18.6 61.2 5.4 7.1 13 14.3 26.3 21.1 42.2-40.3 65.1-89.9 65.1-144.9 0-113.5-88.2-206-196.8-206s-196.8 92.5-196.8 206 88.1 206 196.8 206c68.2.1 141-35.5 171.9-90.9l-32-15.3c-26.6 27-72.2 79.1-139.8 79.1z"/></svg>
+          ResearchGate
+        </a>
+        <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://www.instagram.com/prathameshk369/?igsh=NmVibG5rNWdnMTVw#" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+      </nav>
+    </div>
+
+    <div class="bio">
+      <p>My work sits at the intersection of observational astrophysics and machine learning: building graph neural networks to classify and sub-type supernovae, running radiative-transfer and hydrodynamical simulations to understand how stars live and die, and extracting cosmological signal from CMB and pulsar-timing datasets. I've used Bayesian neural networks to characterize black hole accretion flows, validated exoplanet candidates against Gaia data, and applied U-Net and ensemble models to classify sea-ice and atmospheric aerosols from satellite radar. Across these projects I move between Python, C++, and FORTRAN, and between tools like CMFGEN, GADGET, MESA, PyTorch, and PyTorch Geometric &mdash; work that has so far produced three journal papers, including one in <em>Nature Astronomy</em>.</p>
+
+      <div class="two-col">
+        <div>
+          <h3>Interests</h3>
+          <ul class="interest-list">
+            <li>Supernova spectroscopy &amp; classification</li>
+            <li>Deep learning for astronomical alert pipelines</li>
+            <li>Stellar evolution &amp; hydrodynamical simulation</li>
+            <li>Cosmology &amp; gravitational waves</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Education</h3>
+          <ul class="edu-list">
+            <li>
+              <div class="deg">Integrated MSc. Physics</div>
+              <div class="place">SVNIT, Surat</div>
+              <div class="yr">2021 &ndash; 2026 &middot; CGPA 9.09/10</div>
+            </li>
+            <li>
+              <div class="deg">BS Programming &amp; Data Science</div>
+              <div class="place">IIT Madras</div>
+              <div class="yr">2022 &ndash; 2024 &middot; CGPA 8.05/10</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="research">
+    <div class="section-head"><h2>Research Projects</h2></div>
+
+    <div class="group-label">Astrophysics, Exoplanets &amp; Stellar Physics</div>
+    <ul class="plain">
+      <li><strong>Deep learning based Photometric Classification of Strongly Gravitationally Lensed Superluminous Supernova SN2025wny at z = 2.01: Deploying a Fink Science Module for LSST Alert Pipelines</strong><br>Indian Institute of Astrophysics &amp; ZTF Observational Facility, Caltech &middot; Apr 2026 &ndash; Present</li>
+      <li><strong>Empirical relation and sub-classification of Type Iax Supernovae using GNN, 2m HCT &amp; GROWTH India Telescope</strong><br>Indian Institute of Astrophysics, Supernovae Explosion Group, Bangalore &middot; Aug 2025 &ndash; Mar 2026</li>
+      <li><strong>Type IIP Photospheric-Phase Supernova Spectroscopy with CMFGEN: UV&ndash;Optical Line Formation and Velocity Diagnostics</strong><br>DESY, Hamburg, Germany &middot; Feb 2025 &ndash; Mar 2025</li>
+      <li><strong>Observational study of stellar evolution and star-forming interstellar medium using MESA and hydrodynamical simulations</strong><br>Tata Institute of Fundamental Research (TIFR), Mumbai &middot; Jan 2024 &ndash; May 2024</li>
+      <li><strong>Multi-Parameter Characterisation of Accretion Flows Around Black Holes using GRMHD simulations and Bayesian Neural network</strong><br>National Institute of Technology Surat &middot; Jul 2023 &ndash; Dec 2023</li>
+      <li><strong>Validation of Transiting Exoplanets using Statistical Tools (VaTEST)</strong><br>National Institute of Technology Surat &middot; Feb 2023 &ndash; Apr 2023</li>
+      <li><strong>Transmission Spectroscopic analysis of Exoplanets Using JWST observations</strong><br>S.N. Bose National Centre for Basic Sciences, Kolkata &middot; Nov 2022 &ndash; Jan 2023</li>
+    </ul>
+
+    <div class="group-label">Cosmology &amp; Gravitational Waves</div>
+    <ul class="plain">
+      <li><strong>Analyzing Cosmological Phase Transitions: Detecting Gravitational Waves using 15-year NANOGrav Dataset</strong><br>National Institute of Technology, Surat &middot; Jan 2025 &ndash; May 2025</li>
+      <li><strong>Estimation of Cosmological Parameters Using CMB Angular Power Spectrum</strong><br>Indian Institute of Technology, Madras &middot; Dec 2023 &ndash; Jan 2024</li>
+    </ul>
+
+    <div class="group-label">Atmospheric &amp; Environmental Science</div>
+    <ul class="plain">
+      <li><strong>Classification of aerosols using Mahalanobis distance with ML and Deep Learning</strong><br>Indian Institute of Astrophysics, Sun and Solar System Research group, Bangalore &middot; Nov 2023 &ndash; Jan 2025</li>
+      <li><strong>Study and Analysis of Sea-Ice Characteristics of Polar Regions using Polarimetric Sentinel, EOS-4, and NovaSAR SAR Data</strong><br>International Project NISAR (NASA &amp; ISRO) &middot; May 2023 &ndash; Aug 2023</li>
+    </ul>
+  </section>
+
+  <section id="publications">
+    <div class="section-head"><h2>Publications</h2><span class="count">7</span></div>
+
+    <div class="card">
+      <div class="title">SN 2025qe: A case study of diversity in low-luminosity thermonuclear explosions</div>
+      <div class="meta">H. Das, A. Dutta, D. K. Sahu, G. C. Anupama, Prathamesh. S. Kadam, Vishwajeet Swain</div>
+      <div class="venue">Nature Astronomy (IF 14.3), Nature Portfolio &middot; 2026</div>
+    </div>
+
+    <div class="card">
+      <div class="title">Estimation of Empirical Formula and Spectral Clustering Classification using Graph Based Neural Network for Type Iax Supernovae</div>
+      <div class="meta">H. Das, Prathamesh . S. Kadam, A. Dutta, D. K. Sahu, M. Singh, G. C. Anupama</div>
+      <div class="venue">The Astrophysical Journal, American Astronomical Society &middot; 2026</div>
+    </div>
+
+    <div class="card">
+      <div class="title">Advance estimation of empirical relation and sub-classification of Type Iax Supernovae using GNN Model and Optical Observations of Type Iax SN2022eyw and SN2025qe</div>
+      <div class="meta">Prathamesh . S. Kadam, D. K. Sahu, G. C. Anupama &middot; Master Thesis &middot; 2026</div>
+      <div class="links"><a href="https://doi.org/10.13140/RG.2.2.35091.85285/1" target="_blank" rel="noopener noreferrer">DOI</a></div>
+    </div>
+
+    <div class="card">
+      <div class="title">Polar Sea-ice Characterization with AI-Based Integrated Model using SAR data</div>
+      <div class="meta">H. Priya S, Prathamesh . S. Kadam, D. Mishra, N. K. M</div>
+      <div class="venue">International Journal of Remote Sensing (Taylor &amp; Francis) &middot; 2025</div>
+      <div class="links"><a href="https://doi.org/10.13140/RG.2.2.10083.31523" target="_blank" rel="noopener noreferrer">DOI</a></div>
+    </div>
+
+    <div class="card">
+      <div class="title">Angular Power Spectrum of Cosmic Microwave Background: Analysis of PLANCK 2018 Data</div>
+      <div class="meta">Prathamesh . S. Kadam, M. K. Nandy &middot; 2024</div>
+      <div class="links"><a href="https://doi.org/10.13140/RG.2.2.33571.41769" target="_blank" rel="noopener noreferrer">DOI</a></div>
+    </div>
+
+    <div class="card">
+      <div class="title">Classification of Aerosols with a Machine Learning Algorithm</div>
+      <div class="meta">Prathamesh . S. Kadam, S. Ningombam, S. Mukhopadhyay, A. V. Amoghavarsha</div>
+      <div class="venue">Proceedings of IASTA National Aerosol Conference, Indian Meteorological Society &middot; 2024</div>
+      <div class="links"><a href="https://doi.org/10.21203/rs.3.rs-668194/v1" target="_blank" rel="noopener noreferrer">DOI</a></div>
+    </div>
+
+    <div class="card">
+      <div class="title">Classification of aerosols using machine learning algorithm in African region</div>
+      <div class="meta">Prathamesh . S. Kadam, S. Ningombam, S. Mukhopadhyay, A. V. Amoghavarsha</div>
+      <div class="venue">Proceedings of TROPMET National Symposium, Institute of Tropical Meteorology &middot; 2024</div>
+      <div class="links"><a href="https://www.researchgate.net/publication/394794637_Classification_of_Aerosols_using_machine_learning_for_African_continent" target="_blank" rel="noopener noreferrer">DOI</a></div>
+    </div>
+  </section>
+
+  <section id="conferences">
+    <div class="section-head"><h2>Conferences &amp; Seminars</h2></div>
+    <ul class="plain">
+      <li><strong>IAU Symposium 406</strong> &mdash; Future landscape of astrophysical transients, Turku, Finland (May 18&ndash;22, 2026). Oral: &ldquo;Bridging the Iax Luminosity Spectrum&rdquo;.</li>
+      <li><strong>IMS National Symposium (TROPMET 2024)</strong>, NIT Rourkela (Dec 10&ndash;12, 2024). Oral: &ldquo;Classification of aerosols&hellip;in African Region&rdquo;.</li>
+      <li><strong>IASTA National Conference 2024</strong>, ARIES Nainital &amp; Doon University (Dec 17&ndash;20, 2024). 1st Prize, Oral presentation.</li>
+      <li><strong>Overview of Space Science</strong>, ISRO, India (Jul 5, 2023).</li>
+      <li><strong>Kavli Asian Winter School on Strings, Particles and Cosmology</strong>, Institute for Basic Science, Daejeon, Korea (Jan 9&ndash;18, 2023).</li>
+      <li><strong>Conference on Gravitational Physics and Cosmology</strong>, CERN, Cairo (Dec 4&ndash;9, 2022).</li>
+      <li><strong>Workshop on Exoplanet Science</strong>, NASA Exoplanet Science Institute, Caltech (Jul 25&ndash;29, 2022).</li>
+    </ul>
+  </section>
+
+  <section id="skills">
+    <div class="section-head"><h2>Skills</h2></div>
+    <div class="skill-block">
+      <div class="label">Programming</div>
+      <div class="chip-row">
+        <span class="chip">Python</span><span class="chip">C/C++</span><span class="chip">FORTRAN</span>
+        <span class="chip">SQLite</span><span class="chip">Machine Learning</span><span class="chip">Deep Learning</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="label">Tools &amp; Software</div>
+      <div class="chip-row">
+        <span class="chip">CMFGEN</span><span class="chip">GADGET-2</span><span class="chip">GADGET-4</span>
+        <span class="chip">Gaia DR3 Tools</span><span class="chip">MESA</span><span class="chip">AstroPy</span>
+        <span class="chip">Jupyter</span><span class="chip">SNAP</span><span class="chip">GitHub</span>
+        <span class="chip">LaTeX</span><span class="chip">MATLAB</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="label">Soft Skills</div>
+      <div class="chip-row">
+        <span class="chip">Time Management</span><span class="chip">Teamwork</span><span class="chip">Problem-Solving</span>
+        <span class="chip">Presentation</span><span class="chip">Documentation</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-head"><h2>Experience</h2></div>
+    <div class="two-col">
+      <div>
+        <h3>Telescope Experience</h3>
+        <ul class="interest-list">
+          <li>Zwicky Transient Facility (ZTF)</li>
+          <li>2m HCT Telescope, Hanle, India</li>
+          <li>GROWTH India Telescope</li>
+          <li>Thirty Meter Telescope (TMT)</li>
+          <li>James Webb Space Telescope (JWST)</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Satellite Experience</h3>
+        <ul class="interest-list">
+          <li>NISAR (NASA&ndash;ISRO)</li>
+          <li>Sentinel-1</li>
+          <li>EOS-4</li>
+          <li>NovaSAR</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="group-label" style="margin-top:32px;">Achievements</div>
+    <ul class="plain">
+      <li>Qualified the qualifier level of the International Astronomy and Astrophysics Competition (IAAC)</li>
+      <li>Participated as a National Level Debater at New Delhi, in the presence of Indian Cabinet Ministers</li>
+      <li>Represented Gujarat as a National Level Chess Player at the 48th National KVS Sports Meet</li>
+      <li>Ranked 4th in school-level International Mathematical Olympiad</li>
+    </ul>
+  </section>
+
+  <section id="presentations">
+    <div class="section-head"><h2>Recent &amp; Upcoming Presentations</h2></div>
+    <div class="card">
+      <div class="title">Graph based Neural Network-Real-Time Classification of Transient Alerts for the LSST Era: A Fink Science Module on the ZTF Alert Stream</div>
+      <div class="meta">Prathamesh . S. Kadam</div>
+      <div class="venue">Proceedings of TROPMET National Symposium, Institute of Tropical Meteorology &middot; 2024</div>
+      <div class="links"><a href="https://www.researchgate.net/publication/394794637_Classification_of_Aerosols_using_machine_learning_for_African_continent" target="_blank" rel="noopener noreferrer">DOI</a></div>
+    </div>
+  </section>
+
+  <section id="book" class="full-bleed">
+    <a href="https://comebackhome.com" target="_blank" rel="noopener noreferrer" class="book-teaser-link">
+      <div class="book-spotlight">
+        <div class="inner">
+          <div class="book-eyebrow">Part One of The Home Trilogy</div>
+  
+          <div class="book-cover">
+            <img src="photo_2026-09-30 13.50.38.jpeg" alt="Come Back Home — book cover">
+          </div>
+          <div class="shelf-ledge"></div>
+  
+          <h2 class="book-title">Come Back Home</h2>
+          <p class="book-tagline">When everything is lost, where are you found?</p>
+  
+          <div class="book-meta">
+            <span><strong>ISBN</strong>978-93-6012-157-0</span>
+            <span><strong>Series</strong>Book 1 of 3 · The Home Trilogy</span>
+          </div>
+  
+          <div class="book-visit-cta">
+            Visit the book site <i class="fa-solid fa-arrow-right"></i>
+          </div>
+          <p class="book-visit-note">Synopsis, buy links, trilogy info &amp; contributor bios →</p>
+        </div>
+      </div>
+    </a>
+  </section>
+
+  <section id="topics">
+    <div class="section-head"><h2>Topics</h2></div>
+    <div class="chip-row">
+      <span class="chip">Supernovae</span><span class="chip">Deep Learning</span>
+      <span class="chip">Graph Neural Networks</span><span class="chip">Stellar Evolution</span>
+      <span class="chip">GRMHD Simulations</span><span class="chip">Cosmology</span>
+      <span class="chip">Gravitational Waves</span><span class="chip">Exoplanets</span>
+      <span class="chip">Spectroscopy</span><span class="chip">Remote Sensing</span>
+      <span class="chip">SAR Data</span><span class="chip">Aerosol Classification</span>
+    </div>
+  </section>
+
+  <section id="visitors">
+    <div class="section-head"><h2>Visitors</h2></div>
+    <p class="lead">Readers of my work, by country:</p>
+    <a href="https://info.flagcounter.com/3OUj"><img src="https://s05.flagcounter.com/count/3OUj/bg_FFFFFF/txt_000000/border_CCCCCC/columns_5/maxflags_12/viewers_0/labels_0/pageviews_0/flags_0/percent_1/" alt="Flag Counter" border="0"></a>
+  </section>
+
+  <section id="contact">
+    <div class="section-head"><h2>Contact</h2></div>
+    <ul class="contact-list">
+      <li><i class="fa-solid fa-envelope"></i> <a href="mailto:kprathamesh02d@gmail.com">kprathamesh02d@gmail.com</a> &middot; <a href="mailto:kprathamesh082@gmail.com">kprathamesh082@gmail.com</a></li>
+      <li><i class="fa-solid fa-globe"></i> <a href="https://prathamesh-kadam.github.io/" target="_blank" rel="noopener noreferrer">prathamesh-kadam.github.io</a></li>
+      <li><i class="fa-brands fa-linkedin-in"></i> <a href="https://linkedin.com/in/prathamesh-kadam-33882722b" target="_blank" rel="noopener noreferrer">linkedin.com/in/prathamesh-kadam-33882722b</a></li>
+      <li><i class="fa-solid fa-graduation-cap"></i> <a href="https://www.researchgate.net/profile/Prathamesh-Kadam-5" target="_blank" rel="noopener noreferrer">researchgate.net/profile/Prathamesh-Kadam-5</a></li>
+      <li><i class="fa-brands fa-github"></i> <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener noreferrer">github.com/Prathamesh-kadam</a></li>
+      <li><i class="fa-brands fa-instagram"></i> <a href="https://www.instagram.com/prathameshk369/?igsh=NmVibG5rNWdnMTVw#" target="_blank" rel="noopener noreferrer">instagram.com/prathameshk369</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>&copy; 2026 Prathamesh Sanjay Kadam</footer>
+
+<script>
+  const root = document.documentElement;
+  const toggleBtn = document.getElementById('themeToggle');
+  const menu = document.getElementById('themeMenu');
+  const choices = menu.querySelectorAll('button[data-theme-choice]');
+
+  const saved = localStorage.getItem('theme') || 'light';
+  root.setAttribute('data-theme', saved);
+
+  function markActive() {
+    const current = root.getAttribute('data-theme');
+    choices.forEach(b => b.classList.toggle('active', b.dataset.themeChoice === current));
+  }
+  markActive();
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu.classList.toggle('open');
+  });
+  document.addEventListener('click', () => menu.classList.remove('open'));
+
+  choices.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const theme = btn.dataset.themeChoice;
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      markActive();
+      menu.classList.remove('open');
+    });
+  });
+
+  /* ---- Single-section view: only one section visible at a time ---- */
+  const sectionIds = ['about','research','publications','conferences','skills','experience','presentations','book','topics','visitors','contact'];
+  const navAnchors = document.querySelectorAll('.navlinks a');
+
+  function showSection(id) {
+    if (!sectionIds.includes(id)) id = 'about';
+    sectionIds.forEach(sid => {
+      const el = document.getElementById(sid);
+      if (el) el.style.display = (sid === id) ? '' : 'none';
+    });
+    navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }
+
+  navAnchors.forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      showSection(id);
+      history.replaceState(null, '', '#' + id);
+    });
+  });
+
+  const startId = (location.hash || '#about').slice(1);
+  showSection(startId);
+
+  /* ---- Book contributor modal ---- */
+  const bookOverlay = document.getElementById('bookModalOverlay');
+  const modalRole = document.getElementById('modalRole');
+  const modalName = document.getElementById('modalName');
+  const modalBio = document.getElementById('modalBio');
+
+  document.querySelectorAll('.credit-card').forEach(card => {
+    card.addEventListener('click', () => {
+      modalRole.innerHTML = card.dataset.role;
+      modalName.textContent = card.dataset.name;
+      modalBio.innerHTML = card.dataset.bio;
+      bookOverlay.classList.add('open');
+    });
+  });
+  document.getElementById('bookModalClose').addEventListener('click', () => bookOverlay.classList.remove('open'));
+  bookOverlay.addEventListener('click', (e) => { if (e.target === bookOverlay) bookOverlay.classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') bookOverlay.classList.remove('open'); });
+</script>
+
+</body>
+</html>
