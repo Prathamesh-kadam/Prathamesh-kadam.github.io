@@ -209,21 +209,20 @@
     color: #9c5f2e; font-weight: 700; margin-bottom: 22px;
   }
   .book-cover {
-    width: 200px; margin: 0 auto 20px;
-    border-radius: 3px;
+    width: 300px; margin: 0 auto 20px;
+    border-radius: 6px;
     box-shadow: 0 22px 40px -14px rgba(60,38,17,.45), 0 4px 10px rgba(60,38,17,.2);
     aspect-ratio: 2 / 3;
-    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
     background: linear-gradient(160deg, #8a5a34, #5c3a20);
-    padding: 20px;
     transform: rotate(-7deg);
     transition: transform .35s ease;
   }
   .book-cover:hover { transform: rotate(-2deg) translateY(-4px); }
-  .book-cover img { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; }
+  .book-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .book-cover .cover-placeholder { color: #f0e0c4; font-size: 1rem; line-height: 1.4; }
   .shelf-ledge {
-    width: 260px; height: 14px; margin: 0 auto 30px;
+    width: 340px; height: 14px; margin: 0 auto 30px;
     background: linear-gradient(180deg, #b98a52, #8a5f34);
     border-radius: 2px;
     box-shadow: 0 6px 10px -4px rgba(60,38,17,.35);
@@ -263,7 +262,25 @@
     background: transparent; color: #6b4f37; border: 1px solid rgba(74,53,36,.3); box-shadow: none;
   }
   .book-buy a:hover { opacity: .88; text-decoration: none; }
-  .book-more-note { font-size: .82rem; color: #8a6d4d; font-style: italic; margin-top: 6px; }
+
+  .trilogy-teaser { margin-top: 38px; }
+  .trilogy-teaser-label {
+    font-size: .78rem; text-transform: uppercase; letter-spacing: .14em;
+    color: #9c5f2e; font-weight: 700; margin-bottom: 14px;
+  }
+  .trilogy-books {
+    display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+  }
+  .trilogy-book {
+    background: rgba(255,255,255,.4); border: 1px solid rgba(74,53,36,.15);
+    border-radius: 10px; padding: 12px 18px; min-width: 140px;
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .trilogy-book.done { background: #9c5f2e; border-color: #9c5f2e; }
+  .trilogy-book.done .tb-num, .trilogy-book.done .tb-title, .trilogy-book.done .tb-status { color: #fbf3e4; }
+  .tb-num { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: #9c5f2e; font-weight: 700; }
+  .tb-title { font-weight: 700; font-size: .98rem; color: #3a2717; }
+  .tb-status { font-size: .76rem; font-style: italic; color: #8a6d4d; }
 
   .book-credits {
     max-width: 800px; margin: 52px auto 0; padding-top: 40px;
@@ -323,6 +340,7 @@
     .top-photos { gap: 12px; }
     .top-photos img { width: 45%; height: 140px; }
     .book-credits { grid-template-columns: 1fr; gap: 32px; }
+    .trilogy-books { flex-direction: column; align-items: center; }
   }
 </style>
 </head>
@@ -612,18 +630,37 @@
           <a href="#" target="_blank" rel="noopener noreferrer">Buy Now</a>
           <a href="#" target="_blank" rel="noopener noreferrer" class="secondary">More Retailers</a>
         </div>
-        <p class="book-more-note">More books in The Home Trilogy &mdash; coming soon.</p>
+        <div class="trilogy-teaser">
+          <div class="trilogy-teaser-label">The Home Trilogy</div>
+          <div class="trilogy-books">
+            <div class="trilogy-book done">
+              <span class="tb-num">Book 1</span>
+              <span class="tb-title">Come Back Home</span>
+              <span class="tb-status">Available Now</span>
+            </div>
+            <div class="trilogy-book">
+              <span class="tb-num">Book 2</span>
+              <span class="tb-title">Back Home</span>
+              <span class="tb-status">Coming Soon</span>
+            </div>
+            <div class="trilogy-book">
+              <span class="tb-num">Book 3</span>
+              <span class="tb-title">Home</span>
+              <span class="tb-status">Coming Soon</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="book-credits">
         <div class="credit-card" data-role="Author" data-name="Krystal Green" data-bio="Author bio coming soon.">
-          <div class="credit-photo"><i class="fa-solid fa-pen-nib"></i></div>
+          <div class="credit-photo"><img src="photo_2026-09-30 14.27.08.jpeg" alt="Krystal Green"></div>
           <div class="credit-role">Author</div>
           <div class="credit-name">Krystal Green</div>
           <div class="credit-tap">Tap to view &rsaquo;</div>
         </div>
         <div class="credit-card" data-role="Editor" data-name="Prathamesh S. Kadam" data-bio="Prathamesh edited and typeset Come Back Home. By day he researches supernovae and machine learning in astrophysics &mdash; by night, he shapes stories into their final form.">
-          <div class="credit-photo"><i class="fa-solid fa-book-open"></i></div>
+          <div class="credit-photo"><img src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh S. Kadam"></div>
           <div class="credit-role">Editor</div>
           <div class="credit-name">Prathamesh S. Kadam</div>
           <div class="credit-tap">Tap to view &rsaquo;</div>
