@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="navy">
+<html lang="en" data-theme="black">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -11,7 +11,7 @@
 
 <style>
   /* Default theme: Dark Blue (navy) */
-  html[data-theme="navy"] {
+  :root, html[data-theme="navy"] {
     --bg: #050c18;
     --bg-alt: #08101f;
     --card: #0b1526;
@@ -37,7 +37,7 @@
     --chip: #eef0f3;
     --shadow: 0 1px 2px rgba(20,24,31,.04);
   }
-  :root, html[data-theme="black"] {
+  html[data-theme="black"] {
     --bg: #0a0a0c;
     --bg-alt: #111113;
     --card: #17171b;
@@ -81,6 +81,7 @@
   .navlinks { display: flex; gap: 22px; flex-wrap: wrap; }
   .navlinks a { color: var(--ink-soft); font-size: .92rem; font-weight: 500; }
   .navlinks a:hover { color: var(--accent); text-decoration: none; }
+  .navlinks a.active { color: var(--accent); font-weight: 700; }
   .theme-switch { position: relative; }
   .theme-toggle {
     border: 1px solid var(--line); background: var(--card); color: var(--ink-soft);
@@ -220,11 +221,10 @@
       <a href="#about">About</a>
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
-      <a href="#presentations">Presentations</a>
       <a href="#conferences">Conferences</a>
       <a href="#skills">Skills</a>
       <a href="#experience">Experience</a>
-    
+      <a href="#presentations">Presentations</a>
       <a href="#topics">Topics</a>
       <a href="#visitors">Visitors</a>
       <a href="#contact">Contact</a>
@@ -270,7 +270,7 @@
     </div>
 
     <div class="bio">
-      <p>My work sits at the intersection of observational astrophysics and machine learning: building graph neural networks to classify and sub-type supernovae, running radiative-transfer and hydrodynamical simulations to understand how stars live and die, and extracting cosmological signal from CMB and pulsar-timing datasets. I've used Bayesian neural networks to characterize black hole accretion flows, validated exoplanet candidates against Gaia data, and applied U-Net and ensemble models to classify sea-ice and atmospheric aerosols from satellite radar. Across these projects I move between Python, C++, and FORTRAN, and between tools like CMFGEN, GADGET, MESA, PyTorch, and PyTorch Geometric — work that has so far produced three journal papers, including one in Nature Astronomy.</p>
+      <p>My work sits at the intersection of observational astrophysics and machine learning: building graph neural networks to classify and sub-type supernovae, running radiative-transfer and hydrodynamical simulations to understand how stars live and die, and extracting cosmological signal from CMB and pulsar-timing datasets. I've used Bayesian neural networks to characterize black hole accretion flows, validated exoplanet candidates against Gaia data, and applied U-Net and ensemble models to classify sea-ice and atmospheric aerosols from satellite radar. Across these projects I move between Python, C++, and FORTRAN, and between tools like CMFGEN, GADGET, MESA, PyTorch, and PyTorch Geometric &mdash; work that has so far produced three journal papers, including one in <em>Nature Astronomy</em>.</p>
 
       <div class="two-col">
         <div>
@@ -349,7 +349,7 @@
     <div class="card">
       <div class="title">Advance estimation of empirical relation and sub-classification of Type Iax Supernovae using GNN Model and Optical Observations of Type Iax SN2022eyw and SN2025qe</div>
       <div class="meta">P. S. Kadam, D. K. Sahu, G. C. Anupama &middot; Master Thesis &middot; 2026</div>
-      <div class="links"><a href="https://doi.org/10.13140/RG.2.2.35091.85285/1" target="_blank" rel="noopener noreferrer">DOI</a></div>
+      <div class="links"><a href="https://doi.org/10.13140/RG.2.2.35091.85285" target="_blank" rel="noopener noreferrer">DOI</a></div>
     </div>
 
     <div class="card">
@@ -376,25 +376,9 @@
       <div class="title">Classification of aerosols using machine learning algorithm in African region</div>
       <div class="meta">P. S. Kadam, S. Ningombam, S. Mukhopadhyay, A. V. Amoghavarsha</div>
       <div class="venue">Proceedings of TROPMET National Symposium, Institute of Tropical Meteorology &middot; 2024</div>
-      <div class="links"><a href="https://www.researchgate.net/publication/394794637_Classification_of_Aerosols_using_machine_learning_for_African_continent?_sg%5B0%5D=8TnDqkoAtuBbBYVCyGiphnRSGbxcb3uimQCapTWAHAH8Eju0vQrf0AhuamXsgkX0Mvvo8G6IsAPu5pvvJQNQs6hOkkn6q5c22u2oupTJ.hZKSj1nagp1rzFRvwYZxH7vF6JC_6cK5-2tRWqVpgt3dSSaTD-nqnG8npDBtKx1o9Fr6IEBfY1qQalM-9YBFIQ&_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6Il9kaXJlY3QiLCJwYWdlIjoicHJvZmlsZSIsInByZXZpb3VzUGFnZSI6InByb2ZpbGUiLCJwb3NpdGlvbiI6InBhZ2VDb250ZW50In19" target="_blank" rel="noopener noreferrer">DOI</a></div>
-    </div>
     </div>
   </section>
 
-  <section id="presentations">
-    <div class="section-head"><h2>Recent &amp; Upcoming Presentations</h2></div>
-    <p class="lead" style="color:var(--muted); font-size:.93rem;">Talks and presentations will be listed here.</p>
-    <ul class="plain">
-      
-      <div class="title">Graph based Neural Network-Real-Time Classification of Transient Alerts for the LSST Era: A Fink Science Module on the ZTF Alert Stream</div>
-      <div class="meta">Prathamesh S. Kadam</div>
-      <div class="venue">4th Young Astrophysicists of Today’s India (YATI4), ICSP, Kolkata, India &middot; Oct 2026</div>
-      <div class="links"><a href="https://www.researchgate.net/publication/414930460_Graph_based_Neural_Network-Real-Time_Classification_of_Transient_Alerts_for_the_LSST_Era_A_Fink_Science_Module_on_the_ZTF_Alert_Stream" target="_blank" rel="noopener noreferrer">DOI</a></div>
-    </div>
-      -->
-    </ul>
-  </section>
-  
   <section id="conferences">
     <div class="section-head"><h2>Conferences &amp; Seminars</h2></div>
     <ul class="plain">
@@ -468,6 +452,16 @@
     </ul>
   </section>
 
+  <section id="presentations">
+    <div class="section-head"><h2>Recent &amp; Upcoming Presentations</h2></div>
+    <p class="lead" style="color:var(--muted); font-size:.93rem;">Talks and presentations will be listed here.</p>
+    <ul class="plain">
+      <!-- Add presentation entries here, e.g.:
+      <li><strong>Talk title</strong><br>Venue, Location &middot; Date</li>
+      -->
+    </ul>
+  </section>
+
   <section id="topics">
     <div class="section-head"><h2>Topics</h2></div>
     <div class="chip-row">
@@ -508,7 +502,7 @@
   const menu = document.getElementById('themeMenu');
   const choices = menu.querySelectorAll('button[data-theme-choice]');
 
-  const saved = localStorage.getItem('theme') || 'navy';
+  const saved = localStorage.getItem('theme') || 'black';
   root.setAttribute('data-theme', saved);
 
   function markActive() {
@@ -532,6 +526,32 @@
       menu.classList.remove('open');
     });
   });
+
+  /* ---- Single-section view: only one section visible at a time ---- */
+  const sectionIds = ['about','research','publications','conferences','skills','experience','presentations','topics','visitors','contact'];
+  const navAnchors = document.querySelectorAll('.navlinks a');
+
+  function showSection(id) {
+    if (!sectionIds.includes(id)) id = 'about';
+    sectionIds.forEach(sid => {
+      const el = document.getElementById(sid);
+      if (el) el.style.display = (sid === id) ? '' : 'none';
+    });
+    navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+  }
+
+  navAnchors.forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      showSection(id);
+      history.replaceState(null, '', '#' + id);
+    });
+  });
+
+  const startId = (location.hash || '#about').slice(1);
+  showSection(startId);
 </script>
 
 </body>
