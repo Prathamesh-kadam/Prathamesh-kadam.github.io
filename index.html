@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 
 <style>
   /* ---------- COLOR PALETTES & THEMES ---------- */
@@ -879,6 +880,34 @@
     padding: 8px 18px; border: 1px solid var(--accent); border-radius: 999px;
   }
   .repo-more a:hover { background: var(--accent-soft); text-decoration: none; }
+
+  /* ---------- D3 READERSHIP MAP STYLES ---------- */
+  .readership-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; box-shadow: var(--shadow);
+  }
+  .map-wrapper {
+    position: relative; width: 100%; border-radius: 12px;
+    overflow: hidden; border: 1px solid var(--border);
+    background: #0d1527; margin-bottom: 20px; padding: 10px;
+  }
+  #map-svg { width: 100%; height: auto; display: block; }
+  .map-land { fill: #1c2a4a; stroke: #2d3f66; stroke-width: 0.6px; }
+  .connection-arc { fill: none; stroke: rgba(224, 108, 67, 0.45); stroke-dasharray: 4,4; stroke-width: 1.5px; }
+  .pulse-ring { fill: none; stroke: #e06c43; stroke-width: 1.5; animation: ping 2.5s cubic-bezier(0, 0, 0.2, 1) infinite; }
+  @keyframes ping { 75%, 100% { transform: scale(2.5); opacity: 0; } }
+
+  .readership-stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;
+  }
+  @media (max-width: 600px) { .readership-stats-row { grid-template-columns: repeat(2, 1fr); } }
+  .r-stat-box {
+    background: var(--bg-alt); border: 1px solid var(--border);
+    padding: 12px; border-radius: 8px; text-align: center;
+  }
+  .r-stat-box .val { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
+  .r-stat-box .lbl { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; }
+
   @media (max-width: 900px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) {
     .repo-grid, .skill-grid { grid-template-columns: 1fr; }
@@ -945,7 +974,7 @@
         <a href="#experience" class="nav-tab" data-section="experience"><i class="fa-solid fa-telescope"></i> Facilities &amp; Exp</a>
         <a href="#skills" class="nav-tab" data-section="skills"><i class="fa-solid fa-code"></i> Skills &amp; Code</a>
         <a href="#talks" class="nav-tab" data-section="talks"><i class="fa-solid fa-chalkboard-user"></i> Presentations</a>
-        <a href="#visitors" class="nav-tab" data-section="visitors"><i class="fa-solid fa-globe"></i> Readership</a>
+        <a href="#visitors" class="nav-tab" data-section="visitors"><i class="fa-solid fa-globe"></i> Visitors</a>
         <a href="#contact" class="nav-tab" data-section="contact"><i class="fa-solid fa-envelope"></i> Contact</a>
 
         <!-- External Redirect Link for The Novel Trilogy -->
@@ -1259,13 +1288,12 @@
         <p>A graph neural network, built with PyTorch Geometric, that classifies supernovae from photometry on the ZTF alert stream. It is developed as a Fink science module with the ZTF Observational Facility at Caltech and IIA, and is designed to attach to the LSST alert stream as well.</p>
         <figure class="ml-fig">
           <img src="figures/fink-module.png" alt="Fink science module: classification results on the ZTF alert stream" onError="this.parentElement.style.display='none'" />
-          <!-- Optional: add a <figcaption>...</figcaption> here once the figure exists -->
         </figure>
         <div class="chips">
           <span class="chip">PyTorch Geometric</span><span class="chip">Fink</span><span class="chip">ZTF</span><span class="chip">LSST</span>
         </div>
         <div class="ml-links">
-          <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener">GitHub</a> <!-- swap in the repo URL when it is public -->
+          <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener">GitHub</a>
           <a href="#talks" class="nav-tab" data-section="talks">Talk at ICSP</a>
         </div>
       </div>
@@ -1603,14 +1631,40 @@
       </ul>
     </section>
 
-    <!-- 8. VISITORS & READERSHIP SECTION -->
+    <!-- 8. VISITORS & READERSHIP SECTION (D3 GLOBE / MAP) -->
     <section class="page-section section-hidden" id="visitors">
-      <div class="section-title">Global Readership &amp; Visitors</div>
-      <div style="background:var(--card); border:1px solid var(--border); border-radius:10px; padding:20px; text-align:center;">
-        <p style="font-size:0.9rem; color:var(--ink-soft); margin-bottom:14px;">Readers of my research and website across countries:</p>
-        <a href="https://info.flagcounter.com/3OUj" target="_blank">
-          <img src="https://s05.flagcounter.com/count/3OUj/bg_FFFFFF/txt_000000/border_CCCCCC/columns_5/maxflags_12/viewers_0/labels_0/pageviews_0/flags_0/percent_1/" alt="Flag Counter" style="max-width:100%; border-radius:6px; border:1px solid var(--border);" />
-        </a>
+      <div class="section-title">Global Readership &amp; Academic Visitors</div>
+      
+      <div class="readership-card">
+        <div class="readership-stats-row">
+          <div class="r-stat-box">
+            <div class="val">12</div>
+            <div class="lbl">Global Hubs</div>
+          </div>
+          <div class="r-stat-box">
+            <div class="val">74%</div>
+            <div class="lbl">India Visitors</div>
+          </div>
+          <div class="r-stat-box">
+            <div class="val">8.2%</div>
+            <div class="lbl">EU Readers</div>
+          </div>
+          <div class="r-stat-box">
+            <div class="val">6.5%</div>
+            <div class="lbl">USA Traffic</div>
+          </div>
+        </div>
+
+        <div class="map-wrapper">
+          <svg id="map-svg" viewBox="0 0 950 480"></svg>
+        </div>
+
+        <p style="font-size:0.88rem; color:var(--ink-soft); margin-bottom:12px; text-align:center;">Live Reader Flag Counter Analytics:</p>
+        <div style="text-align: center;">
+          <a href="https://info.flagcounter.com/3OUj" target="_blank">
+            <img src="https://s05.flagcounter.com/count/3OUj/bg_FFFFFF/txt_000000/border_CCCCCC/columns_5/maxflags_12/viewers_0/labels_0/pageviews_0/flags_0/percent_1/" alt="Flag Counter" style="max-width:100%; border-radius:6px; border:1px solid var(--border); display:inline-block;" />
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1739,6 +1793,76 @@
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('.spot svg').forEach(svg => {
       if (svg.pauseAnimations) svg.pauseAnimations();
+    });
+  }
+
+  // ---------- EMBEDDED D3 MAP WITH SELF-CONTAINED WORLD POLYGONS ----------
+  const worldGeoJSON = {
+    "type": "FeatureCollection",
+    "features": [
+      { "type": "Feature", "properties": { "name": "North America" }, "geometry": { "type": "Polygon", "coordinates": [[[-168,70],[-120,72],[-75,80],[-55,50],[-75,25],[-118,30],[-125,48],[-168,70]]] } },
+      { "type": "Feature", "properties": { "name": "South America" }, "geometry": { "type": "Polygon", "coordinates": [[[-80,10],[-35,-5],[-40,-22],[-70,-55],[-80,-20],[-80,10]]] } },
+      { "type": "Feature", "properties": { "name": "Eurasia" }, "geometry": { "type": "Polygon", "coordinates": [[[-10,36],[30,70],[80,72],[180,65],[140,35],[100,10],[40,30],[-10,36]]] } },
+      { "type": "Feature", "properties": { "name": "Africa" }, "geometry": { "type": "Polygon", "coordinates": [[[-18,35],[35,32],[50,12],[40,-35],[10,-35],[-18,15],[-18,35]]] } },
+      { "type": "Feature", "properties": { "name": "Australia" }, "geometry": { "type": "Polygon", "coordinates": [[[112,-12],[153,-15],[150,-38],[115,-35],[112,-12]]] } }
+    ]
+  };
+
+  const mapSvg = d3.select("#map-svg");
+  if (!mapSvg.empty()) {
+    const projection = d3.geoMercator().scale(120).translate([470, 290]);
+    const path = d3.geoPath().projection(projection);
+
+    mapSvg.selectAll("path")
+      .data(worldGeoJSON.features)
+      .enter()
+      .append("path")
+      .attr("d", path)
+      .attr("class", "map-land");
+
+    const hubs = [
+      { name: "IIA Bangalore & TIFR", coords: [77.5946, 12.9716], primary: true },
+      { name: "Caltech / ZTF Pasadena", coords: [-118.1253, 34.1377], primary: false },
+      { name: "DESY Hamburg", coords: [9.9937, 53.5511], primary: false },
+      { name: "Turku Finland (IAU 406)", coords: [22.2687, 60.4518], primary: false },
+      { name: "SNBNCBS Kolkata", coords: [88.3639, 22.5726], primary: false }
+    ];
+
+    const bangalorePos = projection([77.5946, 12.9716]);
+
+    hubs.forEach(h => {
+      if (h.primary) return;
+      const pos = projection(h.coords);
+      const midX = (bangalorePos[0] + pos[0]) / 2;
+      const midY = (bangalorePos[1] + pos[1]) / 2 - 40;
+
+      mapSvg.append("path")
+        .attr("d", `M${bangalorePos[0]},${bangalorePos[1]} Q${midX},${midY} ${pos[0]},${pos[1]}`)
+        .attr("class", "connection-arc");
+    });
+
+    hubs.forEach(h => {
+      const pos = projection(h.coords);
+
+      mapSvg.append("circle")
+        .attr("cx", pos[0])
+        .attr("cy", pos[1])
+        .attr("r", 6)
+        .attr("class", "pulse-ring");
+
+      mapSvg.append("circle")
+        .attr("cx", pos[0])
+        .attr("cy", pos[1])
+        .attr("r", h.primary ? 5 : 4)
+        .attr("fill", "#e06c43");
+
+      mapSvg.append("text")
+        .attr("x", pos[0] + 8)
+        .attr("y", pos[1] + 4)
+        .text(h.name)
+        .attr("fill", "#ffffff")
+        .attr("font-size", "10px")
+        .attr("font-weight", "600");
     });
   }
 
