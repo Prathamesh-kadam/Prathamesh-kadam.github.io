@@ -560,6 +560,187 @@
     text-decoration: none;
   }
 
+  /* ---------- HOME SPOTLIGHT: LENSED SUPERNOVA ---------- */
+  .spot {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow);
+  }
+  .spot-headline {
+    font-size: 1.75rem;
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .spot-sub {
+    font-size: 0.97rem;
+    color: var(--ink-soft);
+    margin-bottom: 16px;
+    max-width: 62ch;
+  }
+  .spot-sky {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #0a0f24;
+    line-height: 0;
+  }
+  .spot-sky svg { width: 100%; height: auto; display: block; }
+  .spot-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    margin: 10px 0 16px;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .spot-legend span::before {
+    content: "";
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-right: 6px;
+    background: var(--dot, #ffd27a);
+  }
+  .spot-row {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .spot-inset {
+    flex: 0 0 120px;
+    line-height: 0;
+  }
+  .spot-inset svg {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .spot-inset small {
+    display: block;
+    margin-top: 6px;
+    line-height: 1.3;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  .spot-facts {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .spot-facts strong {
+    display: block;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .spot-proof { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .spot-proof a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-alt);
+    color: var(--ink-soft);
+  }
+  .spot-proof a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+  .spot-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+  .spot-cta a {
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
+  }
+  .spot-cta a.primary { background: var(--accent); color: #ffffff; }
+  .spot-cta a.primary:hover { background: var(--accent-hover); text-decoration: none; }
+  .spot-cta a.ghost:hover { background: var(--accent-soft); text-decoration: none; }
+
+  .sky-title { font-size: 1rem; margin: 20px 0 10px; }
+  .sky-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .sky-grid figure {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .sky-grid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    background: #0a0f24;
+  }
+  .sky-grid figcaption {
+    padding: 8px 10px 10px;
+    font-size: 0.74rem;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+  .sky-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 0.8rem; }
+
+  /* ---------- FEATURED RESEARCH STRIP ---------- */
+  .feat-title { font-size: 1.15rem; margin: 4px 0 12px; }
+  .feat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .feat-card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+    color: var(--ink-soft);
+  }
+  .feat-card:hover { text-decoration: none; border-color: var(--accent); }
+  .feat-card strong {
+    display: block;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+  .feat-card span { display: block; font-size: 0.85rem; line-height: 1.45; }
+  .feat-card em {
+    display: inline-block;
+    margin-top: 8px;
+    font-style: normal;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  @media (max-width: 650px) {
+    .spot { padding: 16px; }
+    .spot-headline { font-size: 1.4rem; }
+    .spot-row { flex-direction: column; align-items: stretch; }
+    .spot-inset { align-self: center; }
+    .sky-grid, .feat-grid { grid-template-columns: 1fr; }
+    .sky-grid img { height: 190px; }
+  }
+
   /* RESPONSIVE DESIGN */
   @media (max-width: 900px) {
     aside.sidebar {
@@ -654,6 +835,139 @@
             <strong>Indian Institute of Astrophysics (IIA)</strong>, Bangalore<br>
             Zwicky Transient Facility (ZTF) Collaboration, Caltech
           </div>
+        </div>
+
+        <!-- HOME SPOTLIGHT: LENSED SUPERNOVA SN 2025wny -->
+        <div class="spot">
+          <h2 class="spot-headline">I teach neural networks to spot exploding stars in real time.</h2>
+          <p class="spot-sub">One of the stars I study, SN 2025wny, exploded so far away that its light travelled about 10 billion years, and a pair of foreground galaxies bent that light into four images on its way to us.</p>
+
+          <div class="spot-sky">
+            <svg viewBox="0 0 640 260" role="img" aria-label="Animated schematic: light from a distant supernova bends around lensing galaxies and reaches Earth along four paths">
+              <defs>
+                <linearGradient id="spotBg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#0a0f24"/><stop offset="1" stop-color="#1a1c40"/>
+                </linearGradient>
+                <radialGradient id="lensGlow">
+                  <stop offset="0" stop-color="#ffe2b0" stop-opacity="0.95"/>
+                  <stop offset="0.45" stop-color="#e9a15a" stop-opacity="0.5"/>
+                  <stop offset="1" stop-color="#e9a15a" stop-opacity="0"/>
+                </radialGradient>
+                <radialGradient id="snGlow">
+                  <stop offset="0" stop-color="#bfe6ff" stop-opacity="0.95"/>
+                  <stop offset="1" stop-color="#7fd4ff" stop-opacity="0"/>
+                </radialGradient>
+                <path id="rayTop"  d="M60 130 Q320 -10 580 130"/>
+                <path id="rayTop2" d="M60 130 Q320 50 580 130"/>
+                <path id="rayBot2" d="M60 130 Q320 210 580 130"/>
+                <path id="rayBot"  d="M60 130 Q320 270 580 130"/>
+              </defs>
+              <rect width="640" height="260" fill="url(#spotBg)"/>
+              <circle cx="30" cy="30" r="1.6" fill="#fff" opacity="0.35"/><circle cx="95" cy="60" r="1.1" fill="#fff" opacity="0.47"/><circle cx="150" cy="22" r="1.1" fill="#fff" opacity="0.59"/><circle cx="205" cy="95" r="1.6" fill="#fff" opacity="0.71"/><circle cx="250" cy="40" r="1.1" fill="#fff" opacity="0.35"/><circle cx="380" cy="24" r="1.1" fill="#fff" opacity="0.47"/><circle cx="430" cy="70" r="1.6" fill="#fff" opacity="0.59"/><circle cx="475" cy="34" r="1.1" fill="#fff" opacity="0.71"/><circle cx="520" cy="88" r="1.1" fill="#fff" opacity="0.35"/><circle cx="600" cy="28" r="1.6" fill="#fff" opacity="0.47"/><circle cx="615" cy="210" r="1.1" fill="#fff" opacity="0.59"/><circle cx="560" cy="236" r="1.1" fill="#fff" opacity="0.71"/><circle cx="470" cy="226" r="1.6" fill="#fff" opacity="0.35"/><circle cx="250" cy="230" r="1.1" fill="#fff" opacity="0.47"/><circle cx="160" cy="214" r="1.1" fill="#fff" opacity="0.59"/><circle cx="90" cy="236" r="1.6" fill="#fff" opacity="0.71"/><circle cx="40" cy="196" r="1.1" fill="#fff" opacity="0.35"/><circle cx="340" cy="246" r="1.1" fill="#fff" opacity="0.47"/><circle cx="395" cy="208" r="1.6" fill="#fff" opacity="0.59"/><circle cx="300" cy="12" r="1.1" fill="#fff" opacity="0.71"/>
+              <line x1="60" y1="130" x2="580" y2="130" stroke="#ffffff" stroke-opacity="0.16" stroke-dasharray="4 7"/>
+              <g fill="none" stroke="#9ad8ff" stroke-opacity="0.5" stroke-width="1.4">
+                <use href="#rayTop" xlink:href="#rayTop"/><use href="#rayTop2" xlink:href="#rayTop2"/>
+                <use href="#rayBot2" xlink:href="#rayBot2"/><use href="#rayBot" xlink:href="#rayBot"/>
+              </g>
+              <ellipse cx="320" cy="130" rx="62" ry="40" fill="url(#lensGlow)" opacity="0.55"/>
+              <ellipse cx="320" cy="130" rx="40" ry="26" fill="url(#lensGlow)"/>
+              <ellipse cx="352" cy="142" rx="20" ry="12" fill="url(#lensGlow)" opacity="0.8"/>
+              <ellipse cx="320" cy="130" rx="9" ry="6" fill="#fff1d6"/>
+              <circle cx="60" cy="130" r="22" fill="url(#snGlow)">
+                <animate attributeName="r" values="14;28;14" dur="3.4s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="3.4s" repeatCount="indefinite"/>
+              </circle>
+              <circle cx="60" cy="130" r="5" fill="#fffbe8"/>
+              <circle cx="580" cy="130" r="13" fill="#4aa3ff" opacity="0.25"/>
+              <circle cx="580" cy="130" r="7" fill="#4aa3ff"/>
+              <circle r="2.6" fill="#fff"><animateMotion dur="5.0s" begin="0s" repeatCount="indefinite"><mpath href="#rayTop" xlink:href="#rayTop"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="5.0s" begin="2.5s" repeatCount="indefinite"><mpath href="#rayTop" xlink:href="#rayTop"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="5.6s" begin="0.4s" repeatCount="indefinite"><mpath href="#rayTop2" xlink:href="#rayTop2"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="5.6s" begin="3.2s" repeatCount="indefinite"><mpath href="#rayTop2" xlink:href="#rayTop2"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="6.2s" begin="0.8s" repeatCount="indefinite"><mpath href="#rayBot2" xlink:href="#rayBot2"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="6.2s" begin="3.9s" repeatCount="indefinite"><mpath href="#rayBot2" xlink:href="#rayBot2"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="6.8s" begin="1.2s" repeatCount="indefinite"><mpath href="#rayBot" xlink:href="#rayBot"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="6.8s" begin="4.6s" repeatCount="indefinite"><mpath href="#rayBot" xlink:href="#rayBot"/></animateMotion></circle>
+            </svg>
+          </div>
+          <div class="spot-legend">
+            <span style="--dot:#bfe6ff">Supernova, z = 2.01</span>
+            <span style="--dot:#ffd27a">Foreground lensing galaxies</span>
+            <span style="--dot:#4aa3ff">Earth</span>
+            <span style="--dot:#ffffff">Light, taking four different paths</span>
+          </div>
+
+          <div class="spot-row">
+            <div class="spot-inset">
+              <svg viewBox="0 0 120 120" role="img" aria-label="What a telescope sees: four images of the same supernova around the lens galaxy">
+                <rect width="120" height="120" fill="#0a0f24"/>
+                <circle cx="60" cy="60" r="38" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-dasharray="3 5"/>
+                <ellipse cx="60" cy="60" rx="17" ry="11" fill="url(#lensGlow)"/>
+                <ellipse cx="60" cy="60" rx="4" ry="3" fill="#fff1d6"/>
+                <circle cx="60" cy="22" r="4" fill="#bfe6ff"><animate attributeName="opacity" values="0.35;1;0.35" dur="2.6s" begin="0s" repeatCount="indefinite"/></circle>
+                <circle cx="98" cy="60" r="4" fill="#bfe6ff"><animate attributeName="opacity" values="0.35;1;0.35" dur="3.1s" begin="0.7s" repeatCount="indefinite"/></circle>
+                <circle cx="60" cy="98" r="4" fill="#bfe6ff"><animate attributeName="opacity" values="0.35;1;0.35" dur="2.8s" begin="1.4s" repeatCount="indefinite"/></circle>
+                <circle cx="22" cy="60" r="4" fill="#bfe6ff"><animate attributeName="opacity" values="0.35;1;0.35" dur="3.3s" begin="2.1s" repeatCount="indefinite"/></circle>
+              </svg>
+              <small>What telescopes see: four images of one explosion</small>
+            </div>
+            <ul class="spot-facts">
+              <li><strong>4 images</strong>of a single supernova, about 1.7&Prime; from the main lens galaxy</li>
+              <li><strong>20&ndash;50&times;</strong>magnification of the brightest image</li>
+              <li><strong>~10 billion years</strong>of light-travel time</li>
+              <li><strong>First of its kind</strong>a lensed Type I superluminous supernova</li>
+            </ul>
+          </div>
+          <p style="font-size:0.78rem; color:var(--muted); margin-bottom:16px;">Schematic, not to scale. Facts from the discovery paper: Johansson et al. 2025, <em>ApJ Letters</em> 995, L17 (<a href="https://arxiv.org/abs/2510.23533" target="_blank" rel="noopener">arXiv:2510.23533</a>). My part: spectroscopic analysis and a deep-learning classifier, at IIA and ZTF/Caltech.</p>
+
+          <div class="spot-proof">
+            <a href="#publications" class="nav-tab" data-section="publications">Nature Astronomy 2026</a>
+            <a href="#ml-sne" class="nav-tab" data-section="ml-sne">Fink science module for ZTF and LSST</a>
+            <a href="#talks" class="nav-tab" data-section="talks">IAU Symposium 406 talk</a>
+          </div>
+          <div class="spot-cta">
+            <a href="#ml-sne" class="nav-tab primary" data-section="ml-sne">Explore my ML for supernovae work</a>
+            <a href="#research" class="nav-tab ghost" data-section="research">All research projects</a>
+          </div>
+
+          <h3 class="sky-title">From the real sky</h3>
+          <div class="sky-grid">
+            <figure>
+              <img loading="lazy" src="https://www.su.se/images/18.50ef4fa119afcffccc725a0/1765543922882/Bild3.png" alt="Liverpool Telescope image of the field and the four lensed images of SN 2025wny after subtracting lens and host light" onError="this.parentElement.style.display='none'" />
+              <figcaption>Liverpool Telescope data (left) and the four lensed images of SN 2025wny with the lens galaxy light removed (right). Johansson et al. 2025, via Stockholm University.</figcaption>
+            </figure>
+            <figure>
+              <img loading="lazy" src="https://www.su.se/images/18.50ef4fa119afcffccc72583/1765543130041/T9P20659.png" alt="Artist's impression of supernova light passing through a gravitational lens and reaching Earth at different times" onError="this.parentElement.style.display='none'" />
+              <figcaption>Artist&rsquo;s impression: light bends around the lens and arrives at different times. Credit: Samuel Avraham &amp; Joel Johansson, Oskar Klein Centre.</figcaption>
+            </figure>
+            <figure>
+              <img loading="lazy" src="https://www.su.se/images/18.50ef4fa119afcffccc7258d/1765543482272/0351%20%28002%29.png" alt="Artist's impression of one supernova seen four times through a galaxy's gravitational lens" onError="this.parentElement.style.display='none'" />
+              <figcaption>Artist&rsquo;s impression: one supernova, seen four times. Credit: Samuel Avraham &amp; Joel Johansson, Oskar Klein Centre.</figcaption>
+            </figure>
+          </div>
+          <div class="sky-links">
+            <a href="https://www.su.se/english/news/articles/2025-12-12-astronomers-discover-the-first-gravitationally-lensed-superluminous-supernova" target="_blank" rel="noopener">Stockholm University press release</a>
+            <a href="https://keckobservatory.org/sn-2025wny/" target="_blank" rel="noopener">Keck Observatory article</a>
+            <a href="https://dx.doi.org/10.3847/2041-8213/ae1d61" target="_blank" rel="noopener">Discovery paper (ApJL)</a>
+          </div>
+        </div>
+
+        <!-- FEATURED RESEARCH STRIP -->
+        <h3 class="feat-title">Current research: machine learning for supernovae</h3>
+        <div class="feat-grid">
+          <a href="#ml-sne" class="feat-card nav-tab" data-section="ml-sne">
+            <strong>Real-time supernova classification</strong>
+            <span>A graph neural network running as a Fink science module on the ZTF alert stream, built to attach to LSST.</span>
+            <em>In development</em>
+          </a>
+          <a href="#ml-sne" class="feat-card nav-tab" data-section="ml-sne">
+            <strong>Type Iax supernovae with a GNN</strong>
+            <span>An empirical relation and spectral clustering of Type Iax supernovae.</span>
+            <em>Nature Astronomy 2026</em>
+          </a>
+          <a href="#ml-sne" class="feat-card nav-tab" data-section="ml-sne">
+            <strong>3D supernova environments from 2D data</strong>
+            <span>An invertible deep learning model, validated against CMFGEN.</span>
+            <em>Completed</em>
+          </a>
+          <a href="#ml-sne" class="feat-card nav-tab" data-section="ml-sne">
+            <strong>SN 2025wny</strong>
+            <span>The first strongly lensed Type I superluminous supernova, at z = 2.01.</span>
+            <em>Ongoing</em>
+          </a>
         </div>
 
         <div class="stats-grid">
@@ -1209,6 +1523,13 @@
       });
     });
   });
+
+  // ---------- REDUCED MOTION: FREEZE THE HOME ANIMATIONS ----------
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.spot svg').forEach(svg => {
+      if (svg.pauseAnimations) svg.pauseAnimations();
+    });
+  }
 </script>
 
 </body>
