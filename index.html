@@ -462,6 +462,104 @@
     margin-top: 40px;
   }
 
+  /* ---------- ML FOR SUPERNOVAE ---------- */
+  .ml-flow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    list-style: none;
+    margin: 0 0 28px;
+  }
+  .ml-flow li {
+    flex: 1 1 130px;
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  .ml-flow li strong {
+    display: block;
+    color: var(--ink);
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+  }
+  .ml-flow li:not(:last-child)::after {
+    content: "\203A";
+    position: absolute;
+    right: -11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  @media (max-width: 650px) {
+    .ml-flow li:not(:last-child)::after { display: none; }
+  }
+
+  .ml-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+  .ml-card h3 {
+    font-size: 1.08rem;
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+  .ml-hook {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 0.97rem;
+    margin-bottom: 10px;
+  }
+  .ml-card p {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .ml-status {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .ml-fig { margin: 12px 0; }
+  .ml-fig img {
+    margin: 0 auto;
+    max-height: 320px;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .ml-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .ml-links a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+  }
+  .ml-links a:hover {
+    background: var(--accent);
+    color: #ffffff;
+    text-decoration: none;
+  }
+
   /* RESPONSIVE DESIGN */
   @media (max-width: 900px) {
     aside.sidebar {
@@ -512,6 +610,7 @@
       <nav class="sidebar-nav">
         <a href="#about" class="nav-tab active" data-section="about"><i class="fa-solid fa-user"></i> About Bio</a>
         <a href="#research" class="nav-tab" data-section="research"><i class="fa-solid fa-microscope"></i> Research Projects</a>
+        <a href="#ml-sne" class="nav-tab" data-section="ml-sne"><i class="fa-solid fa-diagram-project"></i> ML for Supernovae</a>
         <a href="#publications" class="nav-tab" data-section="publications"><i class="fa-solid fa-book-open"></i> Publications</a>
         <a href="#collaborators" class="nav-tab" data-section="collaborators"><i class="fa-solid fa-network-wired"></i> Collaborators</a>
         <a href="#experience" class="nav-tab" data-section="experience"><i class="fa-solid fa-telescope"></i> Facilities &amp; Exp</a>
@@ -667,6 +766,93 @@
           <span class="proj-meta">International Project NISAR (NASA &amp; ISRO) &middot; May 2023 &ndash; Aug 2023</span>
         </li>
       </ul>
+    </section>
+
+    <!-- 2b. ML FOR SUPERNOVAE SECTION -->
+    <section class="page-section section-hidden" id="ml-sne">
+      <div class="section-title">
+        Machine Learning for Supernovae
+        <span class="count">4 Projects</span>
+      </div>
+
+      <div class="bio-text">
+        Sky surveys like ZTF and LSST flag millions of changing objects every night, and there is never enough telescope time to follow all of them up. I build graph neural networks that learn from supernova observations, so the rare and interesting explosions can be picked out quickly and followed while they are still bright.
+      </div>
+
+      <div class="group-label">How the pieces fit together</div>
+      <ol class="ml-flow">
+        <li><strong>Alert stream</strong>ZTF today, LSST next</li>
+        <li><strong>Fink broker</strong>science module runs on each alert</li>
+        <li><strong>Graph neural network</strong>learns from the observations</li>
+        <li><strong>Class probabilities</strong>what kind of supernova is it?</li>
+        <li><strong>Follow-up</strong>telescope time goes to the best targets</li>
+      </ol>
+
+      <div class="group-label">Projects</div>
+
+      <div class="ml-card">
+        <h3>Real-time supernova classification: a Fink science module</h3>
+        <div class="ml-hook">Which of tonight's alerts is worth a telescope?</div>
+        <span class="ml-status">In development &middot; Apr 2026 &ndash; present</span>
+        <p>A graph neural network, built with PyTorch Geometric, that classifies supernovae from photometry on the ZTF alert stream. It is developed as a Fink science module with the ZTF Observational Facility at Caltech and IIA, and is designed to attach to the LSST alert stream as well.</p>
+        <figure class="ml-fig">
+          <img src="figures/fink-module.png" alt="Fink science module: classification results on the ZTF alert stream" onError="this.parentElement.style.display='none'" />
+          <!-- Optional: add a <figcaption>...</figcaption> here once the figure exists -->
+        </figure>
+        <div class="chips">
+          <span class="chip">PyTorch Geometric</span><span class="chip">Fink</span><span class="chip">ZTF</span><span class="chip">LSST</span>
+        </div>
+        <div class="ml-links">
+          <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener">GitHub</a> <!-- swap in the repo URL when it is public -->
+          <a href="#talks" class="nav-tab" data-section="talks">Talk at ICSP</a>
+        </div>
+      </div>
+
+      <div class="ml-card">
+        <h3>Sub-classifying Type Iax supernovae with a GNN</h3>
+        <div class="ml-hook">Type Iax supernovae come in a wide range of brightness. Is there a pattern?</div>
+        <span class="ml-status">Published &middot; Nature Astronomy 2026 (co-author)</span>
+        <p>A graph neural network that estimates an empirical relation for Type Iax supernovae and clusters their spectra into sub-classes. It is based on optical observations from the 2m Himalayan Chandra Telescope and the GROWTH-India Telescope, and it grew out of my master&rsquo;s thesis.</p>
+        <figure class="ml-fig">
+          <img src="figures/iax-gnn.png" alt="Type Iax supernovae: GNN-based spectral clustering" onError="this.parentElement.style.display='none'" />
+        </figure>
+        <div class="chips">
+          <span class="chip">Graph neural networks</span><span class="chip">Spectral clustering</span><span class="chip">2m HCT</span><span class="chip">GROWTH-India</span>
+        </div>
+        <div class="ml-links">
+          <a href="#publications" class="nav-tab" data-section="publications">Publication</a>
+          <a href="https://doi.org/10.13140/RG.2.2.35091.85285/1" target="_blank" rel="noopener">Master thesis</a>
+        </div>
+      </div>
+
+      <div class="ml-card">
+        <h3>From 2D observations to a 3D supernova environment</h3>
+        <div class="ml-hook">We see a supernova as a flat image. What does its surroundings look like in 3D?</div>
+        <span class="ml-status">Completed &middot; validated against CMFGEN</span>
+        <p>An invertible deep learning model that reconstructs the three-dimensional environment of a supernova from two-dimensional data. I checked it against CMFGEN radiative-transfer models, the same code I used for Type IIP spectroscopy at DESY.</p>
+        <figure class="ml-fig">
+          <img src="figures/sn-environment-2d-3d.png" alt="Invertible model reconstructing a 3D supernova environment from 2D data" onError="this.parentElement.style.display='none'" />
+        </figure>
+        <div class="chips">
+          <span class="chip">Invertible networks</span><span class="chip">CMFGEN</span><span class="chip">Radiative transfer</span>
+        </div>
+      </div>
+
+      <div class="ml-card">
+        <h3>SN 2025wny: the first strongly lensed Type I superluminous supernova</h3>
+        <div class="ml-hook">A supernova magnified by a galaxy in front of it, seen at z = 2.01.</div>
+        <span class="ml-status">Ongoing &middot; IIA &amp; ZTF/Caltech</span>
+        <p>Spectroscopic confirmation and analysis of SN 2025wny, together with deep-learning photometric classification aimed at catching superluminous supernovae early in the alert stream.</p>
+        <figure class="ml-fig">
+          <img src="figures/sn2025wny.png" alt="SN 2025wny: spectrum or light curve" onError="this.parentElement.style.display='none'" />
+        </figure>
+        <div class="chips">
+          <span class="chip">Superluminous supernovae</span><span class="chip">Gravitational lensing</span><span class="chip">Spectroscopy</span><span class="chip">Deep learning</span>
+        </div>
+        <div class="ml-links">
+          <a href="#research" class="nav-tab" data-section="research">See all research projects</a>
+        </div>
+      </div>
     </section>
 
     <!-- 3. PUBLICATIONS SECTION -->
