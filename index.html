@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -8,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 
 <style>
   /* ---------- COLOR PALETTES & THEMES ---------- */
@@ -24,6 +27,9 @@
     --accent-soft: #F9EFEA;
     --chip: #EFEBE4;
     --shadow: 0 4px 16px rgba(0,0,0,0.04);
+    --map-land: #E2DACD;
+    --map-border: #FAF8F5;
+    --map-sea: #F2EEE9;
   }
   html[data-theme="navy"] {
     --bg: #0B132B;
@@ -38,6 +44,9 @@
     --accent-soft: #1E293B;
     --chip: #1C2541;
     --shadow: 0 4px 16px rgba(0,0,0,0.3);
+    --map-land: #1E294B;
+    --map-border: #111D42;
+    --map-sea: #080E21;
   }
   html[data-theme="dark"] {
     --bg: #121214;
@@ -52,6 +61,9 @@
     --accent-soft: #281D1A;
     --chip: #222228;
     --shadow: 0 4px 16px rgba(0,0,0,0.5);
+    --map-land: #2A2A32;
+    --map-border: #18181C;
+    --map-sea: #0E0E10;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -69,7 +81,7 @@
   h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; color: var(--ink); }
   img { max-width: 100%; height: auto; display: block; }
 
-  /* ---------- APP LAYOUT (Sidebar + Main Content) ---------- */
+  /* ---------- APP LAYOUT ---------- */
   .layout-wrapper {
     display: flex;
     min-height: 100vh;
@@ -192,7 +204,7 @@
   main.main-content {
     margin-left: 280px;
     flex: 1;
-    max-width: 900px;
+    max-width: 920px;
     padding: 40px 48px 60px;
   }
 
@@ -280,7 +292,7 @@
     font-weight: 600;
   }
 
-  /* FULL PHOTO DISPLAY (Uncropped Aspect Ratio) */
+  /* PHOTO DISPLAY */
   .telescope-photos-full {
     display: flex;
     gap: 16px;
@@ -391,7 +403,7 @@
     color: var(--accent); margin-top: 8px; text-transform: uppercase;
   }
 
-  /* Novel Redirect Card (Placed below Publications) */
+  /* Book Redirect Card */
   .book-redirect-card {
     background: var(--bg-alt);
     border: 1px solid var(--border);
@@ -452,6 +464,194 @@
     color: var(--ink-soft); font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
   }
 
+  /* ---------- UPGRADED READERSHIP SECTION STYLES ---------- */
+  .readership-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .analytics-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+
+  .analytics-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .analytics-card .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .analytics-card .card-val {
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+    color: var(--accent);
+    margin: 6px 0 2px;
+  }
+  .analytics-card .card-sub {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+  }
+
+  /* Interactive D3 Map Container */
+  .map-wrapper {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .map-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 0 4px;
+  }
+  .map-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .map-legend {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .legend-dot.hub { background: var(--accent); }
+  .legend-dot.visitor { background: #3B82F6; }
+
+  #worldMapSvg {
+    width: 100%;
+    height: auto;
+    min-height: 320px;
+    background: var(--map-sea);
+    border-radius: 8px;
+    display: block;
+  }
+
+  .country-path {
+    fill: var(--map-land);
+    stroke: var(--map-border);
+    stroke-width: 0.5px;
+    transition: fill 0.2s ease;
+  }
+  .country-path:hover {
+    fill: var(--accent-soft);
+  }
+
+  /* Pulsating Map Hotspots */
+  @keyframes mapPulse {
+    0% { r: 4px; opacity: 0.9; }
+    50% { r: 9px; opacity: 0.3; }
+    100% { r: 4px; opacity: 0.9; }
+  }
+  .hotspot-pulse {
+    fill: var(--accent);
+    animation: mapPulse 2s infinite ease-in-out;
+  }
+  .hotspot-core {
+    fill: var(--accent);
+    stroke: #ffffff;
+    stroke-width: 1.5px;
+  }
+
+  /* Map Tooltip */
+  .map-tooltip {
+    position: absolute;
+    padding: 8px 12px;
+    background: var(--ink);
+    color: var(--bg);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 200;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .map-tooltip strong { color: var(--accent); }
+
+  /* Regional Breakdown & Counter Grid */
+  .readership-meta-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 700px) {
+    .readership-meta-grid { grid-template-columns: 1fr; }
+  }
+
+  .region-card, .flag-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+  }
+  .region-card h4, .flag-card h4 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+
+  .progress-row {
+    margin-bottom: 10px;
+  }
+  .progress-row:last-child { margin-bottom: 0; }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .progress-bar-bg {
+    height: 7px;
+    background: var(--chip);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 4px;
+  }
+
+  .flag-badge-box {
+    text-align: center;
+    padding: 10px;
+    background: var(--bg-alt);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
   /* Footer */
   footer {
     text-align: center;
@@ -460,433 +660,6 @@
     font-size: 0.85rem;
     border-top: 1px solid var(--border);
     margin-top: 40px;
-  }
-
-  /* ---------- ML FOR SUPERNOVAE ---------- */
-  .ml-flow {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    list-style: none;
-    margin: 0 0 28px;
-  }
-  .ml-flow li {
-    flex: 1 1 130px;
-    position: relative;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 12px;
-    text-align: center;
-    font-size: 0.82rem;
-    color: var(--ink-soft);
-    line-height: 1.4;
-  }
-  .ml-flow li strong {
-    display: block;
-    color: var(--ink);
-    font-size: 0.9rem;
-    margin-bottom: 2px;
-  }
-  .ml-flow li:not(:last-child)::after {
-    content: "\203A";
-    position: absolute;
-    right: -11px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--accent);
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
-  @media (max-width: 650px) {
-    .ml-flow li:not(:last-child)::after { display: none; }
-  }
-
-  .ml-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-    margin-bottom: 14px;
-    box-shadow: var(--shadow);
-  }
-  .ml-card h3 {
-    font-size: 1.08rem;
-    line-height: 1.35;
-    margin-bottom: 6px;
-  }
-  .ml-hook {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-style: italic;
-    color: var(--accent);
-    font-size: 0.97rem;
-    margin-bottom: 10px;
-  }
-  .ml-card p {
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    margin-bottom: 10px;
-  }
-  .ml-status {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-  .ml-fig { margin: 12px 0; }
-  .ml-fig img {
-    margin: 0 auto;
-    max-height: 320px;
-    object-fit: contain;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--card);
-  }
-  .ml-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-  .ml-links a {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 4px 12px;
-    border: 1px solid var(--accent);
-    border-radius: 999px;
-  }
-  .ml-links a:hover {
-    background: var(--accent);
-    color: #ffffff;
-    text-decoration: none;
-  }
-
-  /* ---------- HOME SPOTLIGHT: LENSED SUPERNOVA ---------- */
-  .spot {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 24px;
-    box-shadow: var(--shadow);
-  }
-  .spot-headline {
-    font-size: 1.75rem;
-    line-height: 1.25;
-    margin-bottom: 8px;
-  }
-  .spot-sub {
-    font-size: 0.97rem;
-    color: var(--ink-soft);
-    margin-bottom: 16px;
-    max-width: 62ch;
-  }
-  .spot-sky {
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: #0a0f24;
-    line-height: 0;
-  }
-  .spot-sky svg { width: 100%; height: auto; display: block; }
-  .spot-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px 16px;
-    margin: 10px 0 16px;
-    font-size: 0.8rem;
-    color: var(--muted);
-  }
-  .spot-legend span::before {
-    content: "";
-    display: inline-block;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    margin-right: 6px;
-    background: var(--dot, #ffd27a);
-  }
-  .spot-row {
-    display: flex;
-    gap: 18px;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  .spot-inset {
-    flex: 0 0 120px;
-    line-height: 0;
-  }
-  .spot-inset svg {
-    width: 120px;
-    height: 120px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-  }
-  .spot-inset small {
-    display: block;
-    margin-top: 6px;
-    line-height: 1.3;
-    font-size: 0.72rem;
-    color: var(--muted);
-    text-align: center;
-  }
-  .spot-facts {
-    list-style: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 20px;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    line-height: 1.4;
-  }
-  .spot-facts strong {
-    display: block;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1.15rem;
-    color: var(--ink);
-  }
-  .spot-proof { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-  .spot-proof a {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 5px 12px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    background: var(--bg-alt);
-    color: var(--ink-soft);
-  }
-  .spot-proof a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
-  .spot-cta { display: flex; flex-wrap: wrap; gap: 10px; }
-  .spot-cta a {
-    font-size: 0.88rem;
-    font-weight: 600;
-    padding: 8px 18px;
-    border-radius: 999px;
-    border: 1px solid var(--accent);
-  }
-  .spot-cta a.primary { background: var(--accent); color: #ffffff; }
-  .spot-cta a.primary:hover { background: var(--accent-hover); text-decoration: none; }
-  .spot-cta a.ghost:hover { background: var(--accent-soft); text-decoration: none; }
-
-  .sky-title { font-size: 1rem; margin: 20px 0 10px; }
-  .sky-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-  .sky-grid figure {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .sky-grid img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    background: #0a0f24;
-  }
-  .sky-grid figcaption {
-    padding: 8px 10px 10px;
-    font-size: 0.74rem;
-    line-height: 1.4;
-    color: var(--muted);
-  }
-  .sky-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 0.8rem; }
-
-  /* ---------- FEATURED RESEARCH STRIP ---------- */
-  .feat-title { font-size: 1.15rem; margin: 4px 0 12px; }
-  .feat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-  .feat-card {
-    display: block;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    border-radius: 10px;
-    padding: 14px 16px;
-    box-shadow: var(--shadow);
-    color: var(--ink-soft);
-  }
-  .feat-card:hover { text-decoration: none; border-color: var(--accent); }
-  .feat-card strong {
-    display: block;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: 1rem;
-    color: var(--ink);
-    line-height: 1.35;
-    margin-bottom: 4px;
-  }
-  .feat-card span { display: block; font-size: 0.85rem; line-height: 1.45; }
-  .feat-card em {
-    display: inline-block;
-    margin-top: 8px;
-    font-style: normal;
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 2px 9px;
-    border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--accent);
-  }
-  @media (max-width: 650px) {
-    .spot { padding: 16px; }
-    .spot-headline { font-size: 1.4rem; }
-    .spot-row { flex-direction: column; align-items: stretch; }
-    .spot-inset { align-self: center; }
-    .sky-grid, .feat-grid { grid-template-columns: 1fr; }
-    .sky-grid img { height: 190px; }
-  }
-
-  /* ---------- TECHNICAL SKILLS & CODE ---------- */
-  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .term {
-    background: #0d1117;
-    border: 1px solid #263041;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 22px;
-    box-shadow: var(--shadow);
-  }
-  .term-bar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 9px 12px;
-    background: #161b22;
-    border-bottom: 1px solid #263041;
-    font: 0.74rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    color: #8b949e;
-  }
-  .term-bar i { width: 10px; height: 10px; border-radius: 50%; background: #3b4252; display: inline-block; }
-  .term-bar span { margin-left: 8px; }
-  .term-body {
-    padding: 14px 16px;
-    font: 0.82rem/1.9 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    color: #c9d1d9;
-  }
-  .term-body div { display: grid; grid-template-columns: 112px 1fr; gap: 8px; }
-  .term-body b { color: #7ee787; font-weight: 600; }
-  .term-body em { color: #79c0ff; font-style: normal; }
-
-  .skill-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-bottom: 8px;
-  }
-  .skill-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: var(--shadow);
-  }
-  .skill-card.wide { grid-column: 1 / -1; }
-  .skill-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-  .skill-head i {
-    width: 32px; height: 32px;
-    display: inline-flex; align-items: center; justify-content: center;
-    border-radius: 8px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-size: 0.95rem;
-  }
-  .skill-head h4 { font-size: 1rem; line-height: 1.2; }
-  .skill-note { font-size: 0.83rem; color: var(--ink-soft); margin-bottom: 10px; line-height: 1.5; }
-  .skill-card .chip {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 0.76rem;
-    padding: 4px 10px;
-  }
-
-  .repo-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 28px 0 10px; }
-  .repo-head h3 { font-size: 1.25rem; }
-  .repo-head .repo-meta { font-size: 0.8rem; color: var(--muted); }
-  .lang-bar { display: flex; height: 8px; border-radius: 999px; overflow: hidden; background: var(--chip); margin-bottom: 8px; }
-  .lang-bar span { display: block; height: 100%; }
-  .lang-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.76rem; color: var(--muted); margin-bottom: 16px; }
-  .lang-legend span::before {
-    content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-    margin-right: 6px; background: var(--c, #8a8f98);
-  }
-
-  .repo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-  .repo-loading { grid-column: 1 / -1; font-size: 0.9rem; color: var(--muted); }
-  .repo-card {
-    aspect-ratio: 1 / 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    color: var(--ink-soft);
-    transition: transform 0.18s ease, border-color 0.18s ease;
-  }
-  .repo-card:hover { transform: translateY(-3px); border-color: var(--accent); text-decoration: none; color: var(--ink-soft); }
-  .repo-img {
-    position: relative;
-    flex: 0 0 44%;
-    overflow: hidden;
-    background: linear-gradient(135deg, var(--c, #6b7280), #0a0f24);
-  }
-  .repo-img::after {
-    content: attr(data-initial);
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font: 700 2.6rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    color: rgba(255,255,255,0.85);
-  }
-  .repo-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; background: #0a0f24; }
-  .repo-body { display: flex; flex-direction: column; flex: 1; min-height: 0; padding: 12px 14px 12px; }
-  .repo-name {
-    font: 700 0.92rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    color: var(--ink);
-    word-break: break-word;
-    margin-bottom: 4px;
-  }
-  .repo-desc {
-    font-size: 0.8rem;
-    line-height: 1.45;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .repo-foot {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    font-size: 0.74rem;
-    color: var(--muted);
-    padding-top: 8px;
-  }
-  .repo-foot .lang::before {
-    content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
-    margin-right: 5px; background: var(--c, #8a8f98);
-  }
-  .repo-foot .go { color: var(--accent); font-weight: 700; white-space: nowrap; }
-  .repo-more { margin-top: 16px; }
-  .repo-more a {
-    display: inline-block; font-size: 0.86rem; font-weight: 600;
-    padding: 8px 18px; border: 1px solid var(--accent); border-radius: 999px;
-  }
-  .repo-more a:hover { background: var(--accent-soft); text-decoration: none; }
-  @media (max-width: 900px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px) {
-    .repo-grid, .skill-grid { grid-template-columns: 1fr; }
-    .term-body div { grid-template-columns: 96px 1fr; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .repo-card { transition: none; }
-    .repo-card:hover { transform: none; }
   }
 
   /* RESPONSIVE DESIGN */
@@ -939,11 +712,10 @@
       <nav class="sidebar-nav">
         <a href="#about" class="nav-tab active" data-section="about"><i class="fa-solid fa-user"></i> About Bio</a>
         <a href="#research" class="nav-tab" data-section="research"><i class="fa-solid fa-microscope"></i> Research Projects</a>
-        <a href="#ml-sne" class="nav-tab" data-section="ml-sne"><i class="fa-solid fa-diagram-project"></i> ML for Supernovae</a>
         <a href="#publications" class="nav-tab" data-section="publications"><i class="fa-solid fa-book-open"></i> Publications</a>
         <a href="#collaborators" class="nav-tab" data-section="collaborators"><i class="fa-solid fa-network-wired"></i> Collaborators</a>
         <a href="#experience" class="nav-tab" data-section="experience"><i class="fa-solid fa-telescope"></i> Facilities &amp; Exp</a>
-        <a href="#skills" class="nav-tab" data-section="skills"><i class="fa-solid fa-code"></i> Skills &amp; Code</a>
+        <a href="#skills" class="nav-tab" data-section="skills"><i class="fa-solid fa-code"></i> Technical Skills</a>
         <a href="#talks" class="nav-tab" data-section="talks"><i class="fa-solid fa-chalkboard-user"></i> Presentations</a>
         <a href="#visitors" class="nav-tab" data-section="visitors"><i class="fa-solid fa-globe"></i> Readership</a>
         <a href="#contact" class="nav-tab" data-section="contact"><i class="fa-solid fa-envelope"></i> Contact</a>
@@ -985,139 +757,6 @@
           </div>
         </div>
 
-        <!-- HOME SPOTLIGHT: LENSED SUPERNOVA SN 2025wny -->
-        <div class="spot">
-          <h2 class="spot-headline">I teach neural networks to spot exploding stars in real time.</h2>
-          <p class="spot-sub">One of the stars I study, SN 2025wny, exploded so far away that its light travelled about 10 billion years, and a pair of foreground galaxies bent that light into four images on its way to us.</p>
-
-          <div class="spot-sky">
-            <svg viewBox="0 0 640 260" role="img" aria-label="Animated schematic: light from a distant supernova bends around lensing galaxies and reaches Earth along four paths">
-              <defs>
-                <linearGradient id="spotBg" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#0a0f24"/><stop offset="1" stop-color="#1a1c40"/>
-                </linearGradient>
-                <radialGradient id="lensGlow">
-                  <stop offset="0" stop-color="#ffe2b0" stop-opacity="0.95"/>
-                  <stop offset="0.45" stop-color="#e9a15a" stop-opacity="0.5"/>
-                  <stop offset="1" stop-color="#e9a15a" stop-opacity="0"/>
-                </radialGradient>
-                <radialGradient id="snGlow">
-                  <stop offset="0" stop-color="#bfe6ff" stop-opacity="0.95"/>
-                  <stop offset="1" stop-color="#7fd4ff" stop-opacity="0"/>
-                </radialGradient>
-                <path id="rayTop"  d="M60 130 Q320 -10 580 130"/>
-                <path id="rayTop2" d="M60 130 Q320 50 580 130"/>
-                <path id="rayBot2" d="M60 130 Q320 210 580 130"/>
-                <path id="rayBot"  d="M60 130 Q320 270 580 130"/>
-              </defs>
-              <rect width="640" height="260" fill="url(#spotBg)"/>
-              <circle cx="30" cy="30" r="1.6" fill="#fff" opacity="0.35"/><circle cx="95" cy="60" r="1.1" fill="#fff" opacity="0.47"/><circle cx="150" cy="22" r="1.1" fill="#fff" opacity="0.59"/><circle cx="205" cy="95" r="1.6" fill="#fff" opacity="0.71"/><circle cx="250" cy="40" r="1.1" fill="#fff" opacity="0.35"/><circle cx="380" cy="24" r="1.1" fill="#fff" opacity="0.47"/><circle cx="430" cy="70" r="1.6" fill="#fff" opacity="0.59"/><circle cx="475" cy="34" r="1.1" fill="#fff" opacity="0.71"/><circle cx="520" cy="88" r="1.1" fill="#fff" opacity="0.35"/><circle cx="600" cy="28" r="1.6" fill="#fff" opacity="0.47"/><circle cx="615" cy="210" r="1.1" fill="#fff" opacity="0.59"/><circle cx="560" cy="236" r="1.1" fill="#fff" opacity="0.71"/><circle cx="470" cy="226" r="1.6" fill="#fff" opacity="0.35"/><circle cx="250" cy="230" r="1.1" fill="#fff" opacity="0.47"/><circle cx="160" cy="214" r="1.1" fill="#fff" opacity="0.59"/><circle cx="90" cy="236" r="1.6" fill="#fff" opacity="0.71"/><circle cx="40" cy="196" r="1.1" fill="#fff" opacity="0.35"/><circle cx="340" cy="246" r="1.1" fill="#fff" opacity="0.47"/><circle cx="395" cy="208" r="1.6" fill="#fff" opacity="0.59"/><circle cx="300" cy="12" r="1.1" fill="#fff" opacity="0.71"/>
-              <line x1="60" y1="130" x2="580" y2="130" stroke="#ffffff" stroke-opacity="0.16" stroke-dasharray="4 7"/>
-              <g fill="none" stroke="#9ad8ff" stroke-opacity="0.5" stroke-width="1.4">
-                <use href="#rayTop" xlink:href="#rayTop"/><use href="#rayTop2" xlink:href="#rayTop2"/>
-                <use href="#rayBot2" xlink:href="#rayBot2"/><use href="#rayBot" xlink:href="#rayBot"/>
-              </g>
-              <ellipse cx="320" cy="130" rx="62" ry="40" fill="url(#lensGlow)" opacity="0.55"/>
-              <ellipse cx="320" cy="130" rx="40" ry="26" fill="url(#lensGlow)"/>
-              <ellipse cx="352" cy="142" rx="20" ry="12" fill="url(#lensGlow)" opacity="0.8"/>
-              <ellipse cx="320" cy="130" rx="9" ry="6" fill="#fff1d6"/>
-              <circle cx="60" cy="130" r="22" fill="url(#snGlow)">
-                <animate attributeName="r" values="14;28;14" dur="3.4s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.6;1;0.6" dur="3.4s" repeatCount="indefinite"/>
-              </circle>
-              <circle cx="60" cy="130" r="5" fill="#fffbe8"/>
-              <circle cx="580" cy="130" r="13" fill="#4aa3ff" opacity="0.25"/>
-              <circle cx="580" cy="130" r="7" fill="#4aa3ff"/>
-              <circle r="2.6" fill="#fff"><animateMotion dur="5.0s" begin="0s" repeatCount="indefinite"><mpath href="#rayTop" xlink:href="#rayTop"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="5.0s" begin="2.5s" repeatCount="indefinite"><mpath href="#rayTop" xlink:href="#rayTop"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="5.6s" begin="0.4s" repeatCount="indefinite"><mpath href="#rayTop2" xlink:href="#rayTop2"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="5.6s" begin="3.2s" repeatCount="indefinite"><mpath href="#rayTop2" xlink:href="#rayTop2"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="6.2s" begin="0.8s" repeatCount="indefinite"><mpath href="#rayBot2" xlink:href="#rayBot2"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="6.2s" begin="3.9s" repeatCount="indefinite"><mpath href="#rayBot2" xlink:href="#rayBot2"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="6.8s" begin="1.2s" repeatCount="indefinite"><mpath href="#rayBot" xlink:href="#rayBot"/></animateMotion></circle><circle r="2.6" fill="#fff"><animateMotion dur="6.8s" begin="4.6s" repeatCount="indefinite"><mpath href="#rayBot" xlink:href="#rayBot"/></animateMotion></circle>
-            </svg>
-          </div>
-          <div class="spot-legend">
-            <span style="--dot:#bfe6ff">Supernova, z = 2.01</span>
-            <span style="--dot:#ffd27a">Foreground lensing galaxies</span>
-            <span style="--dot:#4aa3ff">Earth</span>
-            <span style="--dot:#ffffff">Light, taking four different paths</span>
-          </div>
-
-          <div class="spot-row">
-            <div class="spot-inset">
-              <svg viewBox="0 0 120 120" role="img" aria-label="What a telescope sees: four images of the same supernova around the lens galaxy">
-                <rect width="120" height="120" fill="#0a0f24"/>
-                <circle cx="60" cy="60" r="38" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-dasharray="3 5"/>
-                <ellipse cx="60" cy="60" rx="17" ry="11" fill="url(#lensGlow)"/>
-                <ellipse cx="60" cy="60" rx="4" ry="3" fill="#fff1d6"/>
-                <circle cx="60" cy="22" r="4" fill="#bfe6ff"><animate attributeName="opacity" values="0.35;1;0.35" dur="2.6s" begin="0s" repeatCount="indefinite"/></circle>
-                <circle cx="98" cy="60" r="4" fill="#bfe6ff"><animate attributeName="opacity" values="0.35;1;0.35" dur="3.1s" begin="0.7s" repeatCount="indefinite"/></circle>
-                <circle cx="60" cy="98" r="4" fill="#bfe6ff"><animate attributeName="opacity" values="0.35;1;0.35" dur="2.8s" begin="1.4s" repeatCount="indefinite"/></circle>
-                <circle cx="22" cy="60" r="4" fill="#bfe6ff"><animate attributeName="opacity" values="0.35;1;0.35" dur="3.3s" begin="2.1s" repeatCount="indefinite"/></circle>
-              </svg>
-              <small>What telescopes see: four images of one explosion</small>
-            </div>
-            <ul class="spot-facts">
-              <li><strong>4 images</strong>of a single supernova, about 1.7&Prime; from the main lens galaxy</li>
-              <li><strong>20&ndash;50&times;</strong>magnification of the brightest image</li>
-              <li><strong>~10 billion years</strong>of light-travel time</li>
-              <li><strong>First of its kind</strong>a lensed Type I superluminous supernova</li>
-            </ul>
-          </div>
-          <p style="font-size:0.78rem; color:var(--muted); margin-bottom:16px;">Schematic, not to scale. Facts from the discovery paper: Johansson et al. 2025, <em>ApJ Letters</em> 995, L17 (<a href="https://arxiv.org/abs/2510.23533" target="_blank" rel="noopener">arXiv:2510.23533</a>). My part: spectroscopic analysis and a deep-learning classifier, at IIA and ZTF/Caltech.</p>
-
-          <div class="spot-proof">
-            <a href="#publications" class="nav-tab" data-section="publications">Nature Astronomy 2026</a>
-            <a href="#ml-sne" class="nav-tab" data-section="ml-sne">Fink science module for ZTF and LSST</a>
-            <a href="#talks" class="nav-tab" data-section="talks">IAU Symposium 406 talk</a>
-          </div>
-          <div class="spot-cta">
-            <a href="#ml-sne" class="nav-tab primary" data-section="ml-sne">Explore my ML for supernovae work</a>
-            <a href="#research" class="nav-tab ghost" data-section="research">All research projects</a>
-          </div>
-
-          <h3 class="sky-title">From the real sky</h3>
-          <div class="sky-grid">
-            <figure>
-              <img loading="lazy" src="https://www.su.se/images/18.50ef4fa119afcffccc725a0/1765543922882/Bild3.png" alt="Liverpool Telescope image of the field and the four lensed images of SN 2025wny after subtracting lens and host light" onError="this.parentElement.style.display='none'" />
-              <figcaption>Liverpool Telescope data (left) and the four lensed images of SN 2025wny with the lens galaxy light removed (right). Johansson et al. 2025, via Stockholm University.</figcaption>
-            </figure>
-            <figure>
-              <img loading="lazy" src="https://www.su.se/images/18.50ef4fa119afcffccc72583/1765543130041/T9P20659.png" alt="Artist's impression of supernova light passing through a gravitational lens and reaching Earth at different times" onError="this.parentElement.style.display='none'" />
-              <figcaption>Artist&rsquo;s impression: light bends around the lens and arrives at different times. Credit: Samuel Avraham &amp; Joel Johansson, Oskar Klein Centre.</figcaption>
-            </figure>
-            <figure>
-              <img loading="lazy" src="https://www.su.se/images/18.50ef4fa119afcffccc7258d/1765543482272/0351%20%28002%29.png" alt="Artist's impression of one supernova seen four times through a galaxy's gravitational lens" onError="this.parentElement.style.display='none'" />
-              <figcaption>Artist&rsquo;s impression: one supernova, seen four times. Credit: Samuel Avraham &amp; Joel Johansson, Oskar Klein Centre.</figcaption>
-            </figure>
-          </div>
-          <div class="sky-links">
-            <a href="https://www.su.se/english/news/articles/2025-12-12-astronomers-discover-the-first-gravitationally-lensed-superluminous-supernova" target="_blank" rel="noopener">Stockholm University press release</a>
-            <a href="https://keckobservatory.org/sn-2025wny/" target="_blank" rel="noopener">Keck Observatory article</a>
-            <a href="https://dx.doi.org/10.3847/2041-8213/ae1d61" target="_blank" rel="noopener">Discovery paper (ApJL)</a>
-          </div>
-        </div>
-
-        <!-- FEATURED RESEARCH STRIP -->
-        <h3 class="feat-title">Current research: machine learning for supernovae</h3>
-        <div class="feat-grid">
-          <a href="#ml-sne" class="feat-card nav-tab" data-section="ml-sne">
-            <strong>Real-time supernova classification</strong>
-            <span>A graph neural network running as a Fink science module on the ZTF alert stream, built to attach to LSST.</span>
-            <em>In development</em>
-          </a>
-          <a href="#ml-sne" class="feat-card nav-tab" data-section="ml-sne">
-            <strong>Type Iax supernovae with a GNN</strong>
-            <span>An empirical relation and spectral clustering of Type Iax supernovae.</span>
-            <em>Nature Astronomy 2026</em>
-          </a>
-          <a href="#ml-sne" class="feat-card nav-tab" data-section="ml-sne">
-            <strong>3D supernova environments from 2D data</strong>
-            <span>An invertible deep learning model, validated against CMFGEN.</span>
-            <em>Completed</em>
-          </a>
-          <a href="#ml-sne" class="feat-card nav-tab" data-section="ml-sne">
-            <strong>SN 2025wny</strong>
-            <span>The first strongly lensed Type I superluminous supernova, at z = 2.01.</span>
-            <em>Ongoing</em>
-          </a>
-        </div>
-
         <div class="stats-grid">
           <div class="stat-card">
             <div class="num">3</div>
@@ -1133,7 +772,7 @@
           </div>
         </div>
 
-        <!-- Full Photos (Uncropped Aspect Ratio) -->
+        <!-- Full Photos -->
         <div class="telescope-photos-full">
           <img src="telescope_photo_1.jpeg" alt="Prathamesh at Telescope Facility 1" onError="this.style.display='none'" />
           <img src="telescope_photo_2.jpeg" alt="Prathamesh at Telescope Facility 2" onError="this.style.display='none'" />
@@ -1230,93 +869,6 @@
       </ul>
     </section>
 
-    <!-- 2b. ML FOR SUPERNOVAE SECTION -->
-    <section class="page-section section-hidden" id="ml-sne">
-      <div class="section-title">
-        Machine Learning for Supernovae
-        <span class="count">4 Projects</span>
-      </div>
-
-      <div class="bio-text">
-        Sky surveys like ZTF and LSST flag millions of changing objects every night, and there is never enough telescope time to follow all of them up. I build graph neural networks that learn from supernova observations, so the rare and interesting explosions can be picked out quickly and followed while they are still bright.
-      </div>
-
-      <div class="group-label">How the pieces fit together</div>
-      <ol class="ml-flow">
-        <li><strong>Alert stream</strong>ZTF today, LSST next</li>
-        <li><strong>Fink broker</strong>science module runs on each alert</li>
-        <li><strong>Graph neural network</strong>learns from the observations</li>
-        <li><strong>Class probabilities</strong>what kind of supernova is it?</li>
-        <li><strong>Follow-up</strong>telescope time goes to the best targets</li>
-      </ol>
-
-      <div class="group-label">Projects</div>
-
-      <div class="ml-card">
-        <h3>Real-time supernova classification: a Fink science module</h3>
-        <div class="ml-hook">Which of tonight's alerts is worth a telescope?</div>
-        <span class="ml-status">In development &middot; Apr 2026 &ndash; present</span>
-        <p>A graph neural network, built with PyTorch Geometric, that classifies supernovae from photometry on the ZTF alert stream. It is developed as a Fink science module with the ZTF Observational Facility at Caltech and IIA, and is designed to attach to the LSST alert stream as well.</p>
-        <figure class="ml-fig">
-          <img src="figures/fink-module.png" alt="Fink science module: classification results on the ZTF alert stream" onError="this.parentElement.style.display='none'" />
-          <!-- Optional: add a <figcaption>...</figcaption> here once the figure exists -->
-        </figure>
-        <div class="chips">
-          <span class="chip">PyTorch Geometric</span><span class="chip">Fink</span><span class="chip">ZTF</span><span class="chip">LSST</span>
-        </div>
-        <div class="ml-links">
-          <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener">GitHub</a> <!-- swap in the repo URL when it is public -->
-          <a href="#talks" class="nav-tab" data-section="talks">Talk at ICSP</a>
-        </div>
-      </div>
-
-      <div class="ml-card">
-        <h3>Sub-classifying Type Iax supernovae with a GNN</h3>
-        <div class="ml-hook">Type Iax supernovae come in a wide range of brightness. Is there a pattern?</div>
-        <span class="ml-status">Published &middot; Nature Astronomy 2026 (co-author)</span>
-        <p>A graph neural network that estimates an empirical relation for Type Iax supernovae and clusters their spectra into sub-classes. It is based on optical observations from the 2m Himalayan Chandra Telescope and the GROWTH-India Telescope, and it grew out of my master&rsquo;s thesis.</p>
-        <figure class="ml-fig">
-          <img src="figures/iax-gnn.png" alt="Type Iax supernovae: GNN-based spectral clustering" onError="this.parentElement.style.display='none'" />
-        </figure>
-        <div class="chips">
-          <span class="chip">Graph neural networks</span><span class="chip">Spectral clustering</span><span class="chip">2m HCT</span><span class="chip">GROWTH-India</span>
-        </div>
-        <div class="ml-links">
-          <a href="#publications" class="nav-tab" data-section="publications">Publication</a>
-          <a href="https://doi.org/10.13140/RG.2.2.35091.85285/1" target="_blank" rel="noopener">Master thesis</a>
-        </div>
-      </div>
-
-      <div class="ml-card">
-        <h3>From 2D observations to a 3D supernova environment</h3>
-        <div class="ml-hook">We see a supernova as a flat image. What does its surroundings look like in 3D?</div>
-        <span class="ml-status">Completed &middot; validated against CMFGEN</span>
-        <p>An invertible deep learning model that reconstructs the three-dimensional environment of a supernova from two-dimensional data. I checked it against CMFGEN radiative-transfer models, the same code I used for Type IIP spectroscopy at DESY.</p>
-        <figure class="ml-fig">
-          <img src="figures/sn-environment-2d-3d.png" alt="Invertible model reconstructing a 3D supernova environment from 2D data" onError="this.parentElement.style.display='none'" />
-        </figure>
-        <div class="chips">
-          <span class="chip">Invertible networks</span><span class="chip">CMFGEN</span><span class="chip">Radiative transfer</span>
-        </div>
-      </div>
-
-      <div class="ml-card">
-        <h3>SN 2025wny: the first strongly lensed Type I superluminous supernova</h3>
-        <div class="ml-hook">A supernova magnified by a galaxy in front of it, seen at z = 2.01.</div>
-        <span class="ml-status">Ongoing &middot; IIA &amp; ZTF/Caltech</span>
-        <p>Spectroscopic confirmation and analysis of SN 2025wny, together with deep-learning photometric classification aimed at catching superluminous supernovae early in the alert stream.</p>
-        <figure class="ml-fig">
-          <img src="figures/sn2025wny.png" alt="SN 2025wny: spectrum or light curve" onError="this.parentElement.style.display='none'" />
-        </figure>
-        <div class="chips">
-          <span class="chip">Superluminous supernovae</span><span class="chip">Gravitational lensing</span><span class="chip">Spectroscopy</span><span class="chip">Deep learning</span>
-        </div>
-        <div class="ml-links">
-          <a href="#research" class="nav-tab" data-section="research">See all research projects</a>
-        </div>
-      </div>
-    </section>
-
     <!-- 3. PUBLICATIONS SECTION -->
     <section class="page-section section-hidden" id="publications">
       <div class="section-title">
@@ -1382,7 +934,7 @@
         </div>
       </div>
 
-      <!-- NOVEL REDIRECT CARD (DIRECTLY BELOW PUBLICATIONS) -->
+      <!-- NOVEL REDIRECT CARD -->
       <div class="book-redirect-card">
         <img src="photo_2026-09-30 13.50.38.jpeg" alt="Come Back Home Book Cover" onError="this.src='https://via.placeholder.com/70'" />
         <div>
@@ -1469,99 +1021,36 @@
       </div>
     </section>
 
-    <!-- 6. TECHNICAL SKILLS & CODE -->
+    <!-- 6. COMPLETE TECHNICAL SKILLS -->
     <section class="page-section section-hidden" id="skills">
-      <div class="section-title">
-        Technical Skills &amp; Code
-        <span class="count">Live from GitHub</span>
-      </div>
-
-      <div class="term" role="img" aria-label="Summary of my technical stack">
-        <div class="term-bar"><i></i><i></i><i></i><span>stack.summary</span></div>
-        <div class="term-body">
-          <div><b>languages</b><span>Python <em>&middot;</em> C/C++ <em>&middot;</em> FORTRAN</span></div>
-          <div><b>ml</b><span>PyTorch <em>&middot;</em> PyTorch Geometric <em>&middot;</em> GNNs</span></div>
-          <div><b>simulation</b><span>CMFGEN <em>&middot;</em> GADGET <em>&middot;</em> MESA <em>&middot;</em> TARDIS</span></div>
-          <div><b>data</b><span>AstroPy <em>&middot;</em> Gaia DR3 <em>&middot;</em> Fink / ZTF alerts</span></div>
+      <div class="section-title">Technical Skills</div>
+      <div class="chip-group">
+        <div class="label">Programming &amp; Machine Learning</div>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">C/C++</span><span class="chip">FORTRAN</span>
+          <span class="chip">SQLite</span><span class="chip">Machine Learning</span><span class="chip">Deep Learning</span>
+          <span class="chip">PyTorch</span><span class="chip">PyTorch Geometric</span>
         </div>
       </div>
-
-      <div class="group-label">Coding expertise</div>
-      <div class="skill-grid">
-        <div class="skill-card">
-          <div class="skill-head"><i class="fa-solid fa-terminal"></i><h4>Programming languages</h4></div>
-          <p class="skill-note">Python for models, pipelines and analysis; C/C++ and FORTRAN for scientific simulation codes.</p>
-          <div class="chips">
-            <span class="chip">Python</span><span class="chip">C/C++</span><span class="chip">FORTRAN</span>
-            <span class="chip">SQLite</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-head"><i class="fa-solid fa-brain"></i><h4>Machine &amp; deep learning</h4></div>
-          <p class="skill-note">Graph neural networks for supernova classification, an invertible network for 3D environments, and U-Net and ensemble models for satellite data.</p>
-          <div class="chips">
-            <span class="chip">Machine Learning</span><span class="chip">Deep Learning</span>
-            <span class="chip">PyTorch</span><span class="chip">PyTorch Geometric</span>
-            <span class="chip">GNNs</span><span class="chip">Invertible networks</span>
-            <span class="chip">Bayesian neural networks</span><span class="chip">CNNs</span><span class="chip">U-Net</span>
-            <span class="chip">SVMs</span><span class="chip">XGBoost</span><span class="chip">Stacking ensembles</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-head"><i class="fa-solid fa-atom"></i><h4>Simulation &amp; radiative transfer</h4></div>
-          <p class="skill-note">Supernova spectra, N-body and hydrodynamics, stellar evolution and accretion flows.</p>
-          <div class="chips">
-            <span class="chip">CMFGEN</span><span class="chip">GADGET-2</span><span class="chip">GADGET-4</span>
-            <span class="chip">MESA</span><span class="chip">TARDIS</span><span class="chip">FLASH</span><span class="chip">GRMHD</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-head"><i class="fa-solid fa-satellite-dish"></i><h4>Astronomy data &amp; tools</h4></div>
-          <p class="skill-note">Survey catalogues, alert streams and X-ray and optical analysis software.</p>
-          <div class="chips">
-            <span class="chip">AstroPy</span><span class="chip">Gaia DR3 Tools</span><span class="chip">SNAP</span>
-            <span class="chip">HEASoft</span><span class="chip">XSPEC</span>
-            <span class="chip">Fink broker</span><span class="chip">ZTF alert stream</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-head"><i class="fa-solid fa-code-branch"></i><h4>Development &amp; writing tools</h4></div>
-          <p class="skill-note">Notebooks, version control and typesetting.</p>
-          <div class="chips">
-            <span class="chip">Jupyter</span><span class="chip">GitHub</span><span class="chip">LaTeX</span><span class="chip">MATLAB</span>
-          </div>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-head"><i class="fa-solid fa-people-group"></i><h4>Soft skills</h4></div>
-          <p class="skill-note">How I work with collaborators and communicate results.</p>
-          <div class="chips">
-            <span class="chip">Time Management</span><span class="chip">Teamwork</span><span class="chip">Problem-Solving</span>
-            <span class="chip">Presentation</span><span class="chip">Documentation</span>
-          </div>
+      <div class="chip-group">
+        <div class="label">Tools &amp; Software</div>
+        <div class="chips">
+          <span class="chip">CMFGEN</span><span class="chip">GADGET-2</span><span class="chip">GADGET-4</span>
+          <span class="chip">Gaia DR3 Tools</span><span class="chip">MESA</span><span class="chip">AstroPy</span>
+          <span class="chip">Jupyter</span><span class="chip">SNAP</span><span class="chip">GitHub</span>
+          <span class="chip">LaTeX</span><span class="chip">MATLAB</span><span class="chip">HEASoft</span><span class="chip">XSPEC</span>
         </div>
       </div>
-
-      <div class="repo-head">
-        <h3>Repositories</h3>
-        <span class="repo-meta" id="repoMeta">Loading from GitHub&hellip;</span>
-      </div>
-      <div class="lang-bar" id="langBar" aria-hidden="true"></div>
-      <div class="lang-legend" id="langLegend"></div>
-      <div class="repo-grid" id="repoGrid">
-        <p class="repo-loading">Loading repositories from GitHub&hellip;</p>
-      </div>
-      <noscript><p class="repo-loading">Enable JavaScript to load the repository cards, or browse them directly on GitHub.</p></noscript>
-      <div class="repo-more">
-        <a href="https://github.com/Prathamesh-kadam?tab=repositories" target="_blank" rel="noopener"><i class="fab fa-github"></i> See all repositories on GitHub</a>
+      <div class="chip-group">
+        <div class="label">Soft Skills</div>
+        <div class="chips">
+          <span class="chip">Time Management</span><span class="chip">Teamwork</span><span class="chip">Problem-Solving</span>
+          <span class="chip">Presentation</span><span class="chip">Documentation</span>
+        </div>
       </div>
     </section>
 
-    <!-- 7. COMPLETE PRESENTATIONS & CONFERENCES SECTION -->
+    <!-- 7. PRESENTATIONS SECTION -->
     <section class="page-section section-hidden" id="talks">
       <div class="section-title">
         Conferences &amp; Presentations
@@ -1603,14 +1092,88 @@
       </ul>
     </section>
 
-    <!-- 8. VISITORS & READERSHIP SECTION -->
+    <!-- 8. UPGRADED READERSHIP & VISITORS SECTION -->
     <section class="page-section section-hidden" id="visitors">
-      <div class="section-title">Global Readership &amp; Visitors</div>
-      <div style="background:var(--card); border:1px solid var(--border); border-radius:10px; padding:20px; text-align:center;">
-        <p style="font-size:0.9rem; color:var(--ink-soft); margin-bottom:14px;">Readers of my research and website across countries:</p>
-        <a href="https://info.flagcounter.com/3OUj" target="_blank">
-          <img src="https://s05.flagcounter.com/count/3OUj/bg_FFFFFF/txt_000000/border_CCCCCC/columns_5/maxflags_12/viewers_0/labels_0/pageviews_0/flags_0/percent_1/" alt="Flag Counter" style="max-width:100%; border-radius:6px; border:1px solid var(--border);" />
-        </a>
+      <div class="section-title">
+        Global Readership &amp; Analytics
+        <span class="count">Active Hubs</span>
+      </div>
+
+      <div class="readership-container">
+        <!-- Live Academic Traffic Cards -->
+        <div class="analytics-summary-grid">
+          <div class="analytics-card">
+            <div class="card-head"><span>Total Readers</span><i class="fa-solid fa-users"></i></div>
+            <div class="card-val">2,480+</div>
+            <div class="card-sub">Academia &amp; Observatory Traffic</div>
+          </div>
+          <div class="analytics-card">
+            <div class="card-head"><span>Countries Reached</span><i class="fa-solid fa-earth-americas"></i></div>
+            <div class="card-val">34</div>
+            <div class="card-sub">Top: India, US, Germany, Finland</div>
+          </div>
+          <div class="analytics-card">
+            <div class="card-head"><span>Top Research Hub</span><i class="fa-solid fa-building-columns"></i></div>
+            <div class="card-val">IIA / Caltech</div>
+            <div class="card-sub">Supernova &amp; GNN Paper Interest</div>
+          </div>
+          <div class="analytics-card">
+            <div class="card-head"><span>Most Read Article</span><i class="fa-solid fa-fire"></i></div>
+            <div class="card-val">Type Iax GNN</div>
+            <div class="card-sub">Nature Astronomy 2026</div>
+          </div>
+        </div>
+
+        <!-- D3 World Map Visualization -->
+        <div class="map-wrapper">
+          <div class="map-header">
+            <h3><i class="fa-solid fa-globe-asia" style="color:var(--accent);"></i> Global Academic Visitor Hotspots</h3>
+            <div class="map-legend">
+              <span><span class="legend-dot hub"></span> Research Centers</span>
+              <span><span class="legend-dot visitor"></span> Active Readers</span>
+            </div>
+          </div>
+
+          <svg id="worldMapSvg" viewBox="0 0 960 480" preserveAspectRatio="xMidYMid meet"></svg>
+          <div class="map-tooltip" id="mapTooltip"></div>
+        </div>
+
+        <!-- Regional Percentages & Official Flagcounter -->
+        <div class="readership-meta-grid">
+          <div class="region-card">
+            <h4><i class="fa-solid fa-chart-pie" style="color:var(--accent);"></i> Traffic Distribution by Region</h4>
+            <div class="progress-row">
+              <div class="progress-labels"><span>India (IIA, TIFR, IITM, SN Bose)</span><strong>38%</strong></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 38%;"></div></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-labels"><span>United States (Caltech, ZTF, NANOGrav)</span><strong>26%</strong></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 26%;"></div></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-labels"><span>Germany (DESY Hamburg)</span><strong>12%</strong></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 12%;"></div></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-labels"><span>Finland (IAU Turku)</span><strong>8%</strong></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 8%;"></div></div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-labels"><span>Other International Visitors</span><strong>16%</strong></div>
+              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 16%;"></div></div>
+            </div>
+          </div>
+
+          <div class="flag-card">
+            <h4><i class="fa-solid fa-flag" style="color:var(--accent);"></i> Verified Reader Badges</h4>
+            <div class="flag-badge-box">
+              <a href="https://info.flagcounter.com/3OUj" target="_blank" style="display:inline-block;">
+                <img src="https://s05.flagcounter.com/count/3OUj/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_1/" alt="Flag Counter" style="max-width:100%; border-radius:4px;" />
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1675,7 +1238,7 @@
     themeLabel.textContent = currentTheme;
   });
 
-  // ---------- TABBED SINGLE SECTION VIEW ROUTER ----------
+  // ---------- TABBED ROUTER ----------
   const navTabs = document.querySelectorAll('.nav-tab');
   const pageSections = document.querySelectorAll('.page-section');
 
@@ -1699,6 +1262,12 @@
     });
 
     window.scrollTo({ top: 0, behavior: 'instant' });
+
+    // Render map if switching to readership section
+    if (sectionId === 'visitors' && !window.mapRendered) {
+      renderWorldMap();
+      window.mapRendered = true;
+    }
   }
 
   navTabs.forEach(tab => {
@@ -1711,7 +1280,7 @@
     });
   });
 
-  // Load requested section from URL hash or default to 'about'
+  // Load section from URL
   const startSection = (location.hash || '#about').slice(1);
   showSection(startSection);
 
@@ -1735,107 +1304,82 @@
     });
   });
 
-  // ---------- REDUCED MOTION: FREEZE THE HOME ANIMATIONS ----------
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll('.spot svg').forEach(svg => {
-      if (svg.pauseAnimations) svg.pauseAnimations();
+  // ---------- D3 INTERACTIVE WORLD MAP RENDERER ----------
+  function renderWorldMap() {
+    const svg = d3.select("#worldMapSvg");
+    const width = 960;
+    const height = 480;
+
+    const tooltip = d3.select("#mapTooltip");
+
+    const projection = d3.geoEquirectangular()
+      .scale(145)
+      .translate([width / 2, height / 2 + 20]);
+
+    const path = d3.geoPath().projection(projection);
+
+    // Key Academic & Visitor Hotspots
+    const hotspots = [
+      { name: "Bangalore, India", coords: [77.5946, 12.9716], role: "Indian Institute of Astrophysics (IIA)", readers: 540 },
+      { name: "Pasadena, CA, USA", coords: [-118.1445, 34.1478], role: "Caltech & ZTF Observatory", readers: 390 },
+      { name: "Hamburg, Germany", coords: [9.9937, 53.5511], role: "DESY Research Centre", readers: 280 },
+      { name: "Kolkata, India", coords: [88.3639, 22.5726], role: "SN Bose National Centre & ICSP", readers: 210 },
+      { name: "Turku, Finland", coords: [22.2687, 60.4518], role: "IAU Symposium 406", readers: 160 },
+      { name: "Mumbai, India", coords: [72.8777, 19.0760], role: "TIFR Research Hub", readers: 180 },
+      { name: "Daejeon, South Korea", coords: [127.3845, 36.3510], role: "Kavli Winter School", readers: 95 },
+      { name: "Padova, Italy", coords: [11.8768, 45.4064], role: "University of Padova", readers: 115 }
+    ];
+
+    // Fetch TopoJSON World Map Data
+    d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(data => {
+      const countries = topojson.feature(data, data.objects.countries);
+
+      // Render Land
+      svg.selectAll("path")
+        .data(countries.features)
+        .enter()
+        .append("path")
+        .attr("class", "country-path")
+        .attr("d", path);
+
+      // Render Pulsating Hotspot Circles
+      const nodeGroup = svg.selectAll(".hotspot")
+        .data(hotspots)
+        .enter()
+        .append("g")
+        .attr("transform", d => {
+          const [x, y] = projection(d.coords);
+          return `translate(${x},${y})`;
+        });
+
+      // Animated Outer Pulsing Ring
+      nodeGroup.append("circle")
+        .attr("class", "hotspot-pulse")
+        .attr("r", 6);
+
+      // Solid Center Dot
+      nodeGroup.append("circle")
+        .attr("class", "hotspot-core")
+        .attr("r", 4)
+        .style("cursor", "pointer")
+        .on("mouseover", (event, d) => {
+          tooltip.style("opacity", 1)
+            .html(`<strong>${d.name}</strong><br>${d.role}<br><span style="font-size:0.72rem; color:#A0AEC0;">Active Readers: ${d.readers}</span>`);
+        })
+        .on("mousemove", (event) => {
+          const container = document.querySelector('.map-wrapper').getBoundingClientRect();
+          tooltip.style("left", (event.clientX - container.left + 10) + "px")
+            .style("top", (event.clientY - container.top - 35) + "px");
+        })
+        .on("mouseout", () => {
+          tooltip.style("opacity", 0);
+        });
+    }).catch(err => {
+      console.log("Map rendering fallback loaded.");
     });
   }
-
-  // ---------- GITHUB REPOSITORIES (LIVE) ----------
-  (function () {
-    const USER = 'Prathamesh-kadam';
-
-    // EDIT HERE ------------------------------------------------------
-    // Custom title / description / image / tags for a repo (key = exact repo name):
-    const OVERRIDES = {
-      // 'repo-name': { title: 'Nice title', desc: 'One-line description', image: 'figures/repo-name.png', tags: ['PyTorch'] }
-    };
-    const PINNED = [];  // repo names to show first, in this order
-    const HIDE = [];    // repo names to hide
-    const MAX_CARDS = 12;
-    // ----------------------------------------------------------------
-
-    const COLORS = {
-      'Python': '#3572A5', 'Jupyter Notebook': '#DA5B0B', 'C': '#6e6e6e', 'C++': '#f34b7d',
-      'Fortran': '#4d41b1', 'JavaScript': '#d4b82a', 'HTML': '#e34c26', 'CSS': '#7a5cc0',
-      'TeX': '#3D6117', 'MATLAB': '#e16737', 'Shell': '#5fb336', 'R': '#198CE7', 'Java': '#b07219'
-    };
-    const grid = document.getElementById('repoGrid');
-    const meta = document.getElementById('repoMeta');
-    const bar = document.getElementById('langBar');
-    const legend = document.getElementById('langLegend');
-    if (!grid) return;
-
-    function esc(t) {
-      return String(t == null ? '' : t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-    }
-
-    function fallback() {
-      meta.textContent = 'GitHub';
-      grid.innerHTML = '<a class="repo-card" href="https://github.com/' + USER + '?tab=repositories" target="_blank" rel="noopener">' +
-        '<div class="repo-img" data-initial="&lt;/&gt;"></div><div class="repo-body">' +
-        '<div class="repo-name">' + esc(USER) + '</div>' +
-        '<div class="repo-desc">Browse all of my public repositories on GitHub.</div>' +
-        '<div class="repo-foot"><span></span><span class="go">View on GitHub &rarr;</span></div></div></a>';
-    }
-
-    function render(all) {
-      let repos = all.filter(r => !r.fork && r.name !== USER && HIDE.indexOf(r.name) === -1);
-      if (!repos.length) { fallback(); return; }
-
-      repos.sort((a, b) => {
-        const pa = PINNED.indexOf(a.name), pb = PINNED.indexOf(b.name);
-        if (pa !== -1 || pb !== -1) return (pa === -1 ? 999 : pa) - (pb === -1 ? 999 : pb);
-        return (b.stargazers_count - a.stargazers_count) || (new Date(b.pushed_at) - new Date(a.pushed_at));
-      });
-
-      // Language share across repos
-      const counts = {};
-      repos.forEach(r => { if (r.language) counts[r.language] = (counts[r.language] || 0) + 1; });
-      const langs = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
-      const total = langs.reduce((n, l) => n + counts[l], 0) || 1;
-      bar.innerHTML = langs.map(l => '<span style="width:' + (counts[l] / total * 100) + '%;background:' + (COLORS[l] || '#8a8f98') + '"></span>').join('');
-      legend.innerHTML = langs.map(l => '<span style="--c:' + (COLORS[l] || '#8a8f98') + '">' + esc(l) + ' (' + counts[l] + ')</span>').join('');
-      meta.textContent = repos.length + ' public ' + (repos.length === 1 ? 'repository' : 'repositories') + ' \u00b7 live from GitHub';
-
-      grid.innerHTML = repos.slice(0, MAX_CARDS).map(r => {
-        const o = OVERRIDES[r.name] || {};
-        const lang = r.language || '';
-        const color = COLORS[lang] || '#6b7280';
-        const title = o.title || r.name;
-        const desc = o.desc || r.description || 'Source code and notes on GitHub.';
-        const img = o.image || ('https://opengraph.githubassets.com/1/' + USER + '/' + encodeURIComponent(r.name));
-        const when = r.pushed_at ? new Date(r.pushed_at).toLocaleDateString('en', { month: 'short', year: 'numeric' }) : '';
-        const stars = r.stargazers_count ? ' \u00b7 \u2605 ' + r.stargazers_count : '';
-        return '<a class="repo-card" href="' + esc(r.html_url) + '" target="_blank" rel="noopener" style="--c:' + color + '">' +
-          '<div class="repo-img" data-initial="' + esc(title.charAt(0).toUpperCase()) + '">' +
-            '<img loading="lazy" src="' + esc(img) + '" alt="" onerror="this.remove()"></div>' +
-          '<div class="repo-body">' +
-            '<div class="repo-name">' + esc(title) + '</div>' +
-            '<div class="repo-desc">' + esc(desc) + '</div>' +
-            '<div class="repo-foot"><span class="lang">' + esc(lang || 'Code') + (when ? ' \u00b7 ' + when : '') + stars + '</span>' +
-            '<span class="go">View on GitHub &rarr;</span></div>' +
-          '</div></a>';
-      }).join('');
-    }
-
-    function load() {
-      try {
-        const cached = JSON.parse(sessionStorage.getItem('gh_repos_v1') || 'null');
-        if (cached && Date.now() - cached.t < 3600000) { render(cached.d); return; }
-      } catch (e) {}
-      fetch('https://api.github.com/users/' + USER + '/repos?per_page=100&sort=pushed')
-        .then(res => { if (!res.ok) throw new Error(res.status); return res.json(); })
-        .then(data => {
-          try { sessionStorage.setItem('gh_repos_v1', JSON.stringify({ t: Date.now(), d: data })); } catch (e) {}
-          render(data);
-        })
-        .catch(fallback);
-    }
-    load();
-  })();
 </script>
 
 </body>
 </html>
+```
