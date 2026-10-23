@@ -741,6 +741,154 @@
     .sky-grid img { height: 190px; }
   }
 
+  /* ---------- TECHNICAL SKILLS & CODE ---------- */
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .term {
+    background: #0d1117;
+    border: 1px solid #263041;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow);
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 12px;
+    background: #161b22;
+    border-bottom: 1px solid #263041;
+    font: 0.74rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: #8b949e;
+  }
+  .term-bar i { width: 10px; height: 10px; border-radius: 50%; background: #3b4252; display: inline-block; }
+  .term-bar span { margin-left: 8px; }
+  .term-body {
+    padding: 14px 16px;
+    font: 0.82rem/1.9 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: #c9d1d9;
+  }
+  .term-body div { display: grid; grid-template-columns: 112px 1fr; gap: 8px; }
+  .term-body b { color: #7ee787; font-weight: 600; }
+  .term-body em { color: #79c0ff; font-style: normal; }
+
+  .skill-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow);
+  }
+  .skill-card.wide { grid-column: 1 / -1; }
+  .skill-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .skill-head i {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.95rem;
+  }
+  .skill-head h4 { font-size: 1rem; line-height: 1.2; }
+  .skill-note { font-size: 0.83rem; color: var(--ink-soft); margin-bottom: 10px; line-height: 1.5; }
+  .skill-card .chip {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.76rem;
+    padding: 4px 10px;
+  }
+
+  .repo-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 28px 0 10px; }
+  .repo-head h3 { font-size: 1.25rem; }
+  .repo-head .repo-meta { font-size: 0.8rem; color: var(--muted); }
+  .lang-bar { display: flex; height: 8px; border-radius: 999px; overflow: hidden; background: var(--chip); margin-bottom: 8px; }
+  .lang-bar span { display: block; height: 100%; }
+  .lang-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 0.76rem; color: var(--muted); margin-bottom: 16px; }
+  .lang-legend span::before {
+    content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    margin-right: 6px; background: var(--c, #8a8f98);
+  }
+
+  .repo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .repo-loading { grid-column: 1 / -1; font-size: 0.9rem; color: var(--muted); }
+  .repo-card {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    color: var(--ink-soft);
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+  .repo-card:hover { transform: translateY(-3px); border-color: var(--accent); text-decoration: none; color: var(--ink-soft); }
+  .repo-img {
+    position: relative;
+    flex: 0 0 44%;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--c, #6b7280), #0a0f24);
+  }
+  .repo-img::after {
+    content: attr(data-initial);
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 2.6rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: rgba(255,255,255,0.85);
+  }
+  .repo-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; background: #0a0f24; }
+  .repo-body { display: flex; flex-direction: column; flex: 1; min-height: 0; padding: 12px 14px 12px; }
+  .repo-name {
+    font: 700 0.92rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    color: var(--ink);
+    word-break: break-word;
+    margin-bottom: 4px;
+  }
+  .repo-desc {
+    font-size: 0.8rem;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .repo-foot {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 0.74rem;
+    color: var(--muted);
+    padding-top: 8px;
+  }
+  .repo-foot .lang::before {
+    content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    margin-right: 5px; background: var(--c, #8a8f98);
+  }
+  .repo-foot .go { color: var(--accent); font-weight: 700; white-space: nowrap; }
+  .repo-more { margin-top: 16px; }
+  .repo-more a {
+    display: inline-block; font-size: 0.86rem; font-weight: 600;
+    padding: 8px 18px; border: 1px solid var(--accent); border-radius: 999px;
+  }
+  .repo-more a:hover { background: var(--accent-soft); text-decoration: none; }
+  @media (max-width: 900px) { .repo-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) {
+    .repo-grid, .skill-grid { grid-template-columns: 1fr; }
+    .term-body div { grid-template-columns: 96px 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .repo-card { transition: none; }
+    .repo-card:hover { transform: none; }
+  }
+
   /* RESPONSIVE DESIGN */
   @media (max-width: 900px) {
     aside.sidebar {
@@ -795,7 +943,7 @@
         <a href="#publications" class="nav-tab" data-section="publications"><i class="fa-solid fa-book-open"></i> Publications</a>
         <a href="#collaborators" class="nav-tab" data-section="collaborators"><i class="fa-solid fa-network-wired"></i> Collaborators</a>
         <a href="#experience" class="nav-tab" data-section="experience"><i class="fa-solid fa-telescope"></i> Facilities &amp; Exp</a>
-        <a href="#skills" class="nav-tab" data-section="skills"><i class="fa-solid fa-code"></i> Technical Skills</a>
+        <a href="#skills" class="nav-tab" data-section="skills"><i class="fa-solid fa-code"></i> Skills &amp; Code</a>
         <a href="#talks" class="nav-tab" data-section="talks"><i class="fa-solid fa-chalkboard-user"></i> Presentations</a>
         <a href="#visitors" class="nav-tab" data-section="visitors"><i class="fa-solid fa-globe"></i> Readership</a>
         <a href="#contact" class="nav-tab" data-section="contact"><i class="fa-solid fa-envelope"></i> Contact</a>
@@ -1321,32 +1469,95 @@
       </div>
     </section>
 
-    <!-- 6. COMPLETE TECHNICAL SKILLS -->
+    <!-- 6. TECHNICAL SKILLS & CODE -->
     <section class="page-section section-hidden" id="skills">
-      <div class="section-title">Technical Skills</div>
-      <div class="chip-group">
-        <div class="label">Programming &amp; Machine Learning</div>
-        <div class="chips">
-          <span class="chip">Python</span><span class="chip">C/C++</span><span class="chip">FORTRAN</span>
-          <span class="chip">SQLite</span><span class="chip">Machine Learning</span><span class="chip">Deep Learning</span>
-          <span class="chip">PyTorch</span><span class="chip">PyTorch Geometric</span>
+      <div class="section-title">
+        Technical Skills &amp; Code
+        <span class="count">Live from GitHub</span>
+      </div>
+
+      <div class="term" role="img" aria-label="Summary of my technical stack">
+        <div class="term-bar"><i></i><i></i><i></i><span>stack.summary</span></div>
+        <div class="term-body">
+          <div><b>languages</b><span>Python <em>&middot;</em> C/C++ <em>&middot;</em> FORTRAN</span></div>
+          <div><b>ml</b><span>PyTorch <em>&middot;</em> PyTorch Geometric <em>&middot;</em> GNNs</span></div>
+          <div><b>simulation</b><span>CMFGEN <em>&middot;</em> GADGET <em>&middot;</em> MESA <em>&middot;</em> TARDIS</span></div>
+          <div><b>data</b><span>AstroPy <em>&middot;</em> Gaia DR3 <em>&middot;</em> Fink / ZTF alerts</span></div>
         </div>
       </div>
-      <div class="chip-group">
-        <div class="label">Tools &amp; Software</div>
-        <div class="chips">
-          <span class="chip">CMFGEN</span><span class="chip">GADGET-2</span><span class="chip">GADGET-4</span>
-          <span class="chip">Gaia DR3 Tools</span><span class="chip">MESA</span><span class="chip">AstroPy</span>
-          <span class="chip">Jupyter</span><span class="chip">SNAP</span><span class="chip">GitHub</span>
-          <span class="chip">LaTeX</span><span class="chip">MATLAB</span><span class="chip">HEASoft</span><span class="chip">XSPEC</span>
+
+      <div class="group-label">Coding expertise</div>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <div class="skill-head"><i class="fa-solid fa-terminal"></i><h4>Programming languages</h4></div>
+          <p class="skill-note">Python for models, pipelines and analysis; C/C++ and FORTRAN for scientific simulation codes.</p>
+          <div class="chips">
+            <span class="chip">Python</span><span class="chip">C/C++</span><span class="chip">FORTRAN</span>
+            <span class="chip">SQLite</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head"><i class="fa-solid fa-brain"></i><h4>Machine &amp; deep learning</h4></div>
+          <p class="skill-note">Graph neural networks for supernova classification, an invertible network for 3D environments, and U-Net and ensemble models for satellite data.</p>
+          <div class="chips">
+            <span class="chip">Machine Learning</span><span class="chip">Deep Learning</span>
+            <span class="chip">PyTorch</span><span class="chip">PyTorch Geometric</span>
+            <span class="chip">GNNs</span><span class="chip">Invertible networks</span>
+            <span class="chip">Bayesian neural networks</span><span class="chip">CNNs</span><span class="chip">U-Net</span>
+            <span class="chip">SVMs</span><span class="chip">XGBoost</span><span class="chip">Stacking ensembles</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head"><i class="fa-solid fa-atom"></i><h4>Simulation &amp; radiative transfer</h4></div>
+          <p class="skill-note">Supernova spectra, N-body and hydrodynamics, stellar evolution and accretion flows.</p>
+          <div class="chips">
+            <span class="chip">CMFGEN</span><span class="chip">GADGET-2</span><span class="chip">GADGET-4</span>
+            <span class="chip">MESA</span><span class="chip">TARDIS</span><span class="chip">FLASH</span><span class="chip">GRMHD</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head"><i class="fa-solid fa-satellite-dish"></i><h4>Astronomy data &amp; tools</h4></div>
+          <p class="skill-note">Survey catalogues, alert streams and X-ray and optical analysis software.</p>
+          <div class="chips">
+            <span class="chip">AstroPy</span><span class="chip">Gaia DR3 Tools</span><span class="chip">SNAP</span>
+            <span class="chip">HEASoft</span><span class="chip">XSPEC</span>
+            <span class="chip">Fink broker</span><span class="chip">ZTF alert stream</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head"><i class="fa-solid fa-code-branch"></i><h4>Development &amp; writing tools</h4></div>
+          <p class="skill-note">Notebooks, version control and typesetting.</p>
+          <div class="chips">
+            <span class="chip">Jupyter</span><span class="chip">GitHub</span><span class="chip">LaTeX</span><span class="chip">MATLAB</span>
+          </div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-head"><i class="fa-solid fa-people-group"></i><h4>Soft skills</h4></div>
+          <p class="skill-note">How I work with collaborators and communicate results.</p>
+          <div class="chips">
+            <span class="chip">Time Management</span><span class="chip">Teamwork</span><span class="chip">Problem-Solving</span>
+            <span class="chip">Presentation</span><span class="chip">Documentation</span>
+          </div>
         </div>
       </div>
-      <div class="chip-group">
-        <div class="label">Soft Skills</div>
-        <div class="chips">
-          <span class="chip">Time Management</span><span class="chip">Teamwork</span><span class="chip">Problem-Solving</span>
-          <span class="chip">Presentation</span><span class="chip">Documentation</span>
-        </div>
+
+      <div class="repo-head">
+        <h3>Repositories</h3>
+        <span class="repo-meta" id="repoMeta">Loading from GitHub&hellip;</span>
+      </div>
+      <div class="lang-bar" id="langBar" aria-hidden="true"></div>
+      <div class="lang-legend" id="langLegend"></div>
+      <div class="repo-grid" id="repoGrid">
+        <p class="repo-loading">Loading repositories from GitHub&hellip;</p>
+      </div>
+      <noscript><p class="repo-loading">Enable JavaScript to load the repository cards, or browse them directly on GitHub.</p></noscript>
+      <div class="repo-more">
+        <a href="https://github.com/Prathamesh-kadam?tab=repositories" target="_blank" rel="noopener"><i class="fab fa-github"></i> See all repositories on GitHub</a>
       </div>
     </section>
 
@@ -1530,6 +1741,100 @@
       if (svg.pauseAnimations) svg.pauseAnimations();
     });
   }
+
+  // ---------- GITHUB REPOSITORIES (LIVE) ----------
+  (function () {
+    const USER = 'Prathamesh-kadam';
+
+    // EDIT HERE ------------------------------------------------------
+    // Custom title / description / image / tags for a repo (key = exact repo name):
+    const OVERRIDES = {
+      // 'repo-name': { title: 'Nice title', desc: 'One-line description', image: 'figures/repo-name.png', tags: ['PyTorch'] }
+    };
+    const PINNED = [];  // repo names to show first, in this order
+    const HIDE = [];    // repo names to hide
+    const MAX_CARDS = 12;
+    // ----------------------------------------------------------------
+
+    const COLORS = {
+      'Python': '#3572A5', 'Jupyter Notebook': '#DA5B0B', 'C': '#6e6e6e', 'C++': '#f34b7d',
+      'Fortran': '#4d41b1', 'JavaScript': '#d4b82a', 'HTML': '#e34c26', 'CSS': '#7a5cc0',
+      'TeX': '#3D6117', 'MATLAB': '#e16737', 'Shell': '#5fb336', 'R': '#198CE7', 'Java': '#b07219'
+    };
+    const grid = document.getElementById('repoGrid');
+    const meta = document.getElementById('repoMeta');
+    const bar = document.getElementById('langBar');
+    const legend = document.getElementById('langLegend');
+    if (!grid) return;
+
+    function esc(t) {
+      return String(t == null ? '' : t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function fallback() {
+      meta.textContent = 'GitHub';
+      grid.innerHTML = '<a class="repo-card" href="https://github.com/' + USER + '?tab=repositories" target="_blank" rel="noopener">' +
+        '<div class="repo-img" data-initial="&lt;/&gt;"></div><div class="repo-body">' +
+        '<div class="repo-name">' + esc(USER) + '</div>' +
+        '<div class="repo-desc">Browse all of my public repositories on GitHub.</div>' +
+        '<div class="repo-foot"><span></span><span class="go">View on GitHub &rarr;</span></div></div></a>';
+    }
+
+    function render(all) {
+      let repos = all.filter(r => !r.fork && r.name !== USER && HIDE.indexOf(r.name) === -1);
+      if (!repos.length) { fallback(); return; }
+
+      repos.sort((a, b) => {
+        const pa = PINNED.indexOf(a.name), pb = PINNED.indexOf(b.name);
+        if (pa !== -1 || pb !== -1) return (pa === -1 ? 999 : pa) - (pb === -1 ? 999 : pb);
+        return (b.stargazers_count - a.stargazers_count) || (new Date(b.pushed_at) - new Date(a.pushed_at));
+      });
+
+      // Language share across repos
+      const counts = {};
+      repos.forEach(r => { if (r.language) counts[r.language] = (counts[r.language] || 0) + 1; });
+      const langs = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
+      const total = langs.reduce((n, l) => n + counts[l], 0) || 1;
+      bar.innerHTML = langs.map(l => '<span style="width:' + (counts[l] / total * 100) + '%;background:' + (COLORS[l] || '#8a8f98') + '"></span>').join('');
+      legend.innerHTML = langs.map(l => '<span style="--c:' + (COLORS[l] || '#8a8f98') + '">' + esc(l) + ' (' + counts[l] + ')</span>').join('');
+      meta.textContent = repos.length + ' public ' + (repos.length === 1 ? 'repository' : 'repositories') + ' \u00b7 live from GitHub';
+
+      grid.innerHTML = repos.slice(0, MAX_CARDS).map(r => {
+        const o = OVERRIDES[r.name] || {};
+        const lang = r.language || '';
+        const color = COLORS[lang] || '#6b7280';
+        const title = o.title || r.name;
+        const desc = o.desc || r.description || 'Source code and notes on GitHub.';
+        const img = o.image || ('https://opengraph.githubassets.com/1/' + USER + '/' + encodeURIComponent(r.name));
+        const when = r.pushed_at ? new Date(r.pushed_at).toLocaleDateString('en', { month: 'short', year: 'numeric' }) : '';
+        const stars = r.stargazers_count ? ' \u00b7 \u2605 ' + r.stargazers_count : '';
+        return '<a class="repo-card" href="' + esc(r.html_url) + '" target="_blank" rel="noopener" style="--c:' + color + '">' +
+          '<div class="repo-img" data-initial="' + esc(title.charAt(0).toUpperCase()) + '">' +
+            '<img loading="lazy" src="' + esc(img) + '" alt="" onerror="this.remove()"></div>' +
+          '<div class="repo-body">' +
+            '<div class="repo-name">' + esc(title) + '</div>' +
+            '<div class="repo-desc">' + esc(desc) + '</div>' +
+            '<div class="repo-foot"><span class="lang">' + esc(lang || 'Code') + (when ? ' \u00b7 ' + when : '') + stars + '</span>' +
+            '<span class="go">View on GitHub &rarr;</span></div>' +
+          '</div></a>';
+      }).join('');
+    }
+
+    function load() {
+      try {
+        const cached = JSON.parse(sessionStorage.getItem('gh_repos_v1') || 'null');
+        if (cached && Date.now() - cached.t < 3600000) { render(cached.d); return; }
+      } catch (e) {}
+      fetch('https://api.github.com/users/' + USER + '/repos?per_page=100&sort=pushed')
+        .then(res => { if (!res.ok) throw new Error(res.status); return res.json(); })
+        .then(data => {
+          try { sessionStorage.setItem('gh_repos_v1', JSON.stringify({ t: Date.now(), d: data })); } catch (e) {}
+          render(data);
+        })
+        .catch(fallback);
+    }
+    load();
+  })();
 </script>
 
 </body>
