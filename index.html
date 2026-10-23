@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -9,8 +8,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 
 <style>
   /* ---------- COLOR PALETTES & THEMES ---------- */
@@ -27,9 +24,6 @@
     --accent-soft: #F9EFEA;
     --chip: #EFEBE4;
     --shadow: 0 4px 16px rgba(0,0,0,0.04);
-    --map-land: #E2DACD;
-    --map-border: #FAF8F5;
-    --map-sea: #F2EEE9;
   }
   html[data-theme="navy"] {
     --bg: #0B132B;
@@ -44,9 +38,6 @@
     --accent-soft: #1E293B;
     --chip: #1C2541;
     --shadow: 0 4px 16px rgba(0,0,0,0.3);
-    --map-land: #1E294B;
-    --map-border: #111D42;
-    --map-sea: #080E21;
   }
   html[data-theme="dark"] {
     --bg: #121214;
@@ -61,9 +52,6 @@
     --accent-soft: #281D1A;
     --chip: #222228;
     --shadow: 0 4px 16px rgba(0,0,0,0.5);
-    --map-land: #2A2A32;
-    --map-border: #18181C;
-    --map-sea: #0E0E10;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -82,10 +70,7 @@
   img { max-width: 100%; height: auto; display: block; }
 
   /* ---------- APP LAYOUT ---------- */
-  .layout-wrapper {
-    display: flex;
-    min-height: 100vh;
-  }
+  .layout-wrapper { display: flex; min-height: 100vh; }
 
   /* SIDEBAR STYLES */
   aside.sidebar {
@@ -97,302 +82,135 @@
     flex-direction: column;
     justify-content: space-between;
     position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    top: 0; bottom: 0; left: 0;
     z-index: 100;
     overflow-y: auto;
   }
 
-  .sidebar-brand {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+  .sidebar-brand { text-align: center; margin-bottom: 20px; }
   .sidebar-avatar {
-    width: 125px;
-    height: 125px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 125px; height: 125px;
+    border-radius: 50%; object-fit: cover;
     border: 3px solid var(--accent);
     margin: 0 auto 12px;
     box-shadow: var(--shadow);
   }
-  .sidebar-name {
-    font-size: 1.2rem;
-    font-weight: 700;
-    line-height: 1.25;
-    margin-bottom: 4px;
-  }
-  .sidebar-title {
-    font-size: 0.82rem;
-    color: var(--accent);
-    font-weight: 600;
-  }
+  .sidebar-name { font-size: 1.2rem; font-weight: 700; line-height: 1.25; margin-bottom: 4px; }
+  .sidebar-title { font-size: 0.82rem; color: var(--accent); font-weight: 600; }
 
-  /* SIDEBAR NAV LINKS */
-  .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin: 16px 0;
-  }
+  .sidebar-nav { display: flex; flex-direction: column; gap: 4px; margin: 16px 0; }
   .sidebar-nav a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--ink-soft);
-    transition: all 0.15s ease;
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 14px; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500;
+    color: var(--ink-soft); transition: all 0.15s ease;
   }
-  .sidebar-nav a i {
-    width: 18px;
-    color: var(--muted);
-    transition: color 0.15s ease;
-  }
+  .sidebar-nav a i { width: 18px; color: var(--muted); }
   .sidebar-nav a:hover, .sidebar-nav a.active {
-    background: var(--card);
-    color: var(--accent);
-    text-decoration: none;
-    box-shadow: var(--shadow);
+    background: var(--card); color: var(--accent);
+    text-decoration: none; box-shadow: var(--shadow);
   }
-  .sidebar-nav a:hover i, .sidebar-nav a.active i {
-    color: var(--accent);
-  }
+  .sidebar-nav a:hover i, .sidebar-nav a.active i { color: var(--accent); }
 
-  /* Book Link Badge in Sidebar */
   .sidebar-nav a.book-link {
-    background: var(--accent-soft);
-    color: var(--accent);
-    border: 1px dashed var(--accent);
-    margin-top: 10px;
-    font-weight: 600;
+    background: var(--accent-soft); color: var(--accent);
+    border: 1px dashed var(--accent); margin-top: 10px; font-weight: 600;
   }
-  .sidebar-nav a.book-link:hover {
-    background: var(--accent);
-    color: #ffffff;
-  }
-  .sidebar-nav a.book-link:hover i {
-    color: #ffffff;
-  }
+  .sidebar-nav a.book-link:hover { background: var(--accent); color: #ffffff; }
 
-  /* SIDEBAR FOOTER */
   .sidebar-footer {
     border-top: 1px solid var(--border);
-    padding-top: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    padding-top: 16px; display: flex; flex-direction: column; gap: 12px;
   }
   .theme-toggle-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--card);
-    border: 1px solid var(--border);
-    color: var(--ink-soft);
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: 500;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--ink-soft); padding: 8px 12px; border-radius: 8px;
+    cursor: pointer; font-size: 0.85rem; font-weight: 500;
   }
 
   /* MAIN CONTENT AREA */
   main.main-content {
-    margin-left: 280px;
-    flex: 1;
-    max-width: 920px;
+    margin-left: 280px; flex: 1; max-width: 900px;
     padding: 40px 48px 60px;
   }
 
   /* MOBILE TOPBAR */
   .mobile-header {
-    display: none;
-    position: sticky;
-    top: 0;
-    z-index: 110;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 20px;
-    align-items: center;
-    justify-content: space-between;
+    display: none; position: sticky; top: 0; z-index: 110;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    padding: 12px 20px; align-items: center; justify-content: space-between;
   }
-  .mobile-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    font-size: 1rem;
-    font-family: 'Playfair Display', serif;
-  }
-  .mobile-brand img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  .mobile-menu-btn {
-    background: none;
-    border: none;
-    font-size: 1.3rem;
-    color: var(--ink);
-    cursor: pointer;
-  }
+  .mobile-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1rem; font-family: 'Playfair Display', serif; }
+  .mobile-brand img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+  .mobile-menu-btn { background: none; border: none; font-size: 1.3rem; color: var(--ink); cursor: pointer; }
 
-  /* ---------- HERO HEADER ---------- */
-  .hero-container {
-    margin-bottom: 24px;
-  }
-  .hero-text-block h1 {
-    font-size: 2.2rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 6px;
-  }
-  .hero-text-block .subtitle {
-    font-size: 1.05rem;
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  .hero-text-block .affil {
-    font-size: 0.92rem;
-    color: var(--muted);
-    line-height: 1.5;
-    margin-bottom: 20px;
-  }
+  /* HERO HEADER */
+  .hero-container { margin-bottom: 24px; }
+  .hero-text-block h1 { font-size: 2.2rem; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
+  .hero-text-block .subtitle { font-size: 1.05rem; color: var(--accent); font-weight: 600; margin-bottom: 8px; }
+  .hero-text-block .affil { font-size: 0.92rem; color: var(--muted); line-height: 1.5; margin-bottom: 20px; }
 
-  /* Academic Stats Grid */
   .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-    margin-bottom: 24px;
-    box-shadow: var(--shadow);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px; text-align: center;
+    margin-bottom: 24px; box-shadow: var(--shadow);
   }
-  .stat-card .num {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--accent);
-    font-family: 'Playfair Display', serif;
-  }
-  .stat-card .lbl {
-    font-size: 0.75rem;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-  }
+  .stat-card .num { font-size: 1.4rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif; }
+  .stat-card .lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
 
-  /* PHOTO DISPLAY */
-  .telescope-photos-full {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+  .telescope-photos-full { display: flex; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; justify-content: center; }
   .telescope-photos-full img {
-    width: calc(50% - 8px);
-    max-width: 360px;
-    height: auto;
-    object-fit: contain;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    background: var(--card);
+    width: calc(50% - 8px); max-width: 360px; height: auto;
+    object-fit: contain; border-radius: 10px; border: 1px solid var(--border);
+    box-shadow: var(--shadow); background: var(--card);
   }
 
   .bio-text {
-    font-size: 1.02rem;
-    color: var(--ink-soft);
-    line-height: 1.75;
-    font-family: 'Playfair Display', Georgia, serif;
-    margin-bottom: 28px;
+    font-size: 1.02rem; color: var(--ink-soft); line-height: 1.75;
+    font-family: 'Playfair Display', Georgia, serif; margin-bottom: 28px;
   }
 
-  /* ---------- TABBED SINGLE SECTION VIEW ---------- */
-  .page-section {
-    padding: 10px 0 30px;
-  }
-  .page-section.section-hidden {
-    display: none !important;
-  }
+  /* PAGE SECTIONS */
+  .page-section { padding: 10px 0 30px; }
+  .page-section.section-hidden { display: none !important; }
 
   .section-title {
-    font-size: 1.45rem;
-    font-weight: 700;
-    margin-bottom: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 8px;
+    font-size: 1.45rem; font-weight: 700; margin-bottom: 22px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 2px solid var(--accent); padding-bottom: 8px;
   }
   .section-title .count {
-    font-size: 0.82rem;
-    color: var(--muted);
-    font-family: 'Inter', sans-serif;
-    background: var(--chip);
-    padding: 2px 10px;
-    border-radius: 999px;
+    font-size: 0.82rem; color: var(--muted); font-family: 'Inter', sans-serif;
+    background: var(--chip); padding: 2px 10px; border-radius: 999px;
   }
 
   .group-label {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    font-weight: 700;
-    margin: 24px 0 12px;
+    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent); font-weight: 700; margin: 24px 0 12px;
   }
   .group-label:first-child { margin-top: 0; }
 
-  /* Project & Card Lists */
   ul.project-list { list-style: none; }
   ul.project-list li {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    margin-bottom: 12px;
-    box-shadow: var(--shadow);
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow);
   }
-  ul.project-list li strong {
-    font-size: 0.98rem;
-    color: var(--ink);
-    display: block;
-    margin-bottom: 4px;
-    line-height: 1.4;
-  }
-  ul.project-list li .proj-meta {
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
+  ul.project-list li strong { font-size: 0.98rem; color: var(--ink); display: block; margin-bottom: 4px; line-height: 1.4; }
+  ul.project-list li .proj-meta { font-size: 0.85rem; color: var(--muted); }
 
-  /* Publications */
   .pub-filters { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
   .filter-btn {
     background: var(--chip); border: 1px solid var(--border);
     color: var(--ink-soft); font-size: 0.82rem; padding: 6px 14px;
     border-radius: 20px; cursor: pointer; font-weight: 500;
   }
-  .filter-btn.active, .filter-btn:hover {
-    background: var(--accent-soft); color: var(--accent); border-color: var(--accent);
-  }
+  .filter-btn.active, .filter-btn:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
 
   .pub-card {
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 10px; padding: 16px; margin-bottom: 12px;
-    box-shadow: var(--shadow);
+    border-radius: 10px; padding: 16px; margin-bottom: 12px; box-shadow: var(--shadow);
   }
   .pub-card .title { font-weight: 700; font-size: 1rem; color: var(--ink); margin-bottom: 4px; line-height: 1.4; }
   .pub-card .authors { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 6px; }
@@ -403,45 +221,24 @@
     color: var(--accent); margin-top: 8px; text-transform: uppercase;
   }
 
-  /* Book Redirect Card */
+  /* BOOK REDIRECT CARD */
   .book-redirect-card {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px 24px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    box-shadow: var(--shadow);
-    margin-top: 24px;
+    background: var(--bg-alt); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px; display: flex; gap: 20px;
+    align-items: center; box-shadow: var(--shadow); margin-top: 24px;
   }
-  .book-redirect-card img {
-    width: 70px;
-    border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    flex-shrink: 0;
-  }
+  .book-redirect-card img { width: 70px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); flex-shrink: 0; }
   .book-redirect-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
   .book-redirect-card p { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 10px; }
   .book-redirect-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent);
-    color: #ffffff;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: 20px;
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #ffffff; font-size: 0.85rem;
+    font-weight: 600; padding: 6px 14px; border-radius: 20px;
   }
   .book-redirect-btn:hover { background: var(--accent-hover); color: #ffffff; text-decoration: none; }
 
-  /* Collaborators Grid */
-  .collab-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 14px;
-  }
+  /* COLLABORATORS GRID */
+  .collab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
   .collab-card {
     background: var(--card); border: 1px solid var(--border);
     border-radius: 10px; padding: 16px; display: flex; flex-direction: column;
@@ -451,245 +248,49 @@
   .collab-card .inst-loc { font-size: 0.82rem; color: var(--muted); margin-bottom: 8px; }
   .collab-card .inst-topic { font-size: 0.85rem; color: var(--ink-soft); }
 
-  /* Two Column Grid */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 650px) { .two-col { grid-template-columns: 1fr; } }
 
-  /* Skills & Chips */
   .chip-group { margin-bottom: 20px; }
   .chip-group .label { font-weight: 700; font-size: 0.92rem; margin-bottom: 8px; color: var(--ink); }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-  .chip {
-    background: var(--chip); border: 1px solid var(--border);
-    color: var(--ink-soft); font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
-  }
+  .chip { background: var(--chip); border: 1px solid var(--border); color: var(--ink-soft); font-size: 0.82rem; padding: 5px 12px; border-radius: 20px; }
 
-  /* ---------- UPGRADED READERSHIP SECTION STYLES ---------- */
-  .readership-container {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+  /* READERSHIP & VISITOR MAP SECTION */
+  .readership-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 24px; box-shadow: var(--shadow);
   }
-
-  .analytics-summary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 14px;
-  }
-
-  .analytics-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 18px;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  .analytics-card .card-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--muted);
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .analytics-card .card-val {
-    font-size: 1.6rem;
-    font-weight: 700;
-    font-family: 'Playfair Display', serif;
-    color: var(--accent);
-    margin: 6px 0 2px;
-  }
-  .analytics-card .card-sub {
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-  }
-
-  /* Interactive D3 Map Container */
   .map-wrapper {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
+    position: relative; width: 100%; border-radius: 10px;
+    overflow: hidden; border: 1px solid var(--border);
+    background: var(--bg-alt); margin-bottom: 20px; padding: 16px; text-align: center;
   }
-  .map-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-    padding: 0 4px;
+  .map-svg-container {
+    width: 100%; max-width: 780px; margin: 0 auto;
   }
-  .map-header h3 {
-    font-size: 1rem;
-    font-weight: 700;
+  .hub-dot {
+    fill: var(--accent); animation: pulse 2s infinite;
   }
-  .map-legend {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 0.78rem;
-    color: var(--muted);
-  }
-  .legend-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .legend-dot.hub { background: var(--accent); }
-  .legend-dot.visitor { background: #3B82F6; }
-
-  #worldMapSvg {
-    width: 100%;
-    height: auto;
-    min-height: 320px;
-    background: var(--map-sea);
-    border-radius: 8px;
-    display: block;
+  @keyframes pulse {
+    0% { r: 4; opacity: 1; }
+    50% { r: 8; opacity: 0.4; }
+    100% { r: 4; opacity: 1; }
   }
 
-  .country-path {
-    fill: var(--map-land);
-    stroke: var(--map-border);
-    stroke-width: 0.5px;
-    transition: fill 0.2s ease;
-  }
-  .country-path:hover {
-    fill: var(--accent-soft);
-  }
+  footer { text-align: center; padding: 32px 0; color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); margin-top: 40px; }
 
-  /* Pulsating Map Hotspots */
-  @keyframes mapPulse {
-    0% { r: 4px; opacity: 0.9; }
-    50% { r: 9px; opacity: 0.3; }
-    100% { r: 4px; opacity: 0.9; }
-  }
-  .hotspot-pulse {
-    fill: var(--accent);
-    animation: mapPulse 2s infinite ease-in-out;
-  }
-  .hotspot-core {
-    fill: var(--accent);
-    stroke: #ffffff;
-    stroke-width: 1.5px;
-  }
-
-  /* Map Tooltip */
-  .map-tooltip {
-    position: absolute;
-    padding: 8px 12px;
-    background: var(--ink);
-    color: var(--bg);
-    border-radius: 6px;
-    font-size: 0.78rem;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-    z-index: 200;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  }
-  .map-tooltip strong { color: var(--accent); }
-
-  /* Regional Breakdown & Counter Grid */
-  .readership-meta-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 16px;
-  }
-  @media (max-width: 700px) {
-    .readership-meta-grid { grid-template-columns: 1fr; }
-  }
-
-  .region-card, .flag-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    box-shadow: var(--shadow);
-  }
-  .region-card h4, .flag-card h4 {
-    font-size: 0.92rem;
-    font-weight: 700;
-    margin-bottom: 14px;
-    color: var(--ink);
-  }
-
-  .progress-row {
-    margin-bottom: 10px;
-  }
-  .progress-row:last-child { margin-bottom: 0; }
-  .progress-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.82rem;
-    color: var(--ink-soft);
-    margin-bottom: 4px;
-  }
-  .progress-bar-bg {
-    height: 7px;
-    background: var(--chip);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 4px;
-  }
-
-  .flag-badge-box {
-    text-align: center;
-    padding: 10px;
-    background: var(--bg-alt);
-    border-radius: 8px;
-    border: 1px solid var(--border);
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 32px 0;
-    color: var(--muted);
-    font-size: 0.85rem;
-    border-top: 1px solid var(--border);
-    margin-top: 40px;
-  }
-
-  /* RESPONSIVE DESIGN */
   @media (max-width: 900px) {
-    aside.sidebar {
-      position: fixed;
-      transform: translateX(-100%);
-      transition: transform 0.25s ease;
-      width: 260px;
-    }
-    aside.sidebar.open {
-      transform: translateX(0);
-    }
-    main.main-content {
-      margin-left: 0;
-      padding: 24px 20px 40px;
-    }
-    .mobile-header {
-      display: flex;
-    }
-    .telescope-photos-full img {
-      width: 100%;
-      max-width: 100%;
-    }
+    aside.sidebar { position: fixed; transform: translateX(-100%); transition: transform 0.25s ease; width: 260px; }
+    aside.sidebar.open { transform: translateX(0); }
+    main.main-content { margin-left: 0; padding: 24px 20px 40px; }
+    .mobile-header { display: flex; }
+    .telescope-photos-full img { width: 100%; max-width: 100%; }
   }
 </style>
 </head>
 <body>
 
-<!-- MOBILE TOP HEADER BAR -->
 <div class="mobile-header">
   <div class="mobile-brand">
     <img src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Kadam" onError="this.src='https://via.placeholder.com/32'" />
@@ -700,7 +301,6 @@
 
 <div class="layout-wrapper">
 
-  <!-- PERMANENT SIDEBAR NAVIGATION -->
   <aside class="sidebar" id="sidebarNav">
     <div>
       <div class="sidebar-brand">
@@ -720,7 +320,6 @@
         <a href="#visitors" class="nav-tab" data-section="visitors"><i class="fa-solid fa-globe"></i> Readership</a>
         <a href="#contact" class="nav-tab" data-section="contact"><i class="fa-solid fa-envelope"></i> Contact</a>
 
-        <!-- External Redirect Link for The Novel Trilogy -->
         <a href="https://krystal-green.github.io/comebackhome/" target="_blank" rel="noopener" class="book-link">
           <i class="fa-solid fa-feather-pointed"></i> Come Back Home ↗
         </a>
@@ -742,7 +341,6 @@
     </div>
   </aside>
 
-  <!-- MAIN CONTENT AREA -->
   <main class="main-content">
 
     <!-- 1. ABOUT SECTION -->
@@ -772,7 +370,6 @@
           </div>
         </div>
 
-        <!-- Full Photos -->
         <div class="telescope-photos-full">
           <img src="telescope_photo_1.jpeg" alt="Prathamesh at Telescope Facility 1" onError="this.style.display='none'" />
           <img src="telescope_photo_2.jpeg" alt="Prathamesh at Telescope Facility 2" onError="this.style.display='none'" />
@@ -934,7 +531,6 @@
         </div>
       </div>
 
-      <!-- NOVEL REDIRECT CARD -->
       <div class="book-redirect-card">
         <img src="photo_2026-09-30 13.50.38.jpeg" alt="Come Back Home Book Cover" onError="this.src='https://via.placeholder.com/70'" />
         <div>
@@ -1050,7 +646,7 @@
       </div>
     </section>
 
-    <!-- 7. PRESENTATIONS SECTION -->
+    <!-- 7. PRESENTATIONS & CONFERENCES -->
     <section class="page-section section-hidden" id="talks">
       <div class="section-title">
         Conferences &amp; Presentations
@@ -1092,88 +688,56 @@
       </ul>
     </section>
 
-    <!-- 8. UPGRADED READERSHIP & VISITORS SECTION -->
+    <!-- 8. VISITORS & READERSHIP SECTION (FIXED VECTOR MAP) -->
     <section class="page-section section-hidden" id="visitors">
-      <div class="section-title">
-        Global Readership &amp; Analytics
-        <span class="count">Active Hubs</span>
-      </div>
-
-      <div class="readership-container">
-        <!-- Live Academic Traffic Cards -->
-        <div class="analytics-summary-grid">
-          <div class="analytics-card">
-            <div class="card-head"><span>Total Readers</span><i class="fa-solid fa-users"></i></div>
-            <div class="card-val">2,480+</div>
-            <div class="card-sub">Academia &amp; Observatory Traffic</div>
-          </div>
-          <div class="analytics-card">
-            <div class="card-head"><span>Countries Reached</span><i class="fa-solid fa-earth-americas"></i></div>
-            <div class="card-val">34</div>
-            <div class="card-sub">Top: India, US, Germany, Finland</div>
-          </div>
-          <div class="analytics-card">
-            <div class="card-head"><span>Top Research Hub</span><i class="fa-solid fa-building-columns"></i></div>
-            <div class="card-val">IIA / Caltech</div>
-            <div class="card-sub">Supernova &amp; GNN Paper Interest</div>
-          </div>
-          <div class="analytics-card">
-            <div class="card-head"><span>Most Read Article</span><i class="fa-solid fa-fire"></i></div>
-            <div class="card-val">Type Iax GNN</div>
-            <div class="card-sub">Nature Astronomy 2026</div>
-          </div>
+      <div class="section-title">Global Readership &amp; Academic Visitors</div>
+      
+      <div class="readership-card">
+        <div style="font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 16px; font-weight: 600;">
+          Interactive Academic Collaborator &amp; Reader Hubs:
         </div>
 
-        <!-- D3 World Map Visualization -->
+        <!-- Clean Inline Vector World Map with Active Hotspots -->
         <div class="map-wrapper">
-          <div class="map-header">
-            <h3><i class="fa-solid fa-globe-asia" style="color:var(--accent);"></i> Global Academic Visitor Hotspots</h3>
-            <div class="map-legend">
-              <span><span class="legend-dot hub"></span> Research Centers</span>
-              <span><span class="legend-dot visitor"></span> Active Readers</span>
-            </div>
-          </div>
+          <div class="map-svg-container">
+            <svg viewBox="0 0 1000 500" style="width: 100%; height: auto; display: block;">
+              <!-- Simplified Vector World Continents -->
+              <path d="M150,120 Q200,80 280,100 Q320,150 250,220 Q180,240 120,180 Z" fill="var(--chip)" stroke="var(--border)" stroke-width="1.5"/>
+              <path d="M220,260 Q280,250 320,320 Q280,450 240,480 Q200,380 220,260 Z" fill="var(--chip)" stroke="var(--border)" stroke-width="1.5"/>
+              <path d="M450,100 Q580,70 640,120 Q600,220 500,200 Q420,160 450,100 Z" fill="var(--chip)" stroke="var(--border)" stroke-width="1.5"/>
+              <path d="M480,220 Q580,200 620,300 Q540,400 480,320 Z" fill="var(--chip)" stroke="var(--border)" stroke-width="1.5"/>
+              <path d="M640,100 Q880,60 920,180 Q850,280 700,260 Q650,180 640,100 Z" fill="var(--chip)" stroke="var(--border)" stroke-width="1.5"/>
+              <path d="M800,320 Q900,300 920,400 Q820,440 800,320 Z" fill="var(--chip)" stroke="var(--border)" stroke-width="1.5"/>
 
-          <svg id="worldMapSvg" viewBox="0 0 960 480" preserveAspectRatio="xMidYMid meet"></svg>
-          <div class="map-tooltip" id="mapTooltip"></div>
-        </div>
+              <!-- Pulsating Research Hub Pins -->
+              <!-- IIA Bangalore / TIFR / IIT Madras -->
+              <circle cx="715" cy="235" r="6" class="hub-dot" />
+              <text x="725" y="240" fill="var(--ink)" font-size="12" font-weight="700">Bangalore &amp; TIFR (IIA)</text>
 
-        <!-- Regional Percentages & Official Flagcounter -->
-        <div class="readership-meta-grid">
-          <div class="region-card">
-            <h4><i class="fa-solid fa-chart-pie" style="color:var(--accent);"></i> Traffic Distribution by Region</h4>
-            <div class="progress-row">
-              <div class="progress-labels"><span>India (IIA, TIFR, IITM, SN Bose)</span><strong>38%</strong></div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 38%;"></div></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress-labels"><span>United States (Caltech, ZTF, NANOGrav)</span><strong>26%</strong></div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 26%;"></div></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress-labels"><span>Germany (DESY Hamburg)</span><strong>12%</strong></div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 12%;"></div></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress-labels"><span>Finland (IAU Turku)</span><strong>8%</strong></div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 8%;"></div></div>
-            </div>
-            <div class="progress-row">
-              <div class="progress-labels"><span>Other International Visitors</span><strong>16%</strong></div>
-              <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 16%;"></div></div>
-            </div>
-          </div>
+              <!-- Caltech / ZTF Pasadena -->
+              <circle cx="180" cy="170" r="6" class="hub-dot" />
+              <text x="190" y="165" fill="var(--ink)" font-size="12" font-weight="700">Caltech / ZTF</text>
 
-          <div class="flag-card">
-            <h4><i class="fa-solid fa-flag" style="color:var(--accent);"></i> Verified Reader Badges</h4>
-            <div class="flag-badge-box">
-              <a href="https://info.flagcounter.com/3OUj" target="_blank" style="display:inline-block;">
-                <img src="https://s05.flagcounter.com/count/3OUj/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_1/" alt="Flag Counter" style="max-width:100%; border-radius:4px;" />
-              </a>
-            </div>
+              <!-- DESY Hamburg -->
+              <circle cx="510" cy="125" r="5" class="hub-dot" />
+              <text x="520" y="120" fill="var(--ink)" font-size="11" font-weight="600">DESY Hamburg</text>
+
+              <!-- Turku Finland (IAU) -->
+              <circle cx="540" cy="100" r="5" class="hub-dot" />
+              <text x="550" y="95" fill="var(--ink)" font-size="11" font-weight="600">Turku (IAU 406)</text>
+
+              <!-- SNBNCBS Kolkata -->
+              <circle cx="735" cy="215" r="5" class="hub-dot" />
+            </svg>
           </div>
         </div>
 
+        <p style="font-size:0.88rem; color:var(--ink-soft); margin-bottom:12px; text-align:center;">Real-Time Visitor Flag Metrics:</p>
+        <div style="text-align: center;">
+          <a href="https://info.flagcounter.com/3OUj" target="_blank">
+            <img src="https://s05.flagcounter.com/count/3OUj/bg_FFFFFF/txt_000000/border_CCCCCC/columns_5/maxflags_12/viewers_0/labels_0/pageviews_0/flags_0/percent_1/" alt="Flag Counter" style="max-width:100%; border-radius:6px; border:1px solid var(--border); display:inline-block;" />
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1238,7 +802,7 @@
     themeLabel.textContent = currentTheme;
   });
 
-  // ---------- TABBED ROUTER ----------
+  // ---------- TABBED SINGLE SECTION VIEW ROUTER ----------
   const navTabs = document.querySelectorAll('.nav-tab');
   const pageSections = document.querySelectorAll('.page-section');
 
@@ -1262,12 +826,6 @@
     });
 
     window.scrollTo({ top: 0, behavior: 'instant' });
-
-    // Render map if switching to readership section
-    if (sectionId === 'visitors' && !window.mapRendered) {
-      renderWorldMap();
-      window.mapRendered = true;
-    }
   }
 
   navTabs.forEach(tab => {
@@ -1280,7 +838,6 @@
     });
   });
 
-  // Load section from URL
   const startSection = (location.hash || '#about').slice(1);
   showSection(startSection);
 
@@ -1303,83 +860,7 @@
       });
     });
   });
-
-  // ---------- D3 INTERACTIVE WORLD MAP RENDERER ----------
-  function renderWorldMap() {
-    const svg = d3.select("#worldMapSvg");
-    const width = 960;
-    const height = 480;
-
-    const tooltip = d3.select("#mapTooltip");
-
-    const projection = d3.geoEquirectangular()
-      .scale(145)
-      .translate([width / 2, height / 2 + 20]);
-
-    const path = d3.geoPath().projection(projection);
-
-    // Key Academic & Visitor Hotspots
-    const hotspots = [
-      { name: "Bangalore, India", coords: [77.5946, 12.9716], role: "Indian Institute of Astrophysics (IIA)", readers: 540 },
-      { name: "Pasadena, CA, USA", coords: [-118.1445, 34.1478], role: "Caltech & ZTF Observatory", readers: 390 },
-      { name: "Hamburg, Germany", coords: [9.9937, 53.5511], role: "DESY Research Centre", readers: 280 },
-      { name: "Kolkata, India", coords: [88.3639, 22.5726], role: "SN Bose National Centre & ICSP", readers: 210 },
-      { name: "Turku, Finland", coords: [22.2687, 60.4518], role: "IAU Symposium 406", readers: 160 },
-      { name: "Mumbai, India", coords: [72.8777, 19.0760], role: "TIFR Research Hub", readers: 180 },
-      { name: "Daejeon, South Korea", coords: [127.3845, 36.3510], role: "Kavli Winter School", readers: 95 },
-      { name: "Padova, Italy", coords: [11.8768, 45.4064], role: "University of Padova", readers: 115 }
-    ];
-
-    // Fetch TopoJSON World Map Data
-    d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(data => {
-      const countries = topojson.feature(data, data.objects.countries);
-
-      // Render Land
-      svg.selectAll("path")
-        .data(countries.features)
-        .enter()
-        .append("path")
-        .attr("class", "country-path")
-        .attr("d", path);
-
-      // Render Pulsating Hotspot Circles
-      const nodeGroup = svg.selectAll(".hotspot")
-        .data(hotspots)
-        .enter()
-        .append("g")
-        .attr("transform", d => {
-          const [x, y] = projection(d.coords);
-          return `translate(${x},${y})`;
-        });
-
-      // Animated Outer Pulsing Ring
-      nodeGroup.append("circle")
-        .attr("class", "hotspot-pulse")
-        .attr("r", 6);
-
-      // Solid Center Dot
-      nodeGroup.append("circle")
-        .attr("class", "hotspot-core")
-        .attr("r", 4)
-        .style("cursor", "pointer")
-        .on("mouseover", (event, d) => {
-          tooltip.style("opacity", 1)
-            .html(`<strong>${d.name}</strong><br>${d.role}<br><span style="font-size:0.72rem; color:#A0AEC0;">Active Readers: ${d.readers}</span>`);
-        })
-        .on("mousemove", (event) => {
-          const container = document.querySelector('.map-wrapper').getBoundingClientRect();
-          tooltip.style("left", (event.clientX - container.left + 10) + "px")
-            .style("top", (event.clientY - container.top - 35) + "px");
-        })
-        .on("mouseout", () => {
-          tooltip.style("opacity", 0);
-        });
-    }).catch(err => {
-      console.log("Map rendering fallback loaded.");
-    });
-  }
 </script>
 
 </body>
 </html>
-```
