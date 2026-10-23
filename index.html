@@ -94,11 +94,11 @@
 
   .sidebar-brand {
     text-align: center;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
   .sidebar-avatar {
-    width: 120px;
-    height: 120px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid var(--accent);
@@ -106,7 +106,7 @@
     box-shadow: var(--shadow);
   }
   .sidebar-name {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 700;
     line-height: 1.25;
     margin-bottom: 4px;
@@ -122,7 +122,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    margin: 20px 0;
+    margin: 16px 0;
   }
   .sidebar-nav a {
     display: flex;
@@ -150,7 +150,7 @@
     color: var(--accent);
   }
 
-  /* Book Badge in Sidebar */
+  /* Book Link Badge in Sidebar */
   .sidebar-nav a.book-link {
     background: var(--accent-soft);
     color: var(--accent);
@@ -166,13 +166,13 @@
     color: #ffffff;
   }
 
-  /* SIDEBAR FOOTER (Theme Switch & Socials) */
+  /* SIDEBAR FOOTER */
   .sidebar-footer {
     border-top: 1px solid var(--border);
-    padding-top: 18px;
+    padding-top: 16px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
   }
   .theme-toggle-btn {
     display: flex;
@@ -196,7 +196,7 @@
     padding: 40px 48px 60px;
   }
 
-  /* MOBILE TOPBAR (Hidden on Desktop) */
+  /* MOBILE TOPBAR */
   .mobile-header {
     display: none;
     position: sticky;
@@ -230,24 +230,9 @@
     cursor: pointer;
   }
 
-  /* ---------- HERO & HEADER ---------- */
+  /* ---------- HERO HEADER ---------- */
   .hero-container {
-    margin-bottom: 40px;
-  }
-  .hero-header-banner {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
     margin-bottom: 24px;
-  }
-  .hero-main-photo {
-    width: 140px;
-    height: 140px;
-    border-radius: 12px;
-    object-fit: cover;
-    border: 2px solid var(--border);
-    box-shadow: var(--shadow);
-    flex-shrink: 0;
   }
   .hero-text-block h1 {
     font-size: 2.2rem;
@@ -265,6 +250,7 @@
     font-size: 0.92rem;
     color: var(--muted);
     line-height: 1.5;
+    margin-bottom: 20px;
   }
 
   /* Academic Stats Grid */
@@ -277,7 +263,7 @@
     border-radius: 12px;
     padding: 16px;
     text-align: center;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     box-shadow: var(--shadow);
   }
   .stat-card .num {
@@ -294,17 +280,23 @@
     font-weight: 600;
   }
 
-  .telescope-photos {
+  /* FULL PHOTO DISPLAY (Uncropped Aspect Ratio) */
+  .telescope-photos-full {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     margin-bottom: 28px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
-  .telescope-photos img {
-    width: 50%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 8px;
+  .telescope-photos-full img {
+    width: calc(50% - 8px);
+    max-width: 360px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
     border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    background: var(--card);
   }
 
   .bio-text {
@@ -315,11 +307,14 @@
     margin-bottom: 28px;
   }
 
-  /* ---------- SECTIONS & CARDS ---------- */
-  section {
-    padding: 36px 0;
-    border-top: 1px solid var(--border);
+  /* ---------- TABBED SINGLE SECTION VIEW ---------- */
+  .page-section {
+    padding: 10px 0 30px;
   }
+  .page-section.section-hidden {
+    display: none !important;
+  }
+
   .section-title {
     font-size: 1.45rem;
     font-weight: 700;
@@ -349,7 +344,7 @@
   }
   .group-label:first-child { margin-top: 0; }
 
-  /* Research Project List Items */
+  /* Project & Card Lists */
   ul.project-list { list-style: none; }
   ul.project-list li {
     background: var(--card);
@@ -396,6 +391,39 @@
     color: var(--accent); margin-top: 8px; text-transform: uppercase;
   }
 
+  /* Novel Redirect Card (Placed below Publications) */
+  .book-redirect-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    box-shadow: var(--shadow);
+    margin-top: 24px;
+  }
+  .book-redirect-card img {
+    width: 70px;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    flex-shrink: 0;
+  }
+  .book-redirect-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
+  .book-redirect-card p { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 10px; }
+  .book-redirect-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .book-redirect-btn:hover { background: var(--accent-hover); color: #ffffff; text-decoration: none; }
+
   /* Collaborators Grid */
   .collab-grid {
     display: grid;
@@ -416,45 +444,13 @@
   @media (max-width: 650px) { .two-col { grid-template-columns: 1fr; } }
 
   /* Skills & Chips */
-  .chip-group { margin-bottom: 18px; }
-  .chip-group .label { font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; color: var(--ink); }
+  .chip-group { margin-bottom: 20px; }
+  .chip-group .label { font-weight: 700; font-size: 0.92rem; margin-bottom: 8px; color: var(--ink); }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
   .chip {
     background: var(--chip); border: 1px solid var(--border);
-    color: var(--ink-soft); font-size: 0.82rem; padding: 4px 12px; border-radius: 20px;
+    color: var(--ink-soft); font-size: 0.82rem; padding: 5px 12px; border-radius: 20px;
   }
-
-  /* Book Redirect Banner Card */
-  .book-redirect-card {
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    box-shadow: var(--shadow);
-  }
-  .book-redirect-card img {
-    width: 80px;
-    border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    flex-shrink: 0;
-  }
-  .book-redirect-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
-  .book-redirect-card p { font-size: 0.88rem; color: var(--ink-soft); margin-bottom: 12px; }
-  .book-redirect-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent);
-    color: #ffffff;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 20px;
-  }
-  .book-redirect-btn:hover { background: var(--accent-hover); color: #ffffff; text-decoration: none; }
 
   /* Footer */
   footer {
@@ -466,7 +462,7 @@
     margin-top: 40px;
   }
 
-  /* RESPONSIVE DESIGN (Mobile & Tablet) */
+  /* RESPONSIVE DESIGN */
   @media (max-width: 900px) {
     aside.sidebar {
       position: fixed;
@@ -484,10 +480,9 @@
     .mobile-header {
       display: flex;
     }
-    .hero-header-banner {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    .telescope-photos-full img {
+      width: 100%;
+      max-width: 100%;
     }
   }
 </style>
@@ -509,24 +504,24 @@
   <aside class="sidebar" id="sidebarNav">
     <div>
       <div class="sidebar-brand">
-        <img class="sidebar-avatar" src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Sanjay Kadam" onError="this.src='https://via.placeholder.com/120'" />
+        <img class="sidebar-avatar" src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Sanjay Kadam" onError="this.src='https://via.placeholder.com/125'" />
         <div class="sidebar-name">Prathamesh S. Kadam</div>
         <div class="sidebar-title">Computational Astrophysicist</div>
       </div>
 
       <nav class="sidebar-nav">
-        <a href="#about" class="active"><i class="fa-solid fa-user"></i> About Bio</a>
-        <a href="#research"><i class="fa-solid fa-microscope"></i> Research Projects</a>
-        <a href="#publications"><i class="fa-solid fa-book-open"></i> Publications</a>
-        <a href="#collaborators"><i class="fa-solid fa-network-wired"></i> Collaborators</a>
-        <a href="#experience"><i class="fa-solid fa-telescope"></i> Facilities &amp; Exp</a>
-        <a href="#skills"><i class="fa-solid fa-code"></i> Technical Skills</a>
-        <a href="#talks"><i class="fa-solid fa-chalkboard-user"></i> Presentations</a>
-        <a href="#visitors"><i class="fa-solid fa-globe"></i> Readership</a>
-        <a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a>
+        <a href="#about" class="nav-tab active" data-section="about"><i class="fa-solid fa-user"></i> About Bio</a>
+        <a href="#research" class="nav-tab" data-section="research"><i class="fa-solid fa-microscope"></i> Research Projects</a>
+        <a href="#publications" class="nav-tab" data-section="publications"><i class="fa-solid fa-book-open"></i> Publications</a>
+        <a href="#collaborators" class="nav-tab" data-section="collaborators"><i class="fa-solid fa-network-wired"></i> Collaborators</a>
+        <a href="#experience" class="nav-tab" data-section="experience"><i class="fa-solid fa-telescope"></i> Facilities &amp; Exp</a>
+        <a href="#skills" class="nav-tab" data-section="skills"><i class="fa-solid fa-code"></i> Technical Skills</a>
+        <a href="#talks" class="nav-tab" data-section="talks"><i class="fa-solid fa-chalkboard-user"></i> Presentations</a>
+        <a href="#visitors" class="nav-tab" data-section="visitors"><i class="fa-solid fa-globe"></i> Readership</a>
+        <a href="#contact" class="nav-tab" data-section="contact"><i class="fa-solid fa-envelope"></i> Contact</a>
 
         <!-- External Redirect Link for The Novel Trilogy -->
-        <a href="https://krystalgreen2709.github.io/" target="_blank" rel="noopener" class="book-link">
+        <a href="https://krystal-green.github.io/comebackhome/" target="_blank" rel="noopener" class="book-link">
           <i class="fa-solid fa-feather-pointed"></i> Come Back Home ↗
         </a>
       </nav>
@@ -550,10 +545,9 @@
   <!-- MAIN CONTENT AREA -->
   <main class="main-content">
 
-    <!-- HERO SECTION -->
-    <header class="hero-container" id="about">
-      <div class="hero-header-banner">
-        <img class="hero-main-photo" src="photo_2025-08-20 14.16.09.jpeg" alt="Prathamesh Sanjay Kadam" onError="this.src='https://via.placeholder.com/140'" />
+    <!-- 1. ABOUT SECTION -->
+    <section class="page-section" id="about">
+      <header class="hero-container">
         <div class="hero-text-block">
           <h1>Prathamesh Sanjay Kadam</h1>
           <div class="subtitle">Computational Astrophysics Researcher</div>
@@ -562,56 +556,57 @@
             Zwicky Transient Facility (ZTF) Collaboration, Caltech
           </div>
         </div>
-      </div>
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="num">3</div>
-          <div class="lbl">Refereed Journals</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">7+</div>
-          <div class="lbl">Publications</div>
-        </div>
-        <div class="stat-card">
-          <div class="num">9.09</div>
-          <div class="lbl">MSc CGPA</div>
-        </div>
-      </div>
-
-      <div class="telescope-photos">
-        <img src="telescope_photo_1.jpeg" alt="Prathamesh at Telescope Facility 1" onError="this.style.display='none'" />
-        <img src="telescope_photo_2.jpeg" alt="Prathamesh at Telescope Facility 2" onError="this.style.display='none'" />
-      </div>
-
-      <div class="bio-text">
-        My work sits at the intersection of observational astrophysics and machine learning: building graph neural networks to classify and sub-type supernovae, running radiative-transfer and hydrodynamical simulations to understand how stars live and die, and extracting cosmological signal from CMB and pulsar-timing datasets. Across these projects I move between Python, C++, and FORTRAN, and between tools like CMFGEN, GADGET, MESA, PyTorch, and PyTorch Geometric &mdash; work that has so far produced three journal papers, including one in <em>Nature Astronomy</em>.
-      </div>
-
-      <div class="two-col">
-        <div>
-          <h4 style="font-size:0.9rem; text-transform:uppercase; color:var(--accent); letter-spacing:0.06em; margin-bottom:8px;">Research Focus Areas</h4>
-          <ul style="list-style: square; padding-left: 18px; font-size: 0.92rem; color: var(--ink-soft);">
-            <li>Supernova spectroscopy &amp; classification</li>
-            <li>Deep learning for astronomical alert pipelines (Fink broker)</li>
-            <li>Stellar evolution &amp; hydrodynamical simulation</li>
-            <li>Cosmology &amp; gravitational waves</li>
-          </ul>
-        </div>
-        <div>
-          <h4 style="font-size:0.9rem; text-transform:uppercase; color:var(--accent); letter-spacing:0.06em; margin-bottom:8px;">Education</h4>
-          <div style="font-size: 0.9rem; color: var(--ink-soft);">
-            <strong>Integrated MSc. Physics</strong> (2021 &ndash; 2026)<br>
-            SVNIT, Surat &middot; CGPA 9.09/10<br><br>
-            <strong>BS Programming &amp; Data Science</strong> (2022 &ndash; 2024)<br>
-            IIT Madras &middot; CGPA 8.05/10
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="num">3</div>
+            <div class="lbl">Refereed Journals</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">7+</div>
+            <div class="lbl">Publications</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">9.09</div>
+            <div class="lbl">MSc CGPA</div>
           </div>
         </div>
-      </div>
-    </header>
 
-    <!-- COMPLETE RESEARCH PROJECTS SECTION -->
-    <section id="research">
+        <!-- Full Photos (Uncropped Aspect Ratio) -->
+        <div class="telescope-photos-full">
+          <img src="telescope_photo_1.jpeg" alt="Prathamesh at Telescope Facility 1" onError="this.style.display='none'" />
+          <img src="telescope_photo_2.jpeg" alt="Prathamesh at Telescope Facility 2" onError="this.style.display='none'" />
+        </div>
+
+        <div class="bio-text">
+          My work sits at the intersection of observational astrophysics and machine learning: building graph neural networks to classify and sub-type supernovae, running radiative-transfer and hydrodynamical simulations to understand how stars live and die, and extracting cosmological signal from CMB and pulsar-timing datasets. Across these projects I move between Python, C++, and FORTRAN, and between tools like CMFGEN, GADGET, MESA, PyTorch, and PyTorch Geometric &mdash; work that has so far produced three journal papers, including one in <em>Nature Astronomy</em>.
+        </div>
+
+        <div class="two-col">
+          <div>
+            <h4 style="font-size:0.9rem; text-transform:uppercase; color:var(--accent); letter-spacing:0.06em; margin-bottom:8px;">Research Focus Areas</h4>
+            <ul style="list-style: square; padding-left: 18px; font-size: 0.92rem; color: var(--ink-soft);">
+              <li>Supernova spectroscopy &amp; classification</li>
+              <li>Deep learning for astronomical alert pipelines (Fink broker)</li>
+              <li>Stellar evolution &amp; hydrodynamical simulation</li>
+              <li>Cosmology &amp; gravitational waves</li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="font-size:0.9rem; text-transform:uppercase; color:var(--accent); letter-spacing:0.06em; margin-bottom:8px;">Education</h4>
+            <div style="font-size: 0.92rem; color: var(--ink-soft);">
+              <strong>Integrated MSc. Physics</strong> (2021 &ndash; 2026)<br>
+              SVNIT, Surat &middot; CGPA 9.09/10<br><br>
+              <strong>BS Programming &amp; Data Science</strong> (2022 &ndash; 2024)<br>
+              IIT Madras &middot; CGPA 8.05/10
+            </div>
+          </div>
+        </div>
+      </header>
+    </section>
+
+    <!-- 2. RESEARCH PROJECTS SECTION -->
+    <section class="page-section section-hidden" id="research">
       <div class="section-title">
         Research Projects
         <span class="count">11 Projects</span>
@@ -674,8 +669,8 @@
       </ul>
     </section>
 
-    <!-- PUBLICATIONS SECTION -->
-    <section id="publications">
+    <!-- 3. PUBLICATIONS SECTION -->
+    <section class="page-section section-hidden" id="publications">
       <div class="section-title">
         Publications
         <span class="count">7 Publications</span>
@@ -738,10 +733,22 @@
           <a href="https://www.researchgate.net/publication/394794637_Classification_of_Aerosols_using_machine_learning_for_African_continent" target="_blank" rel="noopener" class="link-badge">ResearchGate DOI</a>
         </div>
       </div>
+
+      <!-- NOVEL REDIRECT CARD (DIRECTLY BELOW PUBLICATIONS) -->
+      <div class="book-redirect-card">
+        <img src="photo_2026-09-30 13.50.38.jpeg" alt="Come Back Home Book Cover" onError="this.src='https://via.placeholder.com/70'" />
+        <div>
+          <h3>The Home Trilogy Novel Series</h3>
+          <p>Interested in my creative literary work? Explore <em>Come Back Home</em>, published under the pen name Krystal Green.</p>
+          <a href="https://krystal-green.github.io/comebackhome/" target="_blank" rel="noopener" class="book-redirect-btn">
+            Visit Book Website <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <!-- COLLABORATING INSTITUTIONS -->
-    <section id="collaborators">
+    <!-- 4. COLLABORATING INSTITUTIONS -->
+    <section class="page-section section-hidden" id="collaborators">
       <div class="section-title">Collaborating Research Institutions</div>
       <div class="collab-grid">
         <div class="collab-card">
@@ -789,8 +796,8 @@
       </div>
     </section>
 
-    <!-- FACILITIES & EXPERIENCE -->
-    <section id="experience">
+    <!-- 5. FACILITIES & EXPERIENCE -->
+    <section class="page-section section-hidden" id="experience">
       <div class="section-title">Observational &amp; Experimental Facilities</div>
       <div class="two-col">
         <div>
@@ -814,14 +821,15 @@
       </div>
     </section>
 
-    <!-- TECHNICAL SKILLS -->
-    <section id="skills">
+    <!-- 6. COMPLETE TECHNICAL SKILLS -->
+    <section class="page-section section-hidden" id="skills">
       <div class="section-title">Technical Skills</div>
       <div class="chip-group">
         <div class="label">Programming &amp; Machine Learning</div>
         <div class="chips">
           <span class="chip">Python</span><span class="chip">C/C++</span><span class="chip">FORTRAN</span>
-          <span class="chip">PyTorch</span><span class="chip">PyTorch Geometric</span><span class="chip">SQLite</span>
+          <span class="chip">SQLite</span><span class="chip">Machine Learning</span><span class="chip">Deep Learning</span>
+          <span class="chip">PyTorch</span><span class="chip">PyTorch Geometric</span>
         </div>
       </div>
       <div class="chip-group">
@@ -829,32 +837,63 @@
         <div class="chips">
           <span class="chip">CMFGEN</span><span class="chip">GADGET-2</span><span class="chip">GADGET-4</span>
           <span class="chip">Gaia DR3 Tools</span><span class="chip">MESA</span><span class="chip">AstroPy</span>
-          <span class="chip">HEASoft</span><span class="chip">XSPEC</span><span class="chip">Jupyter</span><span class="chip">SNAP</span>
+          <span class="chip">Jupyter</span><span class="chip">SNAP</span><span class="chip">GitHub</span>
+          <span class="chip">LaTeX</span><span class="chip">MATLAB</span><span class="chip">HEASoft</span><span class="chip">XSPEC</span>
+        </div>
+      </div>
+      <div class="chip-group">
+        <div class="label">Soft Skills</div>
+        <div class="chips">
+          <span class="chip">Time Management</span><span class="chip">Teamwork</span><span class="chip">Problem-Solving</span>
+          <span class="chip">Presentation</span><span class="chip">Documentation</span>
         </div>
       </div>
     </section>
 
-    <!-- PRESENTATIONS & CONFERENCES -->
-    <section id="talks">
-      <div class="section-title">Conferences &amp; Presentations</div>
+    <!-- 7. COMPLETE PRESENTATIONS & CONFERENCES SECTION -->
+    <section class="page-section section-hidden" id="talks">
+      <div class="section-title">
+        Conferences &amp; Presentations
+        <span class="count">8 Presentations</span>
+      </div>
       <ul class="project-list">
+        <li>
+          <strong>Graph based Neural Network-Real-Time Classification of Transient Alerts for the LSST Era: A Fink Science Module on the ZTF Alert Stream</strong>
+          <span class="proj-meta">ICSP (International Conference on Signal Processing &amp; Astrophysics), Kolkata &middot; Oral Presentation.</span>
+        </li>
         <li>
           <strong>IAU Symposium 406 &mdash; Future landscape of astrophysical transients</strong>
           <span class="proj-meta">Turku, Finland (May 18&ndash;22, 2026). Oral: &ldquo;Bridging the Iax Luminosity Spectrum&rdquo;.</span>
+        </li>
+        <li>
+          <strong>IMS National Symposium (TROPMET 2024)</strong>
+          <span class="proj-meta">NIT Rourkela (Dec 10&ndash;12, 2024). Oral: &ldquo;Classification of aerosols...in African Region&rdquo;.</span>
         </li>
         <li>
           <strong>IASTA National Conference 2024</strong>
           <span class="proj-meta">ARIES Nainital &amp; Doon University (Dec 17&ndash;20, 2024). <strong>1st Prize, Oral presentation</strong>.</span>
         </li>
         <li>
-          <strong>IMS National Symposium (TROPMET 2024)</strong>
-          <span class="proj-meta">NIT Rourkela (Dec 10&ndash;12, 2024). Oral presentation on aerosol classification.</span>
+          <strong>Overview of Space Science</strong>
+          <span class="proj-meta">ISRO, India (Jul 5, 2023).</span>
+        </li>
+        <li>
+          <strong>Kavli Asian Winter School on Strings, Particles and Cosmology</strong>
+          <span class="proj-meta">Institute for Basic Science, Daejeon, Korea (Jan 9&ndash;18, 2023).</span>
+        </li>
+        <li>
+          <strong>Conference on Gravitational Physics and Cosmology</strong>
+          <span class="proj-meta">CERN, Cairo (Dec 4&ndash;9, 2022).</span>
+        </li>
+        <li>
+          <strong>Workshop on Exoplanet Science</strong>
+          <span class="proj-meta">NASA Exoplanet Science Institute, Caltech (Jul 25&ndash;29, 2022).</span>
         </li>
       </ul>
     </section>
 
-    <!-- VISITORS & READERSHIP -->
-    <section id="visitors">
+    <!-- 8. VISITORS & READERSHIP SECTION -->
+    <section class="page-section section-hidden" id="visitors">
       <div class="section-title">Global Readership &amp; Visitors</div>
       <div style="background:var(--card); border:1px solid var(--border); border-radius:10px; padding:20px; text-align:center;">
         <p style="font-size:0.9rem; color:var(--ink-soft); margin-bottom:14px;">Readers of my research and website across countries:</p>
@@ -864,8 +903,8 @@
       </div>
     </section>
 
-    <!-- CONTACT SECTION -->
-    <section id="contact">
+    <!-- 9. CONTACT SECTION -->
+    <section class="page-section section-hidden" id="contact">
       <div class="section-title">Contact</div>
       <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:12px;">
         <div style="background:var(--card); border:1px solid var(--border); padding:14px; border-radius:8px; display:flex; gap:12px; align-items:center;">
@@ -881,20 +920,6 @@
             <div style="font-size:0.78rem; text-transform:uppercase; color:var(--muted); font-weight:700;">Personal Site</div>
             <a href="https://prathamesh-kadam.github.io/" style="font-size:0.9rem;">prathamesh-kadam.github.io</a>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- NOVEL REDIRECT FOOTER CARD -->
-    <section>
-      <div class="book-redirect-card">
-        <img src="photo_2026-09-30 13.50.38.jpeg" alt="Come Back Home Book Cover" onError="this.src='https://via.placeholder.com/80'" />
-        <div>
-          <h3>The Home Trilogy Novel Series</h3>
-          <p>Interested in my creative writing? Explore <em>Come Back Home</em>, published under the pen name Krystal Green.</p>
-          <a href="https://krystalgreen2709.github.io/" target="_blank" rel="noopener" class="book-redirect-btn">
-            Visit Novel Website <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </a>
         </div>
       </div>
     </section>
@@ -939,26 +964,45 @@
     themeLabel.textContent = currentTheme;
   });
 
-  // ---------- SIDEBAR HIGHLIGHT ON SCROLL ----------
-  const navLinks = document.querySelectorAll('.sidebar-nav a[href^="#"]');
-  const sections = document.querySelectorAll('section, header');
+  // ---------- TABBED SINGLE SECTION VIEW ROUTER ----------
+  const navTabs = document.querySelectorAll('.nav-tab');
+  const pageSections = document.querySelectorAll('.page-section');
 
-  window.addEventListener('scroll', () => {
-    let current = 'about';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 100;
-      if (window.scrollY >= sectionTop) {
-        current = section.getAttribute('id');
+  function showSection(sectionId) {
+    if (!document.getElementById(sectionId)) sectionId = 'about';
+
+    pageSections.forEach(sec => {
+      if (sec.id === sectionId) {
+        sec.classList.remove('section-hidden');
+      } else {
+        sec.classList.add('section-hidden');
       }
     });
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) {
-        link.classList.add('active');
+    navTabs.forEach(tab => {
+      if (tab.dataset.section === sectionId) {
+        tab.classList.add('active');
+      } else {
+        tab.classList.remove('active');
       }
+    });
+
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  navTabs.forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetSection = tab.dataset.section;
+      showSection(targetSection);
+      history.replaceState(null, '', '#' + targetSection);
+      sidebarNav.classList.remove('open');
     });
   });
+
+  // Load requested section from URL hash or default to 'about'
+  const startSection = (location.hash || '#about').slice(1);
+  showSection(startSection);
 
   // ---------- PUBLICATION FILTERS ----------
   const filterBtns = document.querySelectorAll('.filter-btn');
