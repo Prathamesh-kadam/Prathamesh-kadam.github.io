@@ -1097,6 +1097,7 @@
             <a href="#publications" class="nav-tab" data-section="publications">Nature Astronomy 2026</a>
             <a href="#ml-sne" class="nav-tab" data-section="ml-sne">Fink science module for ZTF and LSST</a>
             <a href="#talks" class="nav-tab" data-section="talks">IAU Symposium 406 talk</a>
+            <a href="https://www.researchgate.net/publication/414930460_Graph_based_Neural_Network-Real-Time_Classification_of_Transient_Alerts_for_the_LSST_Era_A_Fink_Science_Module_on_the_ZTF_Alert_Stream" target="_blank" rel="noopener">ICSP 2026 abstract &#8599;</a>
           </div>
           <div class="spot-cta">
             <a href="#ml-sne" class="nav-tab primary" data-section="ml-sne">Explore my ML for supernovae work</a>
@@ -1298,6 +1299,7 @@
         <div class="ml-links">
           <a href="https://github.com/Prathamesh-kadam" target="_blank" rel="noopener">GitHub</a>
           <a href="#talks" class="nav-tab" data-section="talks">Talk at ICSP</a>
+          <a href="https://www.researchgate.net/publication/414930460_Graph_based_Neural_Network-Real-Time_Classification_of_Transient_Alerts_for_the_LSST_Era_A_Fink_Science_Module_on_the_ZTF_Alert_Stream" target="_blank" rel="noopener">ICSP abstract</a>
         </div>
       </div>
 
@@ -1352,7 +1354,7 @@
     <section class="page-section section-hidden" id="publications">
       <div class="section-title">
         Publications
-        <span class="count">7 Publications</span>
+        <span class="count">8 Publications</span>
       </div>
 
       <div class="pub-filters">
@@ -1382,6 +1384,13 @@
           <div class="authors">Prathamesh S. Kadam, D. K. Sahu, G. C. Anupama</div>
           <div class="venue">Master Thesis &middot; 2026</div>
           <a href="https://doi.org/10.13140/RG.2.2.35091.85285/1" target="_blank" rel="noopener" class="link-badge">DOI Link</a>
+        </div>
+
+        <div class="pub-card" data-cat="conference">
+          <div class="title">Graph-Based Neural Network for Real-Time Classification of Transient Alerts for the LSST Era: A Fink Science Module on the ZTF Alert Stream</div>
+          <div class="authors">Prathamesh S. Kadam</div>
+          <div class="venue">Conference Abstract Proceedings, ICSP 2026 &middot; 2026</div>
+          <a href="https://www.researchgate.net/publication/414930460_Graph_based_Neural_Network-Real-Time_Classification_of_Transient_Alerts_for_the_LSST_Era_A_Fink_Science_Module_on_the_ZTF_Alert_Stream" target="_blank" rel="noopener" class="link-badge">ResearchGate</a>
         </div>
 
         <div class="pub-card" data-cat="journal">
@@ -1763,7 +1772,9 @@
       e.preventDefault();
       const targetSection = tab.dataset.section;
       showSection(targetSection);
-      history.replaceState(null, '', '#' + targetSection);
+      if (location.hash !== '#' + targetSection) {
+        history.pushState({ section: targetSection }, '', '#' + targetSection);
+      }
       sidebarNav.classList.remove('open');
     });
   });
@@ -1771,6 +1782,13 @@
   // Load requested section from URL hash or default to 'about'
   const startSection = (location.hash || '#about').slice(1);
   showSection(startSection);
+
+  // Make the browser Back/Forward buttons move between tabs inside the site
+  const initialSection = Array.from(pageSections).some(s => s.id === startSection) ? startSection : 'about';
+  history.replaceState({ section: initialSection }, '', '#' + initialSection);
+  window.addEventListener('popstate', () => {
+    showSection((location.hash || '#about').slice(1));
+  });
 
   // ---------- PUBLICATION FILTERS ----------
   const filterBtns = document.querySelectorAll('.filter-btn');
